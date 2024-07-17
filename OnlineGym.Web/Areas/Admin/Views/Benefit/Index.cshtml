@@ -1,0 +1,74 @@
+﻿@{
+    Layout = "_DashBoard";
+
+    ViewBag.title = "Benefit management";
+    ViewBag.cardTitle = "View Benefits";
+}
+@model List<Benefit>
+<section class="Benefit-table" style="width:100%">
+
+    <div style="margin-bottom:10px;display:flex;justify-content:center">
+        <a href="/Admin/Benefit/Create" class="btn btn-primary">Create</a>
+    </div>
+
+
+
+    <div class="container">
+
+        <table id="BenefitTable" style="width:100%" class="display  table table-striped">
+
+            <thead>
+
+                <tr>
+                    <th>id</th>
+                    <th>Description</th>
+                    <th>operations</th>
+
+                </tr>
+            </thead>
+            <tbody id="t-body">
+
+                @for (int i = 0; i < Model?.Count(); i++)
+                {
+                    <tr>
+                        <td>@Model[i].BenefitId</td>
+                        <td>@Model[i].description</td>
+                       
+
+
+                        <td>
+                            <a href="/Admin/Benefit/Details/@Model[i].BenefitId" class="btn btn-info">More</a>
+                            <a href="/Admin/Benefit/Update/@Model[i].BenefitId" class="btn btn-success">Update</a>
+                            <button onclick="DeleteItem(@Model[i].BenefitId.ToString())" class="btn btn-danger">Delete</button>
+
+                        </td>
+
+                    </tr>
+                }
+
+
+
+            </tbody>
+
+
+
+
+        </table>
+
+    </div>
+</section>
+
+
+
+@section Scripts {
+
+
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script src="~/js/Benifit.js"></script>
+
+
+}

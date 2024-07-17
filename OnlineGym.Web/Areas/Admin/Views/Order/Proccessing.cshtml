@@ -1,0 +1,36 @@
+﻿@model ProccessOrderViewModel
+
+@{
+	
+	ViewBag.title = $"Proccess Order number {Model.orderId}";
+	ViewBag.cardTitle = $"Order Needs";
+}
+
+
+
+
+<div class="container" style="background-color:white">
+
+
+	<form method="post">
+
+		<input hidden asp-for="orderId"/>
+		@for (int i = 0; i < Model?.Emps?.Count; i++)
+		{
+			<label asp-for="@Model.EmpIds[i]">@Model.JobsNeed[i].JopName</label>
+
+			<select asp-for="@Model.EmpIds[i]" asp-items="Model.Emps[i]" class="form-control">
+				<option selected="" value="0">-- Select Employee</option>
+			</select>
+			<span asp-validation-for="@Model.EmpIds[i]"></span>
+
+			
+
+		}
+
+
+		<button class="btn btn-warning" style="margin-top:10px" >Start shiping</button>
+	</form>
+
+
+</div>

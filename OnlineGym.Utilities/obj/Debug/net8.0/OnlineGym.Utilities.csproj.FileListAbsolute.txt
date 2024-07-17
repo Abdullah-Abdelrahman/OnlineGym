@@ -1,0 +1,12 @@
+E:\All_of_my_projrcts\OnlineGym\OnlineGym.Utilities\bin\Debug\net8.0\OnlineGym.Utilities.deps.json
+E:\All_of_my_projrcts\OnlineGym\OnlineGym.Utilities\bin\Debug\net8.0\OnlineGym.Utilities.dll
+E:\All_of_my_projrcts\OnlineGym\OnlineGym.Utilities\bin\Debug\net8.0\OnlineGym.Utilities.pdb
+E:\All_of_my_projrcts\OnlineGym\OnlineGym.Utilities\obj\Debug\net8.0\OnlineGym.Utilities.GeneratedMSBuildEditorConfig.editorconfig
+E:\All_of_my_projrcts\OnlineGym\OnlineGym.Utilities\obj\Debug\net8.0\OnlineGym.Utilities.AssemblyInfoInputs.cache
+E:\All_of_my_projrcts\OnlineGym\OnlineGym.Utilities\obj\Debug\net8.0\OnlineGym.Utilities.AssemblyInfo.cs
+E:\All_of_my_projrcts\OnlineGym\OnlineGym.Utilities\obj\Debug\net8.0\OnlineGym.Utilities.csproj.CoreCompileInputs.cache
+E:\All_of_my_projrcts\OnlineGym\OnlineGym.Utilities\obj\Debug\net8.0\OnlineGym.Utilities.dll
+E:\All_of_my_projrcts\OnlineGym\OnlineGym.Utilities\obj\Debug\net8.0\refint\OnlineGym.Utilities.dll
+E:\All_of_my_projrcts\OnlineGym\OnlineGym.Utilities\obj\Debug\net8.0\OnlineGym.Utilities.pdb
+E:\All_of_my_projrcts\OnlineGym\OnlineGym.Utilities\obj\Debug\net8.0\ref\OnlineGym.Utilities.dll
+E:\All_of_my_projrcts\OnlineGym\OnlineGym.Utilities\obj\Debug\net8.0\OnlineGym.Utilities.csproj.AssemblyReference.cache

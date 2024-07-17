@@ -1,0 +1,56 @@
+﻿@{
+    Layout = "_DashBoard";
+
+    ViewBag.title = "Order management";
+    ViewBag.cardTitle = "View Orders";
+}
+
+<section class="Order-table">
+
+    <div style="margin-bottom:10px;display:flex;justify-content:center">
+        <a href="/Admin/Order/Create" class="btn btn-primary">Create</a>
+    </div>
+
+
+
+    <div class="container">
+
+        <table id="OrderTable" class="display">
+
+            <thead>
+
+                <tr>
+                    <th>id</th>
+                    <th>Client Name</th>
+                    <th>Client Email</th>
+                    <th>subscription name</th>
+                    <th>subscription price</th>
+                    <th>final price</th>
+                    <th>status</th>
+                    <th>operations</th>
+
+                </tr>
+            </thead>
+
+
+
+
+        </table>
+
+    </div>
+</section>
+
+
+
+@section Scripts {
+
+
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script src="/js/Order.js"></script>
+
+
+}

@@ -1,0 +1,75 @@
+﻿@{
+    Layout = "_DashBoard";
+
+    ViewBag.title = "Subscription management";
+    ViewBag.cardTitle = "View Subscriptions";
+}
+@model List<Subscription>
+<section class="Subscription-table">
+
+    <div style="margin-bottom:10px;display:flex;justify-content:center">
+        <a href="/Admin/Subscription/Create" class="btn btn-primary">Create</a>
+    </div>
+
+
+
+    <div class="container">
+
+        <table id="SubscriptionTable" class="display table">
+
+            <thead>
+
+                <tr>
+                    <th>id</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>DurationDays</th>
+                    <th>operations</th>
+
+                </tr>
+            </thead>
+            <tbody id="t-body">
+
+                @for (int i = 0; i < Model?.Count(); i++)
+                {
+                    <tr>
+                        <td>@Model[i].SubscriptionId</td>
+                        <td>@Model[i].SubscriptionName</td>
+                        <td>@Model[i].Price</td>
+                        <td>@Model[i].DurationDays</td>
+                      
+
+                        <td>
+                            <a href="/Admin/Subscription/More/@Model[i].SubscriptionId" class="btn btn-info">More</a>
+                            <a href="/Admin/Subscription/Update/@Model[i].SubscriptionId" class="btn btn-success">Update</a>
+                            <a href="/Admin/Subscription/Delete/@Model[i].SubscriptionId" class="btn btn-danger">Delete</a>
+                        </td>
+
+                    </tr>
+                }
+
+
+
+            </tbody>
+
+
+
+
+        </table>
+
+    </div>
+</section>
+
+
+
+@section Scripts {
+
+
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+ 
+
+}

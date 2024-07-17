@@ -1,0 +1,154 @@
+﻿@{
+	Layout = "_Client";
+
+}
+
+@model ClientSubscriptionDetails;
+@using Microsoft.Extensions.Options;
+@inject IOptions<OnlineGym.Utilities.StripeDetails> stripe;
+
+
+<section id="Checkout-page" style="background-color:gainsboro;padding:15px;">
+
+
+
+
+	<form method="post" class="container" style="padding:0px;display:flex;justify-content:space-between;background-color:gainsboro">
+
+
+		<div class="" style="display:flex;flex-direction:column;width:65%;">
+
+			<div style="display:flex;flex-wrap:wrap;justify-content:space-between;height:fit-content;border-radius:10px;background-color:white;padding:30px;">
+
+
+				<div style="width:100%;margin-bottom:10px">
+					<h3 style="margin:auto">خطوة واحدة تغير حياتك</h3>
+				</div>
+				<input hidden type="text" asp-for="clientSubscription.SubscriptionId" class="form-control" />
+
+				<div class="form-group" style="width:45%">
+					<label asp-for="clientSubscription.Client.Name">Name</label>
+					<input type="text" disabled asp-for="clientSubscription.Client.Name" value="@Model.clientSubscription.Client.Name" class="form-control" />
+					<span asp-validation-for="clientSubscription.Client.Name" class="text-danger"></span>
+				</div>
+
+				<div class="form-group" style="width:45%">
+					<label asp-for="ClientEmail">Email</label>
+					<input type="text" asp-for="ClientEmail" class="form-control" value="@Model.clientSubscription.Client.Email" />
+					<span asp-validation-for="ClientEmail" class="text-danger"></span>
+				</div>
+
+
+				<div class="form-group" style="width:45%">
+					<label asp-for="ClientPhone">Phone</label>
+
+					@if (Model.ClientPhone != null)
+					{
+						<input type="text" asp-for="ClientPhone" class="form-control"  />
+
+					}
+					else
+					{
+						<input type="text" asp-for="ClientPhone" class="form-control" value="@Model.clientSubscription.Client.PhoneNumber" />
+
+					}
+					<span asp-validation-for="ClientPhone" class="text-danger"></span>
+				</div>
+
+
+				<div style="display: flex;flex-wrap: wrap;align-content: flex-end;justify-content: flex-end;">
+					<button class="btn btn-warning"> اشترك </button>
+
+				</div>
+
+
+			</div>
+
+
+			<div style="margin-top:15px;height:fit-content;border-radius:10px;background-color:white;padding:30px;">
+				<h3>تفاصيل الاشتراك</h3>
+
+				<h4 style="color:gold">@Model.clientSubscription.Subscription.SubscriptionName</h4>
+
+				@{
+					List
+					<Benefit>
+					benefits = Model?.clientSubscription.Subscription?.Benefits.ToList();
+
+					for (int i = 0; i < benefits.Count; i++)
+					{
+						<p>@benefits[i]?.description</p>
+						<br />
+
+					}
+				}
+			</div>
+		</div>
+
+
+
+
+
+
+		<div class="Checkout-total-and-img" style="width:30%;display:flex;flex-direction:column">
+			<div class="total" style="fit-content;border-radius:10px;background-color:white;padding:30px;">
+
+				<div style="display:flex;justify-content:space-between">
+
+
+					<div style="width:40%">
+
+						@Model?.clientSubscription.Subscription.SubscriptionName
+					</div>
+
+					<div style="width:40%">
+
+						@Model?.clientSubscription.Subscription.Price
+					</div>
+
+
+
+				</div>
+
+
+				<hr />
+				<p>Subtotal</p>
+				@Model.clientSubscription.Subscription.Price
+				<hr />
+
+				<p>Total</p>
+				@Model.clientSubscription.Subscription.Price
+
+			</div>
+			<br />
+			<div class="checkout-img">
+
+				<img src="~/Client/images/dragon_1.jpg" style="width:200px" />
+			</div>
+		</div>
+
+
+
+
+	</form>
+
+
+
+
+
+
+</section>
+
+
+@section Scripts {
+
+
+
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+
+
+
+
+}

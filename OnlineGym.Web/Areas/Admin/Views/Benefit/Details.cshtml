@@ -1,0 +1,43 @@
+﻿@model Benefit
+
+
+
+
+<div class="container" style="background-color:white">
+
+
+	<div style="display:flex;justify-content:space-between;flex-wrap:wrap;flex-direction:column">
+
+
+		<div>
+			<div class="form-group">
+				<label asp-for="@Model.BenefitId">Benefit Id</label>
+				<input readonly asp-for="@Model.BenefitId" class="form-control" />
+				<span asp-validation-for="@Model.BenefitId"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="@Model.description">Benefit description</label>
+				<input readonly asp-for="@Model.description" class="form-control" />
+				<span asp-validation-for="@Model.description"></span>
+			</div>
+		</div>
+		
+
+
+
+		@{
+
+			<h2 style="margin:auto">jobs</h2>
+			List<JobTitle> jobs = Model.jobTitles.ToList();
+
+			for(int i = 0; i < jobs.Count; i++)
+			{
+				<p>@(i+1) @jobs[i].JopName</p>
+			}
+
+
+		}
+
+	</div>
+
+</div>

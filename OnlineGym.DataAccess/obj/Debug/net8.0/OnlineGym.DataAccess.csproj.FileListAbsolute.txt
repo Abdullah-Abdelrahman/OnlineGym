@@ -1,0 +1,17 @@
+E:\All_of_my_projrcts\OnlineGym\OnlineGym.DataAccess\obj\Debug\net8.0\OnlineGym.DataAccess.csproj.AssemblyReference.cache
+E:\All_of_my_projrcts\OnlineGym\OnlineGym.DataAccess\obj\Debug\net8.0\OnlineGym.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+E:\All_of_my_projrcts\OnlineGym\OnlineGym.DataAccess\obj\Debug\net8.0\OnlineGym.DataAccess.AssemblyInfoInputs.cache
+E:\All_of_my_projrcts\OnlineGym\OnlineGym.DataAccess\obj\Debug\net8.0\OnlineGym.DataAccess.AssemblyInfo.cs
+E:\All_of_my_projrcts\OnlineGym\OnlineGym.DataAccess\obj\Debug\net8.0\OnlineGym.DataAccess.csproj.CoreCompileInputs.cache
+E:\All_of_my_projrcts\OnlineGym\OnlineGym.DataAccess\bin\Debug\net8.0\OnlineGym.DataAccess.deps.json
+E:\All_of_my_projrcts\OnlineGym\OnlineGym.DataAccess\bin\Debug\net8.0\OnlineGym.DataAccess.runtimeconfig.json
+E:\All_of_my_projrcts\OnlineGym\OnlineGym.DataAccess\bin\Debug\net8.0\OnlineGym.DataAccess.dll
+E:\All_of_my_projrcts\OnlineGym\OnlineGym.DataAccess\bin\Debug\net8.0\OnlineGym.DataAccess.pdb
+E:\All_of_my_projrcts\OnlineGym\OnlineGym.DataAccess\bin\Debug\net8.0\OnlineGym.Entities.dll
+E:\All_of_my_projrcts\OnlineGym\OnlineGym.DataAccess\bin\Debug\net8.0\OnlineGym.Entities.pdb
+E:\All_of_my_projrcts\OnlineGym\OnlineGym.DataAccess\obj\Debug\net8.0\OnlineGy.14F6ABFF.Up2Date
+E:\All_of_my_projrcts\OnlineGym\OnlineGym.DataAccess\obj\Debug\net8.0\OnlineGym.DataAccess.dll
+E:\All_of_my_projrcts\OnlineGym\OnlineGym.DataAccess\obj\Debug\net8.0\refint\OnlineGym.DataAccess.dll
+E:\All_of_my_projrcts\OnlineGym\OnlineGym.DataAccess\obj\Debug\net8.0\OnlineGym.DataAccess.pdb
+E:\All_of_my_projrcts\OnlineGym\OnlineGym.DataAccess\obj\Debug\net8.0\OnlineGym.DataAccess.genruntimeconfig.cache
+E:\All_of_my_projrcts\OnlineGym\OnlineGym.DataAccess\obj\Debug\net8.0\ref\OnlineGym.DataAccess.dll

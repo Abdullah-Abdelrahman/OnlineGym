@@ -1,0 +1,193 @@
+/*plans*/
+
+.plans {
+    padding-top: var(--main-padding-top);
+    padding-bottom: var(--main-padding-bottom);
+    background-color: var(--secondery-color);
+    position: relative;
+}
+
+.plans .up-dots,
+.plans .down-dots {
+
+    position: absolute;
+    height: 186px;
+    width: 204px;
+}
+
+.plans .up-dots {
+    right: 0px;
+    top: 200px;
+}
+
+.plans .down-dots {
+    left: 0px;
+    bottom: 200px;
+}
+
+
+.plans  .contant {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.plans .plan {
+    box-shadow: 0 12px 20px 0 rgb(0 0 0 / 13%), 0 2px 4px 0 rgb(0 0 0 / 12%);
+    background-color: white;
+    padding: 30px 0px;
+    z-index: 5;
+    position: relative;
+}
+
+.plans .plan .first-part {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.plans .plan .first-part>i {
+    color: var(--main-color);
+    font-size: 80px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.plans .plan .first-part .price>h2 {
+    color: var(--main-color);
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+
+.plans .plan .first-part .price>p {
+    color: #777;
+    font-size: 16px;
+}
+
+.plans .plan .second-part {
+    margin-bottom: 30px;
+}
+
+.plans .plan .second-part li {
+    border-top: 1px solid #7777773b;
+    display: flex;
+    padding: 8px 15px;
+
+
+}
+
+.plans .plan .second-part li>i {
+
+    margin-right: 10px;
+    color: var(--main-color);
+    font-weight: bold;
+}
+
+
+.plans .plan a {
+    position: relative;
+    z-index: 16;
+    color: var(--main-color);
+    border: 2px solid var(--main-color);
+    padding: 15px 20px;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    display: block;
+    margin-bottom: 20px;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+}
+
+
+.plans .advanced {
+    transform: translateY(-20px);
+    -webkit-transform: translateY(-20px);
+    -moz-transform: translateY(-20px);
+    -ms-transform: translateY(-20px);
+    -o-transform: translateY(-20px);
+    position: relative;
+}
+
+
+
+
+.plans .plan a:hover {
+    color: white;
+    background-color: var(--main-color);
+}
+
+
+.plans .plan::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0px;
+    width: 0px;
+    height: 50%;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+    background-color: #77777712;
+}
+
+.plans .plan::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0px;
+    width: 0px;
+    height: 50%;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+    background-color: #77777712;
+}
+
+.plans .plan:hover::after,
+.plans .plan:hover::before {
+    width: 100%;
+}
+
+.plans .advanced .adv {
+    color: white;
+    background-color: var(--main-color);
+    width: 120px;
+    height: 40px;
+    position: absolute;
+    top: 40px;
+    right: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+}
+
+.plans .advanced .adv::after {
+
+    content: "";
+    background-color: var(--main-color);
+    width: 0px;
+    height: 0px;
+    border-width: 20px;
+    border-color: var(--main-color) white var(--main-color) var(--main-color);
+    border-style: solid;
+    position: absolute;
+    top: 0px;
+    right: -40px;
+}

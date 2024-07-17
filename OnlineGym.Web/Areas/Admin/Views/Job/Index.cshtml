@@ -1,0 +1,75 @@
+﻿@{
+    Layout="_DashBoard";
+
+    ViewBag.title = "JoB management";
+    ViewBag.cardTitle = "View jobs";
+}
+@model List<JobTitle>;
+
+
+
+<section class="job-table">
+
+    <div style="margin-bottom:10px;display:flex;justify-content:center">
+        <a href="/Admin/job/Create" class="btn btn-primary">Create</a>
+    </div>
+  
+
+    
+    <div class="container">
+
+        <table class="table table-hover table-dark">
+
+            <thead>
+
+                <tr>
+                    <th>id</th>
+                    <th>job Name</th>
+                    <th>Job Discription</th>
+                    <th>MinSalary</th>
+                    <th>MaxSalary</th>
+                    <th>operations</th>
+
+                </tr>
+            </thead>
+
+            <tbody id="t-body">
+
+                @for(int i = 0; i < Model?.Count(); i++)
+                {
+                    <tr>
+                        <td>@Model[i].JobTitleId</td>
+                        <td>@Model[i].JopName</td>
+                        <td>@Model[i].JopDiscription</td>
+                        <td>@Model[i].MinSalary</td>
+                        <td>@Model[i].MaxSalary</td>
+                       
+                        <td>
+                            <a href="/Admin/job/Update/@Model[i].JobTitleId" class="btn btn-success">update</a>
+                            <a href="/Admin/job/Delete/@Model[i].JobTitleId" class="btn btn-danger">delete</a>
+
+                      
+                        </td>
+
+                    </tr>
+                }
+            
+
+
+            </tbody>
+
+
+
+        </table>
+
+    </div>
+</section>
+
+
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}

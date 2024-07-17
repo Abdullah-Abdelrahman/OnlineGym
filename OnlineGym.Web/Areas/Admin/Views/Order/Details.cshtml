@@ -1,0 +1,140 @@
+﻿@{
+	
+
+	ViewBag.title = "Order management";
+	ViewBag.cardTitle = "View Order Details";
+}
+
+
+@model ClientSubscriptionDetails;
+<div class="container" style="background-color:white">
+
+
+
+	<h2>Order Details</h2>
+	<form method="post" style="display:flex;justify-content:space-between">
+
+		<div class="" style="width:50%">
+			<div class="form-group">
+				<label asp-for="clientSubscription.Client.Name">Client Name</label>
+				<input type="text" asp-for="clientSubscription.Client.Name" class="form-control" />
+				<span asp-validation-for="clientSubscription.Client.Name"></span>
+			</div>
+
+
+
+			<div class="form-group">
+				<label asp-for="ClientPhone">Phone</label>
+				<input type="text" asp-for="ClientPhone" class="form-control" />
+				<span asp-validation-for="ClientPhone"></span>
+			</div>
+
+
+
+			<div class="form-group">
+				<label asp-for="ClientEmail">Email</label>
+				<input type="text" asp-for="ClientEmail" class="form-control" />
+				<span asp-validation-for="ClientEmail"></span>
+			</div>
+
+
+
+			<div class="form-group">
+				<label asp-for="clientSubscription.orderDate">Order Date</label>
+				<input type="text" asp-for="clientSubscription.orderDate" class="form-control" />
+				<span asp-validation-for="clientSubscription.orderDate"></span>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="clientSubscription.SessionId">Session Id</label>
+				<input type="text" asp-for="clientSubscription.SessionId" readonly class="form-control" />
+				<span asp-validation-for="clientSubscription.SessionId"></span>
+			</div>
+
+
+			<div class="form-group">
+				<label asp-for="clientSubscription.PaymentIntentId">Payment Intent Id</label>
+				<input type="text" asp-for="clientSubscription.PaymentIntentId" readonly class="form-control" />
+				<span asp-validation-for="clientSubscription.PaymentIntentId"></span>
+			</div>
+
+
+			<div class="form-group">
+				<label asp-for="paymentDate">Payment Date</label>
+				<input type="text" asp-for="paymentDate" class="form-control" />
+				<span asp-validation-for="paymentDate"></span>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="clientSubscription.price">final price</label>
+				<input type="text" asp-for="clientSubscription.price" class="form-control" />
+				<span asp-validation-for="clientSubscription.price"></span>
+			</div>
+
+
+			<div class="form-group">
+				<label asp-for="clientSubscription.PaymentStatus">Payment Status</label>
+				<input type="text" asp-for="clientSubscription.PaymentStatus" readonly class="form-control" />
+				<span asp-validation-for="clientSubscription.PaymentStatus"></span>
+			</div>
+
+
+			<div class="form-group">
+				<button class="btn btn-primary"> Update Order Details </button>
+
+			</div>
+		</div>
+		
+
+		<div style="width:40%;display:flex;flex-direction:column" >
+			
+			<h3 style="text-align:center">Order Status</h3>
+			<div class="form-group" style="text-align:center">
+				
+				<div class="btn btn-outline-warning" style="width:80%">
+
+					@Model.clientSubscription.Status
+				</div>
+				
+			</div>
+
+			<div class="buttons" style="display:flex;justify-content:center">
+				@if (Model.clientSubscription.Status == "Aproved")
+				{
+
+					<a class="btn btn-primary" href="/Admin/Order/Proccessing?id=@Model.ClientSubscriptionId">Start Proccess</a>
+					
+
+				}
+				@if (Model.clientSubscription.Status == "Proccessed")
+				{
+
+					<a class="btn btn-primary" href="/Admin/Order/Shipping?id=@Model.ClientSubscriptionId">Start Shiping</a>
+	
+				}
+
+				@if (Model.clientSubscription.Status != "Canceled")
+				{
+					<button class="btn btn-danger" asp-controller="Order"  asp-action="CancelOrder" asp-route-id="@Model.clientSubscription.ClientSubscriptionId"> Cancel Order </button>
+
+				}
+
+
+			</div>
+
+		</div>
+
+	</form>
+
+
+</div>
+
+@section Scripts {
+
+
+
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+
+}

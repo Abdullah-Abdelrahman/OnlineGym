@@ -1,0 +1,54 @@
+﻿@{
+    Layout = "_DashBoard";
+
+    ViewBag.title = "Employee management";
+    ViewBag.cardTitle = "View Employees";
+}
+
+<section class="Employee-table">
+
+    <div style="margin-bottom:10px;display:flex;justify-content:center">
+        <a href="/Admin/Employee/Create" class="btn btn-primary">Create</a>
+    </div>
+
+
+
+    <div class="container">
+
+        <table id="EmpTable" class="display">
+
+            <thead>
+
+                <tr>
+                    <th>id</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Job Title</th>
+                    <th>operations</th>
+                    
+                </tr>
+            </thead>
+          
+           
+
+
+        </table>
+
+    </div>
+</section>
+
+
+
+@section Scripts {
+
+   
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script src="/js/Employee.js"></script>
+
+
+}

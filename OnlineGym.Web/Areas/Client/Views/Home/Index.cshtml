@@ -1,0 +1,205 @@
+﻿@{
+	Layout = "_Client";
+}
+
+@model List<Subscription>
+
+<section class="clients-results">
+
+    <div class="container">
+        <div class="slider" style="--quantity: 10">
+            <div class="item" style="--position: 1"><img src="~/Client/images/dragon_1.jpg" alt=""></div>
+            <div class="item" style="--position: 2"><img src="~/Client/images/dragon_2.jpg" alt=""></div>
+            <div class="item" style="--position: 3"><img src="~/Client/images/dragon_3.jpg" alt=""></div>
+            <div class="item" style="--position: 4"><img src="~/Client/images/dragon_4.jpg" alt=""></div>
+            <div class="item" style="--position: 5"><img src="~/Client/images/dragon_5.jpg" alt=""></div>
+            <div class="item" style="--position: 6"><img src="~/Client/images/dragon_6.jpg" alt=""></div>
+            <div class="item" style="--position: 7"><img src="~/Client/images/dragon_7.jpg" alt=""></div>
+            <div class="item" style="--position: 8"><img src="~/Client/images/dragon_8.jpg" alt=""></div>
+            <div class="item" style="--position: 9"><img src="~/Client/images/dragon_9.jpg" alt=""></div>
+            <div class="item" style="--position: 10"><img src="~/Client/images/dragon_10.jpg" alt=""></div>
+        </div>
+        <div class="content">
+
+            <div class="model"></div>
+            <span></span>
+        </div>
+
+
+
+    </div>
+
+
+</section>
+
+
+<section class="program-benefits">
+    <div class="spcial-heading">PROGRAM BENEFITS</div>
+    <div class="container">
+
+
+        <h1>Why choose our cheat and diet services?</h1>
+
+        <div class="cards-container">
+
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="~/Client/images/benifit1.png" alt="benifit 1">
+                <div class="card-body">
+                    <p class="card-text">Flexible diets under the supervision of human doctors, tailored specifically to your needs.</p>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="~/Client/images/binifit2.png" alt="benifit 1">
+                <div class="card-body">
+                    <p class="card-text">Follow up with a full medical team to evaluate the results, assist you, and update the program</p>
+                </div>
+            </div>
+
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="~/Client/images/binifit3.png" alt="benifit 1">
+                <div class="card-body">
+                    <p class="card-text">An exercise system suitable for your level at home or in the gym under the supervision of physical therapists to deal with any injury</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="plans" id="Plans">
+
+    <div class="spcial-heading">PLANS</div>
+    <img src="/Client/images/dots.png" alt="" class="up-dots">
+
+
+    <div class="container">
+        <div class="contant">
+            <div class="plan basic">
+                <div class="first-part">
+                    <h3>Basic</h3>
+                    <i class="fa-solid fa-building"></i>
+                    <div class="price">
+                        <h2>$@Model[0].Price</h2>
+                        <p>Per Month</p>
+                    </div>
+                </div>
+
+                <ul class="second-part">
+
+
+                    @{
+
+                        List<Benefit> benarr = Model[0]?.Benefits.ToList();
+                        for (int i = 0; i < benarr?.Count; i++)
+                        {
+                            <li>
+                                <i class="fa-solid fa-check"></i>
+
+                                <p>@benarr[i].description</p>
+
+
+                            </li>
+                        }
+
+                    }
+                 
+                </ul>
+
+                <a href="/Client/Cart/Checkout?subscriptionId=@Model[0].SubscriptionId">Chose plane</a>
+
+
+            </div>
+
+            <div class="plan advanced">
+                <div class="adv">Most Popula</div>
+
+                <div class="first-part">
+                    <h3>Advanced</h3>
+                    <i class="fa-solid fa-vihara"></i>
+                    <div class="price">
+                        <h2>$@Model[1]?.Price</h2>
+                        <p>Per Month</p>
+                    </div>
+                </div>
+
+                <ul class="second-part">
+                    @{
+
+                        List<Benefit> benarr2 = Model[1]?.Benefits.ToList();
+                        for (int i = 0; i < benarr2?.Count; i++)
+                        {
+                            <li>
+                                <i class="fa-solid fa-check"></i>
+
+                                <p>@benarr2[i].description</p>
+
+
+                            </li>
+                        }
+
+                    }
+
+                </ul>
+
+                <a href="/Client/Cart/Checkout?subscriptionId=@Model[1]?.SubscriptionId">Chose plane</a>
+
+
+
+            </div>
+            <div class="plan professional">
+                <div class="first-part">
+                    <h3>Professional</h3>
+                    <i class="fa-solid fa-city"></i>
+                    <div class="price">
+                        <h2>$@Model[2]?.Price</h2>
+                        <p>Per Month</p>
+                    </div>
+                </div>
+
+                <ul class="second-part">
+                    @{
+
+                        List<Benefit> benarr3 = Model[2]?.Benefits.ToList();
+                        for (int i = 0; i < benarr3?.Count; i++)
+                        {
+                            <li>
+                                <i class="fa-solid fa-check"></i>
+
+                                <p>@benarr3[i].description</p>
+
+
+                            </li>
+                        }
+
+                    }
+
+                </ul>
+
+                <a href="/Client/Cart/Checkout?subscriptionId=@Model[2]?.SubscriptionId">Chose plane</a>
+
+
+
+            </div>
+        </div>
+
+
+    </div>
+    <img src="/Client/images/dots.png" alt="" class="down-dots">
+</section>
+
+
+
+<section class="recipes">
+    <div class="spcial-heading">MOUTHWATERING RECIPES</div>
+    <div class="container">
+        <h1>Enjoy some of the diet and cheat mouthwatering recipes</h1>
+
+        <p>Healthy Food Is Neither Boring Nor Flavorless, You Just Didn't Explore Well The Magic Of Diet-Friendly Ingredients Coming Together</p>
+
+
+    </div>
+
+</section>
+
+

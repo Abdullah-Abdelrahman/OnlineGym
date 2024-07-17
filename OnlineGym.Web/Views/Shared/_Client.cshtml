@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="~/Client/main.css">
+    <link rel="stylesheet" href="~/Client/plans.css">
+    <link rel="stylesheet" href="~/Client/footer.css">
+    <link rel="stylesheet" href="~/Client/clientsResults.css">
+
+
+</head>
+<body>
+
+    <section class="heading">
+        <div class="container">
+            <div class="heading-part-one">
+              
+                <nav class="navbar navbar-expand-lg  navbar-dark">
+
+                    <a class="navbar-brand" href="/Client/Home">Brand</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarText">
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="/Client/Home">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#Plans">Plans</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Contact</a>
+                            </li>
+
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa-solid fa-gear"></i>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        <a class="dropdown-item" href="/Admin/Dashboard/index">DashBoard</a>
+                                        <a class="dropdown-item" href="#">Settings</a>
+                                     
+                                    </div>
+                                </li>
+                            }
+                            else if(User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa-solid fa-gear"></i>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                     
+                                        <a class="dropdown-item" href="#">Settings</a>
+
+                                        <a class="dropdown-item" href="#">My subscription</a>
+
+                                    </div>
+                                </li>
+                            }
+
+                     
+                            
+                          
+                          
+                        </ul>
+                        <ul class="navbar-nav ml-auto">
+                            <partial name="_LoginPartial" />
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Arabic</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+    <section class="landing">
+        <div class="container">
+
+            <div class="text">
+                <h1>Forget About Boring Diets & Build a Healthy Lifestyle</h1>
+                <p>More than 1000+ transformed their physique in the last 2 years without going back.</p>
+                <p>I WILL DO THE SAME FOR YOU, WITH MY PERSONALIZED GUIDE.</p>
+
+                <a class="btn btn-warning" href="#Plans">Change Your Body Now</a>
+
+            </div>
+            <div class="landing-img">
+                <img src="~/Client/images/landing.png" alt="there is a problem">
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+    @RenderBody()
+
+ 
+
+
+    <section class="footer">
+        <div class="container">
+            <div class="one">
+                <p>Abdullah</p>
+                <ul>
+                    <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
+                    <li><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
+                    <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
+                </ul>
+
+            </div>
+            <ul class="two" >
+                <li><a href="#" style="text-decoration:none"><i class="fa-solid fa-angles-right"></i>About</a></li>
+                <li><a href="#" style="text-decoration:none"><i class="fa-solid fa-angles-right"></i>Contact</a></li>
+                <li><a href="#" style="text-decoration:none"><i class="fa-solid fa-angles-right"></i>Our plans</a></li>
+                <li><a href="#" style="text-decoration:none"><i class="fa-solid fa-angles-right"></i>Privacy Policy</a></li>
+                <li><a href="#" style="text-decoration:none"><i class="fa-solid fa-angles-right"></i>Refund Policy</a></li>
+
+            </ul>
+
+            <ul class="three">
+                <li>
+                </li>
+
+            </ul>
+
+
+        </div>
+
+        <span></span>
+
+
+
+
+    </section>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

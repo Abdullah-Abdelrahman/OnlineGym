@@ -1,0 +1,87 @@
+﻿@{
+    Layout = "_DashBoard";
+
+    ViewBag.title = "User management";
+    ViewBag.cardTitle = "View Users";
+}
+@model List<Client>;
+
+
+
+<section class="users-table">
+
+    <div style="margin-bottom:10px;display:flex;justify-content:center">
+        <a href="/Identity/Account/Register" class="btn btn-primary">Create</a>
+    </div>
+
+
+
+    <div class="container">
+
+        <table class="table table-hover table-dark">
+
+            <thead>
+
+                <tr>
+                    
+                    <th>User Name</th>
+                    <th>Phone Number </th>
+                    <th>Email</th>
+                
+                    <th>operations</th>
+
+                </tr>
+            </thead>
+
+            <tbody id="t-body">
+
+                @for (int i = 0; i < Model?.Count(); i++)
+                {
+                    <tr>
+                        <td>@Model[i].Name</td>
+                        <td>@Model[i].PhoneNumber</td>
+                        <td>@Model[i].Email</td>
+                        
+
+                        <td>
+                            @if (Model[i].LockoutEnd == null || Model[i].LockoutEnd <= DateTime.Now)
+                            {
+
+                                <a class="btn btn-success" asp-action="LockUnlock" asp-route-id="@Model[i].Id">
+                                    <i class="fas fa-lock-open"></i>
+                                </a>
+                            }
+                            else
+                            {
+                                <a class="btn btn-danger" asp-action="LockUnlock" asp-route-id="@Model[i].Id">
+                                    <i class="fas fa-lock"></i>
+                                </a>
+                            }
+                         
+                            <a href="/Admin/Users/More/@Model[i].Id" class="btn btn-info">More</a>             
+                            <a href="/Admin/Users/Update/@Model[i].Id" class="btn btn-success">Edit</a>
+                            <a href="/Admin/Users/Delete/@Model[i].Id" class="btn btn-danger">delete</a>
+                        </td>
+
+                    </tr>
+                }
+
+
+
+            </tbody>
+
+
+
+        </table>
+
+    </div>
+</section>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}
