@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using OnlineGym.DataAccess.Data;
@@ -16,10 +18,11 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
     public class EmployeeController : Controller
     {
         private readonly IUnitOfWork _context;
-
-        public EmployeeController(IUnitOfWork context)
+        private UserManager<IdentityUser> _userManager;
+        public EmployeeController(IUnitOfWork context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
 
@@ -52,12 +55,13 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(EmployeeViewModel employeeViewModel)
+        public async Task<IActionResult> Create(EmployeeViewModel employeeViewModel)
         {
 		
           
-            if (ModelState.IsValid)
+            if (employeeViewModel.Employee.Email!=null)
             {
+                employeeViewModel.Employee.UserId = "temp";
                 _context.Employee.Add(employeeViewModel.Employee);
                
 
@@ -66,7 +70,47 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
                 employeeViewModel.Salary.EmployeeId = _context.Employee.last().EmployeeId;
 				_context.Salary.Add(employeeViewModel.Salary);
 				_context.Comlete();
-				TempData["Created"] = "true";
+
+
+
+                string job = _context.Jobs.GetFirstOrDefualt(j => j.JobTitleId == employeeViewModel.Employee.JobTitleId).JopName;
+
+
+
+                OnlineGym.Entities.Models.Client client = new OnlineGym.Entities.Models.Client()
+                {
+                    Email = employeeViewModel.Employee.Email,
+                    Name = employeeViewModel.Employee.Name,
+                    UserName=employeeViewModel.Employee.Email,
+                    PhoneNumber=employeeViewModel.Employee.Phone
+                };
+
+
+                IdentityResult result = await _userManager.CreateAsync(client, SD.DefoultPassword);
+
+                if (result.Succeeded)
+                {
+
+
+                    Console.WriteLine("User Created Succesfuley");
+                    if (job == SD.CoachRole)
+                    {
+                        await _userManager.AddToRoleAsync(client, SD.CoachRole);
+
+                    }
+            
+                    _context.Comlete();
+                    _context.Employee.last().UserId = _context.Client.GetFirstOrDefualt(c=>c.Email== employeeViewModel.Employee.Email).Id;
+                    _context.Comlete();
+                }
+                else
+                {
+                    Console.WriteLine("there is a problem in Creating the account for Employee");
+
+                }
+
+
+                TempData["Created"] = "true";
                 return RedirectToAction("Index");
             }
             else
@@ -158,8 +202,30 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
 
             EmpD.Employee = _context.Employee.GetFirstOrDefualt(e => e.EmployeeId == id);
             EmpD.Salary = _context.Salary.GetFirstOrDefualt(s => s.EmployeeId == id);
-
+			EmpD.Employee.JobTitle=_context.Jobs.GetFirstOrDefualt(j=>j.JobTitleId==EmpD.Employee.JobTitleId);
+            
 			return View(EmpD);
         }
+
+
+        [HttpGet]
+        public IActionResult Bouns(int id)
+        {
+            Salary salary=_context.Salary.GetFirstOrDefualt(s=>s.EmployeeId==id);
+            return View(salary);
+        }
+
+		[HttpPost]
+        [ValidateAntiForgeryToken]
+		public IActionResult Bouns(int id,int Amount)
+		{
+			return View();
+		}
+
+
+       
+        
+
+
     }
 }

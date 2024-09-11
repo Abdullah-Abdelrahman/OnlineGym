@@ -19,7 +19,7 @@ namespace OnlineGym.Web.Areas.Client.Controllers
 		}
 		public IActionResult Index()
 		{
-			return View(_context.Subscription.GetAll(IncludeWord: "Benefits"));
+			return View(_context.Subscription.GetAll(s=>s.IsActive==true,IncludeWord: "Benefits"));
 		}
 
 

@@ -128,7 +128,12 @@ namespace OnlineGym.Web.Areas.Identity.Pages.Account
             {
                 _roleManager.CreateAsync(new IdentityRole(SD.CustomerRole)).GetAwaiter().GetResult();
             }
-          
+
+            if (!_roleManager.RoleExistsAsync(SD.CoachRole).GetAwaiter().GetResult())
+            {
+                _roleManager.CreateAsync(new IdentityRole(SD.CoachRole)).GetAwaiter().GetResult();
+            }
+
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
@@ -151,6 +156,8 @@ namespace OnlineGym.Web.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
                     await _userManager.AddToRoleAsync(user, Input.SelectedRole);
+
+               
 
 
                     if (User.IsInRole("Admin"))

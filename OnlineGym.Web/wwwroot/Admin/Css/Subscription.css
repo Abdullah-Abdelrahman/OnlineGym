@@ -1,0 +1,139 @@
+﻿body {
+}
+
+
+
+.use {
+    background-color: darkorange;
+}
+
+.disuse{
+    background-color:red;
+}
+
+
+#diamond {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    color: #333;
+    font-size: 20px;
+    transform: rotate(45deg);
+    position: relative;
+    border: 5px solid transparent;
+}
+
+    #diamond::before, #diamond::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border: inherit;
+        box-sizing: border-box;
+    }
+
+    #diamond::before {
+        transform: rotate(90deg);
+        border-color: transparent transparent transparent transparent;
+    }
+
+    #diamond::after {
+        border-color: transparent transparent transparent transparent;
+    }
+
+    #diamond span {
+        transform: rotate(-45deg);
+        transition: color 0.5s ease;
+    }
+
+.state0::before, .state0::after {
+    animation: progress0 1s forwards;
+}
+
+.state1::before, .state1::after {
+    animation: progress1 1s forwards;
+}
+
+.state2::before, .state2::after {
+    animation: progress2 1s forwards;
+}
+
+.state3::before, .state3::after {
+    animation: progress3 1s forwards;
+}
+
+@keyframes progress0 {
+    0%, 100% {
+        border-color: #4ec3fa #4ec3fa #4ec3fa #4ec3fa;
+    }
+}
+
+@keyframes progress1 {
+    0% {
+        border-color: #4ec3fa #4ec3fa #4ec3fa #4ec3fa;
+    }
+
+    25% {
+        border-color: #57fa4e #4ec3fa #4ec3fa #4ec3fa;
+    }
+
+    50% {
+        border-color: #57fa4e #57fa4e #4ec3fa #4ec3fa;
+    }
+
+    75% {
+        border-color: #57fa4e #57fa4e #57fa4e #4ec3fa;
+    }
+
+    100% {
+        border-color: #57fa4e #57fa4e #57fa4e #57fa4e;
+    }
+}
+
+@keyframes progress2 {
+    0% {
+        border-color: #57fa4e #57fa4e #57fa4e #57fa4e;
+    }
+
+    25% {
+        border-color: #e0f23e #57fa4e #57fa4e #57fa4e;
+    }
+
+    50% {
+        border-color: #e0f23e #e0f23e #57fa4e #57fa4e;
+    }
+
+    75% {
+        border-color: #e0f23e #e0f23e #e0f23e #57fa4e;
+    }
+
+    100% {
+        border-color: #e0f23e #e0f23e #e0f23e #e0f23e;
+    }
+}
+
+@keyframes progress3 {
+    0% {
+        border-color: #e0f23e #e0f23e #e0f23e #e0f23e;
+    }
+
+    25% {
+        border-color: #ec3f3f #e0f23e #e0f23e #e0f23e;
+    }
+
+    50% {
+        border-color: #ec3f3f #ec3f3f #e0f23e #e0f23e;
+    }
+
+    75% {
+        border-color: #ec3f3f #ec3f3f #ec3f3f #e0f23e;
+    }
+
+    100% {
+        border-color: #ec3f3f #ec3f3f #ec3f3f #ec3f3f;
+    }
+}
+

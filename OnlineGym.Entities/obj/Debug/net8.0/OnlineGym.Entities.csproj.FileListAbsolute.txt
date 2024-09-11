@@ -10,3 +10,4 @@ E:\All_of_my_projrcts\OnlineGym\OnlineGym.Entities\obj\Debug\net8.0\OnlineGym.En
 E:\All_of_my_projrcts\OnlineGym\OnlineGym.Entities\obj\Debug\net8.0\refint\OnlineGym.Entities.dll
 E:\All_of_my_projrcts\OnlineGym\OnlineGym.Entities\obj\Debug\net8.0\OnlineGym.Entities.pdb
 E:\All_of_my_projrcts\OnlineGym\OnlineGym.Entities\obj\Debug\net8.0\ref\OnlineGym.Entities.dll
+E:\All_of_my_projrcts\OnlineGym\OnlineGym.Entities\obj\Debug\net8.0\OnlineGym.Entities.sourcelink.json

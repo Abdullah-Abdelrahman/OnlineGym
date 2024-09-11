@@ -94,14 +94,45 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
 		[ValidateAntiForgeryToken]
         public IActionResult Update(BenefitViewModel benefitViewModel)
         {
-            
+
+			Benefit benefit = _context.Benefit.GetFirstOrDefualt(e => e.BenefitId == benefitViewModel.Benefit.BenefitId);
 
 
+			List<BenefitJobTitle> benefitJobTitles = _context.BenefitJobTitle.GetAll(b => b.BenefitId == benefitViewModel.Benefit.BenefitId).ToList();
 
+			// remove deleted ones
+			for (int i = 0; i < benefitJobTitles.Count; i++)
+			{
+				if (!benefitViewModel.JobsId.Any(b => b == benefitJobTitles[i].JobTitleId))
+				{
+					benefitJobTitles.Remove(benefitJobTitles[i]);
+				}
 
-            return Json(new { success = true, message = "Item has been updated" });
+			}
+
+			for (int i = 0; i < benefitViewModel.JobsId.Count; i++)
+			{
+				if(!benefitJobTitles.Any(b=>b.JobTitleId== benefitViewModel.JobsId[i]))
+				{
+					BenefitJobTitle benefitJobTitle = new BenefitJobTitle()
+					{
+						BenefitId=benefit.BenefitId,
+						JobTitleId= benefitViewModel.JobsId[i]
+					};
+
+					benefitJobTitles.Add(benefitJobTitle);
+				}
+				
+			}
+
+			benefit.benefitJobTitles= benefitJobTitles;
+			_context.Comlete();
+
+			return RedirectToAction("Index");
 
         }
+
+
 
         [HttpDelete]
         public IActionResult Delete(int id)

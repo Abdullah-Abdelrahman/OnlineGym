@@ -35,6 +35,16 @@ namespace OnlineGym.DataAccess.RepositoryImplementation
         public IVideoRepository Video { get; private set; }
 
         public IEmployeeRateRepository EmployeeRate { get; private set; }
+
+        public IExerciseRepository Exercise { get; private set; }
+
+        public IDayRepository Day { get; private set; }
+
+        public ITrainingPlanRepository trainingPlan { get; private set; }
+
+        public IClientSubscriptionDetailsEmployeeRepository ClientSubscriptionDetailsEmployee { get; private set; }
+
+        public IDayExercisRepository DayExercis { get; private set; }
         public UnitOfWork(OnlineGymContext context) 
         {
 
@@ -55,6 +65,13 @@ namespace OnlineGym.DataAccess.RepositoryImplementation
             Video=new VideoRepository(context);
 
             EmployeeRate=new EmployeeRateRepository(context);
+
+            Exercise=new ExerciseRepository(context);   
+
+            Day=new DayRepository(context);
+            trainingPlan =new TrainingPlanRepository(context);
+            ClientSubscriptionDetailsEmployee=new ClientSubscriptionDetailsEmployeeRepository(context);
+            DayExercis = new DayExercisRepository(context);
 
 		}
 

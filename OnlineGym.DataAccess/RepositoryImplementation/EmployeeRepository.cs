@@ -38,5 +38,33 @@ namespace OnlineGym.DataAccess.RepositoryImplementation
 
           
         }
-    }
+
+		public Employee GetTheOneThatHasLessOrders(int jobId)
+		{
+			int minID = 1, value = 0;
+
+            List<Employee>employees=_context.Employees.Where(e=>e.JobTitleId==jobId).ToList();
+
+            for(int i = 0; i < employees.Count; i++)
+            {
+
+                employees[i].clientSubscriptionDetailsEmployees = _context.ClientSubscriptionDetailsEmployees
+                    .Where(cs => cs.EmployeeId == employees[i].EmployeeId
+                    &&_context.ClientSubscriptions.Where(c=>c.ClientSubscriptionId==cs.ClientSubscriptionId&&c.Status=="ongoing").ToList().Count==1)
+                    .ToList();
+
+
+                if (employees[i].clientSubscriptionDetailsEmployees.Count < value)
+                {
+                    value = employees[i].clientSubscriptionDetailsEmployees.Count;
+                    minID = employees[i].EmployeeId;
+
+				}
+            }
+
+			return _context.Employees.FirstOrDefault(e => e.EmployeeId == minID);
+
+		}
+
+	}
 }

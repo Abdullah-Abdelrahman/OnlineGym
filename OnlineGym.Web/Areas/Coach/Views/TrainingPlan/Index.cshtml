@@ -1,0 +1,230 @@
+﻿@{
+	
+	ViewBag.title = "Plan management";
+	ViewBag.cardTitle = "MY Plans";
+}
+
+@model List<TrainingPlan>;
+<link rel="stylesheet" href="~/Coach/TrainingPlan.css">
+    
+<section class="plan-create">
+	@* <a href="/Coach/TrainingPlan/Create" class="btn btn-primary" style="margin-left:45%;margin-bottom:10px">Create</a>
+ *@
+	<div class="container">
+
+
+        <table id="PlansTable" style="width:100%" class="display  table table-striped">
+
+            <thead>
+
+                <tr>
+                    <th>id</th>
+                    <th >Plan Name</th>
+                    <th>operations</th>
+                </tr>
+            </thead>
+            <tbody id="t-body">
+
+                @for (int i = 0; i < Model?.Count(); i++)
+                {
+                    <tr>
+                        <td>@Model[i].Id</td>
+
+                        <td>@Model[i].Id</td>
+                        <td>
+
+							<button id="openGIButton-@i" type="button" onclick="openSelectedmodal(@i)" data-toggle="modal" data-target="#exampleModal-@i" class="btn btn-info">Preview</button>
+
+                            <button class="btn btn-secondary">Edit</button>
+                            <button onclick="DeleteItem(@Model[i].Id.ToString())" class="btn btn-danger">Delete</button>
+
+                        </td>
+
+                    </tr>
+
+                    <!-- Modal update General Info-->
+					<div class="modal fade" id="GIModal-@i" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Plan Name : @Model[i].Id</h5>
+									<button type="button" class="close" id="closeGIButton-@i" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+
+
+									<div style="display:flex;justify-content:space-between;">
+
+
+
+										<div style="width:22%;display:flex;flex-direction:column">
+											<h2>Week 1</h2>
+											@for (int j = 0; j < 7; j++)
+											{
+
+												<div class="card" style="width:100%;" id="week1day[@i]">
+													<div class="card-body">
+														<h5 class="card-title">Day @(j + 1)</h5>
+														<br />
+														<ul>
+															@for(int e = 0; e < Model[i].Days[j]?.exercises?.ToList()?.Count; e++)
+															{
+																<li>
+																	@Model[i].Days[j].exercises.ToList()[e].Name
+
+																</li>
+															}
+													
+
+														</ul>
+							
+													</div>
+												
+												</div>
+
+
+
+											}
+
+										</div>
+										<div style="width:22%;display:flex;flex-direction:column">
+											<h2>Week 2</h2>
+											@for (int j = 0; j < 7; j++)
+											{
+
+												<div class="card" style="width:100%;" id="week2day[@i]">
+													<div class="card-body">
+														<h5 class="card-title">Day @(j + 1)</h5>
+														<br />
+														<ul>
+															@for (int e = 0; e < Model[i].Days[7+j]?.exercises?.ToList()?.Count; e++)
+															{
+																<li>
+																	@Model[i].Days[7+j].exercises.ToList()[e].Name
+
+																</li>
+															}
+
+
+														</ul>
+
+													</div>
+
+												</div>
+
+
+
+											}
+
+										</div>
+
+
+
+										<div style="width:22%;display:flex;flex-direction:column">
+											<h2>Week 3</h2>
+											@for (int j = 0; j < 7; j++)
+											{
+
+												<div class="card" style="width:100%;" id="week3day[@i]">
+													<div class="card-body">
+														<h5 class="card-title">Day @(j + 1)</h5>
+														<br />
+														<ul>
+															@for (int e = 0; e < Model[i].Days[14+j]?.exercises?.ToList()?.Count; e++)
+															{
+																<li>
+																	@Model[i].Days[14+j].exercises.ToList()[e].Name
+
+																</li>
+															}
+
+
+														</ul>
+
+													</div>
+
+												</div>
+
+
+
+											}
+
+										</div>
+
+
+										<div style="width:22%;display:flex;flex-direction:column">
+											<h2>Week 4</h2>
+											@for (int j = 0; j < 7; j++)
+											{
+
+												<div class="card" style="width:100%;" id="week4day[@i]">
+													<div class="card-body">
+														<h5 class="card-title">Day @(j + 1)</h5>
+														<br />
+														<ul>
+															@for (int e = 0; e < Model[i].Days[21+j]?.exercises?.ToList()?.Count; e++)
+															{
+																<li>
+																	@Model[i].Days[21+j].exercises.ToList()[e].Name
+
+																</li>
+															}
+
+
+														</ul>
+
+													</div>
+
+												</div>
+
+
+
+											}
+
+										</div>
+
+									</div>
+
+
+
+
+
+
+
+								</div>
+                                <div class="modal-footer">
+									<button type="button" id="MaincloseGIButton-@i" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+
+
+            </tbody>
+
+
+           
+
+
+
+
+
+        </table>
+	</div>
+</section>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="~/js/TrainingPlanIndex.js"></script>
+
+}

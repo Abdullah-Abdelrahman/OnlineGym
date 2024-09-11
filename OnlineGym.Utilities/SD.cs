@@ -12,15 +12,31 @@ namespace OnlineGym.Utilities
         public const string AdminRole = "Admin";
         public const string EditorRole = "Editor";
         public const string CustomerRole = "Customer";
-
+        public const string CoachRole = "Coach";
 
 
         //Pending
         //Aproved//paid
         //in Proccess
         //proccessed
-        //in shiping
         //working
-        
+        //finished
+        public const string Aproved = "Aproved";
+        public const string Proccess = "Proccess";
+        public const string proccessed = "Proccessed";
+        public const string Working = "Working";
+        public const string Finished = "Finished";
+
+        public const string Canceled = "Canceled";
+
+
+
+
+
+
+        ////
+        ///
+        public const string DefoultPassword = "Aaa123@";
+
     }
 }

@@ -14,6 +14,7 @@ namespace OnlineGym.Entities.ViewModels
 		
 		public Benefit Benefit { get; set; }
 
+		[Required(ErrorMessage ="you must choose some jobs that can do the task")]
 		public List<int>? JobsId { get; set; }
 
 		public IEnumerable<SelectListItem>? Jobs { get; set; }

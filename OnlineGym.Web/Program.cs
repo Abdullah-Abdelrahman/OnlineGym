@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using OnlineGym.Utilities;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Stripe;
+using OnlineGym.Entities.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -18,8 +19,9 @@ builder.Services.AddDbContext<OnlineGymContext>(options=>options.UseSqlServer(
 builder.Services.Configure<StripeDetails>(builder.Configuration.GetSection("stripe"));
 
 
-builder.Services.AddIdentity<IdentityUser,IdentityRole>(options=>options.Lockout.DefaultLockoutTimeSpan=TimeSpan.FromMinutes(60))
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(60))
     .AddDefaultTokenProviders().AddDefaultUI().AddEntityFrameworkStores<OnlineGymContext>();
+
 
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
 
@@ -56,7 +58,9 @@ app.MapControllerRoute(
     name: "client",
     pattern: "{area=Admin}/{controller=Employee}/{action=Index}/{id?}");
 app.MapControllerRoute(
-	name: "Employee",
-	pattern: "{area=Employee}/{controller=Employee}/{action=Index}/{id?}");
+	name: "Coach",
+	pattern: "{area=Coach}/{controller=Dashboard}/{action=Index}/{id?}");
+
+
 
 app.Run();

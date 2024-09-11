@@ -10,5 +10,7 @@ namespace OnlineGym.Entities.Repository
     public interface IEmployeeRepository:IGenericRepository<Employee>
     {
         void Update(Employee employee);
-    }
+
+		Employee GetTheOneThatHasLessOrders(int jobId);
+	}
 }

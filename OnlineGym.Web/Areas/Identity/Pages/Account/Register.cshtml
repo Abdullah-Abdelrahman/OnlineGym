@@ -7,7 +7,7 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<div class="row container" style="background-color:white;padding:30px" >
+<div class="row container" style="background-color:white;padding:30px" id="RegisterSection">
     <div class="col-md-4">
         <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
             <h2>Create a new account.</h2>
@@ -39,7 +39,7 @@
                 <div class="form-floating mb-3">
 
                     <input type="radio" checked value="@SD.CustomerRole" asp-for="Input.SelectedRole" />@SD.CustomerRole
-                    <input type="radio" value="@SD.EditorRole" asp-for="Input.SelectedRole" />@SD.EditorRole
+                    <input type="radio" value="@SD.CoachRole" asp-for="Input.SelectedRole" />@SD.CoachRole
                     <input type="radio" value="@SD.AdminRole" asp-for="Input.SelectedRole" />@SD.AdminRole
 
                 </div>

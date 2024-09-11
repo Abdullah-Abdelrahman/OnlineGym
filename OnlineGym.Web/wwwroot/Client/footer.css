@@ -132,7 +132,7 @@
 
 .footer .one li:first-of-type:hover {
 
-    background-color: var(--main-color-alt);
+    background-color: blue;
 }
 
 .footer .one li:nth-of-type(2):hover {
@@ -142,7 +142,7 @@
 
 .footer .one li:nth-of-type(3):hover {
 
-    background-color: var(--main-color);
+    background-color: lightpink;
 }
 
 

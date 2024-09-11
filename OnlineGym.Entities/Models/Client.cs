@@ -13,6 +13,9 @@ public  class Client:IdentityUser
 
     public string Name { get; set; }
 
+
+    public string? ProfilePhoto { get; set; }
+
     [JsonIgnore]
     public virtual ICollection<ClientSubscription>? ClientSubscriptions { get; set; } = new List<ClientSubscription>();
     [JsonIgnore]

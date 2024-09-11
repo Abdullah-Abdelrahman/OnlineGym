@@ -4,7 +4,10 @@
 
 @model List<Subscription>
 
+
 <section class="clients-results">
+    
+    <div class="spcial-heading" style="position:relative;padding:20px;margin-top:0px">Transformations</div>
 
     <div class="container">
         <div class="slider" style="--quantity: 10">
@@ -75,112 +78,126 @@
 
     <div class="container">
         <div class="contant">
-            <div class="plan basic">
-                <div class="first-part">
-                    <h3>Basic</h3>
-                    <i class="fa-solid fa-building"></i>
-                    <div class="price">
-                        <h2>$@Model[0].Price</h2>
-                        <p>Per Month</p>
+            @if (Model.Count >= 1)
+            {
+                <div class="plan basic">
+                    <div class="first-part">
+                        <h3>@Model[0].SubscriptionName</h3>
+                        <i class="fa-solid fa-building"></i>
+                        <div class="price">
+                            <h2>$@Model[0].Price</h2>
+                            <p>Per Month</p>
+                        </div>
                     </div>
-                </div>
 
-                <ul class="second-part">
-
-
-                    @{
-
-                        List<Benefit> benarr = Model[0]?.Benefits.ToList();
-                        for (int i = 0; i < benarr?.Count; i++)
-                        {
-                            <li>
-                                <i class="fa-solid fa-check"></i>
-
-                                <p>@benarr[i].description</p>
+                    <ul class="second-part">
 
 
-                            </li>
+                        @{
+
+                            List<Benefit> benarr = Model[0]?.Benefits.ToList();
+                            for (int i = 0; i < benarr?.Count; i++)
+                            {
+                                <li>
+                                    <i class="fa-solid fa-check"></i>
+
+                                    <p>@benarr[i].description</p>
+
+
+                                </li>
+                            }
+
                         }
 
-                    }
-                 
-                </ul>
+                    </ul>
 
-                <a href="/Client/Cart/Checkout?subscriptionId=@Model[0].SubscriptionId">Chose plane</a>
+                    <a href="/Client/Cart/Checkout?subscriptionId=@Model[0].SubscriptionId">Chose plane</a>
 
 
-            </div>
-
-            <div class="plan advanced">
-                <div class="adv">Most Popula</div>
-
-                <div class="first-part">
-                    <h3>Advanced</h3>
-                    <i class="fa-solid fa-vihara"></i>
-                    <div class="price">
-                        <h2>$@Model[1]?.Price</h2>
-                        <p>Per Month</p>
-                    </div>
                 </div>
 
-                <ul class="second-part">
-                    @{
+            }
 
-                        List<Benefit> benarr2 = Model[1]?.Benefits.ToList();
-                        for (int i = 0; i < benarr2?.Count; i++)
-                        {
-                            <li>
-                                <i class="fa-solid fa-check"></i>
+            @if (Model.Count >= 2)
+            {
+                <div class="plan advanced">
+                    <div class="adv">@Model[1].SubscriptionName</div>
 
-                                <p>@benarr2[i].description</p>
+                    <div class="first-part">
+                        <h3>Advanced</h3>
+                        <i class="fa-solid fa-vihara"></i>
+                        <div class="price">
+                            <h2>$@Model[1]?.Price</h2>
+                            <p>Per Month</p>
+                        </div>
+                    </div>
+
+                    <ul class="second-part">
+                        @{
+
+                            List<Benefit> benarr2 = Model[1]?.Benefits.ToList();
+                            for (int i = 0; i < benarr2?.Count; i++)
+                            {
+                                <li>
+                                    <i class="fa-solid fa-check"></i>
+
+                                    <p>@benarr2[i].description</p>
 
 
-                            </li>
+                                </li>
+                            }
+
                         }
 
-                    }
+                    </ul>
 
-                </ul>
-
-                <a href="/Client/Cart/Checkout?subscriptionId=@Model[1]?.SubscriptionId">Chose plane</a>
+                    <a href="/Client/Cart/Checkout?subscriptionId=@Model[1]?.SubscriptionId">Chose plane</a>
 
 
 
-            </div>
-            <div class="plan professional">
-                <div class="first-part">
-                    <h3>Professional</h3>
-                    <i class="fa-solid fa-city"></i>
-                    <div class="price">
-                        <h2>$@Model[2]?.Price</h2>
-                        <p>Per Month</p>
-                    </div>
                 </div>
 
-                <ul class="second-part">
-                    @{
-
-                        List<Benefit> benarr3 = Model[2]?.Benefits.ToList();
-                        for (int i = 0; i < benarr3?.Count; i++)
-                        {
-                            <li>
-                                <i class="fa-solid fa-check"></i>
-
-                                <p>@benarr3[i].description</p>
+            }
 
 
-                            </li>
+            @if (Model.Count >= 3)
+            {
+                <div class="plan professional">
+                    <div class="first-part">
+                        <h3>@Model[2].SubscriptionName</h3>
+                        <i class="fa-solid fa-city"></i>
+                        <div class="price">
+                            <h2>$@Model[2]?.Price</h2>
+                            <p>Per Month</p>
+                        </div>
+                    </div>
+
+                    <ul class="second-part">
+                        @{
+
+                            List<Benefit> benarr3 = Model[2]?.Benefits.ToList();
+                            for (int i = 0; i < benarr3?.Count; i++)
+                            {
+                                <li>
+                                    <i class="fa-solid fa-check"></i>
+
+                                    <p>@benarr3[i].description</p>
+
+
+                                </li>
+                            }
+
                         }
 
-                    }
+                    </ul>
 
-                </ul>
-
-                <a href="/Client/Cart/Checkout?subscriptionId=@Model[2]?.SubscriptionId">Chose plane</a>
+                    <a href="/Client/Cart/Checkout?subscriptionId=@Model[2]?.SubscriptionId">Chose plane</a>
 
 
 
-            </div>
+                </div>
+
+            }
         </div>
 
 
@@ -197,7 +214,17 @@
 
         <p>Healthy Food Is Neither Boring Nor Flavorless, You Just Didn't Explore Well The Magic Of Diet-Friendly Ingredients Coming Together</p>
 
-
+        <div class="row justify-content-between" style="padding:20px">
+            <div class="col-sm" style="border-radius:25px;width:18rem;height:18rem;overflow:hidden">
+                <img class="card-img-top" src="~/Client/images/recip1.jpg" alt="Card image cap">
+            </div>
+            <div class="col-sm" style="border-radius:25px;width:18rem;height:18rem;overflow:hidden">
+                <img class="card-img-top" src="~/Client/images/recip2.jpg"  alt="Card image cap">
+            </div>
+            <div class="col-sm" style="border-radius:25px;width:18rem;height:18rem;overflow:hidden">
+                <img class="card-img-top" src="~/Client/images/recip3.jpg"  alt="Card image cap">
+            </div>
+        </div>
     </div>
 
 </section>

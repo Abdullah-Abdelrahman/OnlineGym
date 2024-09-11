@@ -1,0 +1,64 @@
+﻿@{
+
+	ViewBag.title = "Video management";
+	ViewBag.cardTitle = "Edit Video";
+}
+@model Video;
+
+
+<section class="Edit-Video">
+	<div class="container">
+		<form method="post">
+			<input hidden asp-for="Id" />
+			<div class="form-group">
+				<label asp-for="Title">Video Title</label>
+				<input asp-for="Title" class="form-control" />
+				<span asp-validation-for="Title" class="text-danger"></span>
+			</div>
+
+			<label asp-for="category">Video category</label>
+
+			<select asp-for="category" class="form-control">
+				<option disabled selected="" value="0">-- Select category</option>
+				@if (Model.category == 1)
+				{
+					<option selected value="1">Training</option>
+					<option value="2">RECIPE</option>
+
+
+				}
+				else
+				{
+					<option  value="1">Training</option>
+					<option selected value="2">RECIPE</option>
+				}
+
+
+			</select>
+
+
+			<div class="form-group">
+				<label asp-for="Url">Video Url</label>
+				<input asp-for="Url" class="form-control" />
+				<span asp-validation-for="Url" class="text-danger"></span>
+			</div>
+
+
+
+
+			<div class="form-group">
+				<button class="btn btn-primary"> Edit </button>
+
+			</div>
+
+
+		</form>
+	</div>
+</section>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+
+}

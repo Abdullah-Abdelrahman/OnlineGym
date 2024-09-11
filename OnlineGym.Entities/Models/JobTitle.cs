@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace OnlineGym.Entities.Models
 {
@@ -6,6 +7,7 @@ namespace OnlineGym.Entities.Models
     {
 
         public int JobTitleId { get; set; }
+        [Required]
         public string? JopName  { get; set; }
 
         public string? JopDiscription { get; set; }

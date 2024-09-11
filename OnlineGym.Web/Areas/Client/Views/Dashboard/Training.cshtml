@@ -1,0 +1,66 @@
+﻿@{
+    Layout = "_DashBoard";
+}
+@model TrainingPlan
+
+<div class="container" style="display:flex;flex-wrap:wrap;justify-content: space-between;">
+
+    @{
+        int c = 1;
+        foreach(var Item in Model.Days)
+        {
+            <a style="width:22%;" href="/Client/DashBoard/DayExercises/@Item.DayId">
+                <div class="card" style="width:100%;position:relative;">
+                    @{
+                        
+                        <div class="card-body" style="background-image:url(/GymImages/DayImages/banar_1.png);border-radius:10px">
+                            <p class="card-text">Day @(c) </p>
+                        </div>
+                    }
+                  
+
+                    @if (Item.isDone)
+                    {
+                        <div style="position:absolute;top:10%;right:35%;color:greenyellow">
+                            <i style="font-size:300%;" class="fa-solid fa-star"></i>
+                        </div>
+                    }
+                    else if (Model?.Started != null && Model.Started.Value.AddDays(c - 1).Date < DateTime.Now.Date)
+                    {
+                        <div style="position:absolute;top:10%;right:35%;color:red;">
+                            <i style="font-size:300%;" class="fa-regular fa-circle-xmark"></i>
+                        </div>
+                    }
+                    else if (Model?.Started != null && Model.Started.Value.AddDays(c - 1).Date == DateTime.Now.Date)
+                    {
+                        <div style="position:absolute;top:10%;right:35%;color:orange">
+                            <i style="font-size:300%;" class="fa-brands fa-golang"></i>
+                        </div>
+                    }
+                    else if (Model?.Started !=null&&Model.Started.Value.AddDays(c-1).Date > DateTime.Now.Date)
+                    {
+                        <div style="position:absolute;top:10%;right:35%;">
+                            <i style="font-size:300%" class="fa-solid fa-lock"></i>
+                        </div>
+                    }
+
+                    
+                </div>
+            </a>
+            
+            c++;
+        }
+    }
+
+</div>
+
+@section Scripts {
+
+
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+
+}

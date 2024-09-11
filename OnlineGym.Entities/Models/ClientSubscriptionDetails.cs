@@ -41,8 +41,19 @@ namespace OnlineGym.Entities.Models
 		public DateOnly? EndDate { get; set; }
 
 
+		
+		public bool? Gender { get; set; }
 
+		public int? Hight {  get; set; }
 
+		public float? Weight { get; set; }
+		public float? BodyFat { get; set; }
+
+		public int? Age { get; set; }
+
+		public string? Target { get; set; }
+
+		public string? Diseases { get; set; }
 
 
 

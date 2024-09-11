@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -10,8 +11,9 @@ namespace OnlineGym.Entities.Models
 	public class Benefit
 	{
         
-        public int BenefitId { get; set; }	
+        public int BenefitId { get; set; }
 
+		[Required]
 		public string? description { get; set; }
 
 

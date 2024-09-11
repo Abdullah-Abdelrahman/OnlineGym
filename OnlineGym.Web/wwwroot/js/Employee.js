@@ -27,6 +27,8 @@ function loadData() {
                     <a href="/Admin/Employee/Details/${data}" class="btn btn-info">More</a>
 
                     <a href="/Admin/Employee/Update/${data}" class="btn btn-success">update</a>
+                    <a href="/Admin/Employee/Bouns/${data}" class="btn btn-warning">Bouns</a>
+
                     <a onClick=DeleteItem("/Admin/Employee/Delete/${data}") class="btn btn-danger">delete</a>
                     `
                 }

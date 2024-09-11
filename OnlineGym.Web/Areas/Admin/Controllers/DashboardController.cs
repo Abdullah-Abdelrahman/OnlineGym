@@ -31,5 +31,9 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
 			informations[1] = _context.ClientSubscription.GetAll(c => c.Status == "Proccessed").ToList().Count;
 			return View(informations);
         }
+
+
     }
+
+   
 }

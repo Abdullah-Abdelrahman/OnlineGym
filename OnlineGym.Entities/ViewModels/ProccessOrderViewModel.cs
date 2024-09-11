@@ -17,7 +17,7 @@ namespace OnlineGym.Entities.ViewModels
 		[Required]
 		public List<int>? EmpIds { get; set; }
 
-		public List<IEnumerable<SelectListItem>>? Emps { get; set; }
+		public List<List<SelectListItem>>? Emps { get; set; }
 
 		public List<JobTitle>? JobsNeed { get; set; }
 

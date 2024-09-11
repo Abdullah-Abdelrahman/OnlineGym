@@ -13,13 +13,13 @@
 			<div class="form-group">
 				<label asp-for="Subscription.SubscriptionName">Subscription Name</label>
 				<input type="text" asp-for="Subscription.SubscriptionName" class="form-control" />
-				<span asp-validation-for="Subscription.SubscriptionName"></span>
+				<span asp-validation-for="Subscription.SubscriptionName" class="text-danger"></span>
 			</div>
 
 			<div class="form-group">
 				<label  asp-for="Subscription.Price">Subscription Price</label>
 				<input type="number" asp-for="Subscription.Price" class="form-control" />
-				<span asp-validation-for="Subscription.Price"></span>
+				<span asp-validation-for="Subscription.Price" class="text-danger"></span>
 			</div>
 
 	
@@ -27,7 +27,7 @@
 			<div class="form-group">
 				<label  asp-for="Subscription.DurationDays">Subscription DurationDays</label>
 				<input type="number" asp-for="Subscription.DurationDays" class="form-control" />
-				<span asp-validation-for="Subscription.DurationDays"></span>
+				<span asp-validation-for="Subscription.DurationDays" class="text-danger"></span>
 			</div>
 
 

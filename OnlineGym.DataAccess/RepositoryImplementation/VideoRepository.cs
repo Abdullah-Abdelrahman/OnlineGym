@@ -21,7 +21,15 @@ namespace OnlineGym.DataAccess.RepositoryImplementation
 		}
 		public void Update(Video video)
 		{
-			throw new NotImplementedException();
+			var videoInDb = _context.Videos.FirstOrDefault(x => x.Id == video.Id);
+
+			if (videoInDb != null)
+			{
+				videoInDb.Url = video.Url;
+				videoInDb.Title = video.Title;
+				videoInDb.category = video.category;
+			
+			}
 		}
 	}
 }

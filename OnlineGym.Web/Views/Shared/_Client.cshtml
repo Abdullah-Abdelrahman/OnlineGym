@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using OnlineGym.Utilities
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -36,16 +37,16 @@
                                 <a class="nav-link" href="/Client/Home">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#Plans">Plans</a>
+                                <a class="nav-link" href="/Client/Home#Plans">Plans</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">About</a>
+                                <a class="nav-link" href="/Client/About">About</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Contact</a>
+                                <a class="nav-link" href="/Client/Contact">Contact</a>
                             </li>
 
-                            @if (User.IsInRole("Admin"))
+                            @if (User.IsInRole(SD.AdminRole))
                             {
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -53,22 +54,39 @@
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                         <a class="dropdown-item" href="/Admin/Dashboard/index">DashBoard</a>
-                                        <a class="dropdown-item" href="#">Settings</a>
+                                        <a class="dropdown-item" href="/Client/Dashboard/PersonalInformation">Settings</a>
                                      
                                     </div>
                                 </li>
                             }
-                            else if(User.Identity.IsAuthenticated)
+                            else if (User.IsInRole(SD.CoachRole))
                             {
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fa-solid fa-gear"></i>
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                     
-                                        <a class="dropdown-item" href="#">Settings</a>
+                                        <a class="dropdown-item" href="/Coach/Dashboard/index">DashBoard</a>
+                                        <a class="dropdown-item" href="/Client/Dashboard/PersonalInformation">Settings</a>
 
-                                        <a class="dropdown-item" href="#">My subscription</a>
+                                    </div>
+                                </li>
+                            }
+                            else if(User.IsInRole(SD.CustomerRole))
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa-solid fa-gear"></i>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+                                        <a class="dropdown-item" href="/Client/Dashboard/PersonalInformation">Your Profile</a>
+                                        <a class="dropdown-item" href="/Client/Dashboard/Training">Training</a>
+                                        <a class="dropdown-item" href="/Client/Dashboard/Diet">Diet</a>
+                                        <a class="dropdown-item" href="/Client/Dashboard/Gifts">Gifts</a>
+                                        <a class="dropdown-item" href="/Client/Dashboard/offers">offers for you </a>
+
+
 
                                     </div>
                                 </li>
@@ -79,7 +97,8 @@
                           
                           
                         </ul>
-                        <ul class="navbar-nav ml-auto">
+                        
+                        <ul class="navbar-nav ml-auto" >
                             <partial name="_LoginPartial" />
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Arabic</a>
@@ -99,9 +118,9 @@
         <div class="container">
 
             <div class="text">
-                <h1>Forget About Boring Diets & Build a Healthy Lifestyle</h1>
-                <p>More than 1000+ transformed their physique in the last 2 years without going back.</p>
-                <p>I WILL DO THE SAME FOR YOU, WITH MY PERSONALIZED GUIDE.</p>
+                <h1>Are You Ready To Change Your Body & Build a Strong Mind</h1>
+                <p>More than 1000+ Changed their Life in the last 3 years without going back.</p>
+                <p>I WILL DO THE SAME FOR YOU, WITH MY SPCIALIZED GUIDE.</p>
 
                 <a class="btn btn-warning" href="#Plans">Change Your Body Now</a>
 
@@ -125,15 +144,15 @@
     <section class="footer">
         <div class="container">
             <div class="one">
-                <p>Abdullah</p>
+                <p>BRAND</p>
                 <ul>
                     <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
                     <li><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
-                    <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
                 </ul>
 
             </div>
-            <ul class="two" >
+            <ul class="two" style="list-style:none">
                 <li><a href="#" style="text-decoration:none"><i class="fa-solid fa-angles-right"></i>About</a></li>
                 <li><a href="#" style="text-decoration:none"><i class="fa-solid fa-angles-right"></i>Contact</a></li>
                 <li><a href="#" style="text-decoration:none"><i class="fa-solid fa-angles-right"></i>Our plans</a></li>

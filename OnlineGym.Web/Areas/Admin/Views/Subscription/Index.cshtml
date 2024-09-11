@@ -5,16 +5,23 @@
     ViewBag.cardTitle = "View Subscriptions";
 }
 @model List<Subscription>
+
+
+<link rel="stylesheet" href="~/Admin/Css/Subscription.css">
+
 <section class="Subscription-table">
 
     <div style="margin-bottom:10px;display:flex;justify-content:center">
         <a href="/Admin/Subscription/Create" class="btn btn-primary">Create</a>
+        <div id="diamond" class="state0">
+            <span id="percentage">0/3</span>
+        </div>
     </div>
-
+ 
 
 
     <div class="container">
-
+       
         <table id="SubscriptionTable" class="display table">
 
             <thead>
@@ -40,9 +47,19 @@
                       
 
                         <td>
-                            <a href="/Admin/Subscription/More/@Model[i].SubscriptionId" class="btn btn-info">More</a>
+                            @if (Model[i].IsActive == false)
+                            {
+                                <button type="button" id="usebtn[@Model[i].SubscriptionId]" onclick="ChangeState(`@Model[i].SubscriptionId`)" class="btn use">USE</button>
+
+                            }
+                            else
+                            {
+                                <button type="button" id="usebtn[@Model[i].SubscriptionId]" onclick="ChangeState(`@Model[i].SubscriptionId`)" class="btn disuse">DISUSE</button>
+
+
+                            }
+                            <a href="/Admin/Subscription/Details/@Model[i].SubscriptionId" class="btn btn-info">More</a>
                             <a href="/Admin/Subscription/Update/@Model[i].SubscriptionId" class="btn btn-success">Update</a>
-                            <a href="/Admin/Subscription/Delete/@Model[i].SubscriptionId" class="btn btn-danger">Delete</a>
                         </td>
 
                     </tr>
@@ -69,7 +86,9 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-
+    <script src="~/js/Subscription.js"></script>
  
-
+    <script>
+        start(0);
+    </script>
 }

@@ -1,4 +1,5 @@
-﻿@{
+﻿@using OnlineGym.Utilities
+@{
 	
 
 	ViewBag.title = "Order management";
@@ -99,21 +100,39 @@
 			</div>
 
 			<div class="buttons" style="display:flex;justify-content:center">
-				@if (Model.clientSubscription.Status == "Aproved")
+				@if (Model.clientSubscription.Status == SD.Aproved)
 				{
 
-					<a class="btn btn-primary" href="/Admin/Order/Proccessing?id=@Model.ClientSubscriptionId">Start Proccess</a>
+					<a class="btn btn-primary" asp-action="Proccessing" asp-route-id="@Model.ClientSubscriptionId">Start Proccess</a>
 					
 
 				}
-				@if (Model.clientSubscription.Status == "Proccessed")
+				else if (Model.clientSubscription.Status == SD.Proccess)
 				{
 
-					<a class="btn btn-primary" href="/Admin/Order/Shipping?id=@Model.ClientSubscriptionId">Start Shiping</a>
+					<a class="btn btn-primary" asp-action="TakeClientInformation" asp-route-id="@Model.ClientSubscriptionId">Continue proccess</a>
+
+				}
+				else if (Model.clientSubscription.Status == SD.proccessed)
+				{
+
+					<a class="btn btn-primary" >@SD.proccessed</a>
 	
 				}
+				else if (Model.clientSubscription.Status == SD.Working)
+				{
 
-				@if (Model.clientSubscription.Status != "Canceled")
+					<a class="btn btn-primary">@SD.Working</a>
+
+				}
+				else if (Model.clientSubscription.Status == SD.Finished)
+				{
+
+					<a class="btn btn-primary">@SD.Finished</a>
+
+				}
+
+				@if (Model.clientSubscription.Status != SD.Canceled)
 				{
 					<button class="btn btn-danger" asp-controller="Order"  asp-action="CancelOrder" asp-route-id="@Model.clientSubscription.ClientSubscriptionId"> Cancel Order </button>
 

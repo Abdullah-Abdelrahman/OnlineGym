@@ -56,6 +56,16 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+    <Content Update="Areas\Identity\Pages\Account\Manage\_DashBoard.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Client\ProfilePhotos\" />
+    <Folder Include="wwwroot\GymImages\DayImages\" />
+    <Folder Include="wwwroot\GymImages\SubscriptionImages\" />
   </ItemGroup>
 
 </Project>

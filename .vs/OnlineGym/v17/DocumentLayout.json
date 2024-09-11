@@ -3,20 +3,16 @@
   "WorkspaceRootPath": "E:\\All_of_my_projrcts\\OnlineGym\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A7955224-A6B5-4B32-92DE-91F89737C735}|OnlineGym.Web\\OnlineGym.Web.csproj|e:\\all_of_my_projrcts\\onlinegym\\onlinegym.web\\areas\\admin\\views\\benefit\\update.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A7955224-A6B5-4B32-92DE-91F89737C735}|OnlineGym.Web\\OnlineGym.Web.csproj|solutionrelative:onlinegym.web\\areas\\admin\\views\\benefit\\update.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{A7955224-A6B5-4B32-92DE-91F89737C735}|OnlineGym.Web\\OnlineGym.Web.csproj|e:\\all_of_my_projrcts\\onlinegym\\onlinegym.web\\areas\\client\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A7955224-A6B5-4B32-92DE-91F89737C735}|OnlineGym.Web\\OnlineGym.Web.csproj|solutionrelative:onlinegym.web\\areas\\client\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A7955224-A6B5-4B32-92DE-91F89737C735}|OnlineGym.Web\\OnlineGym.Web.csproj|e:\\all_of_my_projrcts\\onlinegym\\onlinegym.web\\wwwroot\\js\\benifit.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{A7955224-A6B5-4B32-92DE-91F89737C735}|OnlineGym.Web\\OnlineGym.Web.csproj|solutionrelative:onlinegym.web\\wwwroot\\js\\benifit.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{A7955224-A6B5-4B32-92DE-91F89737C735}|OnlineGym.Web\\OnlineGym.Web.csproj|e:\\all_of_my_projrcts\\onlinegym\\onlinegym.web\\areas\\client\\views\\dashboard\\currentsubscription.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A7955224-A6B5-4B32-92DE-91F89737C735}|OnlineGym.Web\\OnlineGym.Web.csproj|solutionrelative:onlinegym.web\\areas\\client\\views\\dashboard\\currentsubscription.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A7955224-A6B5-4B32-92DE-91F89737C735}|OnlineGym.Web\\OnlineGym.Web.csproj|e:\\all_of_my_projrcts\\onlinegym\\onlinegym.web\\areas\\admin\\controllers\\benefitcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A7955224-A6B5-4B32-92DE-91F89737C735}|OnlineGym.Web\\OnlineGym.Web.csproj|solutionrelative:onlinegym.web\\areas\\admin\\controllers\\benefitcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A7955224-A6B5-4B32-92DE-91F89737C735}|OnlineGym.Web\\OnlineGym.Web.csproj|e:\\all_of_my_projrcts\\onlinegym\\onlinegym.web\\areas\\admin\\views\\benefit\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A7955224-A6B5-4B32-92DE-91F89737C735}|OnlineGym.Web\\OnlineGym.Web.csproj|solutionrelative:onlinegym.web\\areas\\admin\\views\\benefit\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{A7955224-A6B5-4B32-92DE-91F89737C735}|OnlineGym.Web\\OnlineGym.Web.csproj|e:\\all_of_my_projrcts\\onlinegym\\onlinegym.web\\areas\\client\\views\\dashboard\\allsubscription.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A7955224-A6B5-4B32-92DE-91F89737C735}|OnlineGym.Web\\OnlineGym.Web.csproj|solutionrelative:onlinegym.web\\areas\\client\\views\\dashboard\\allsubscription.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,54 +34,41 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "E:\\All_of_my_projrcts\\OnlineGym\\OnlineGym.Web\\Areas\\Admin\\Views\\Benefit\\Index.cshtml",
-              "RelativeDocumentMoniker": "OnlineGym.Web\\Areas\\Admin\\Views\\Benefit\\Index.cshtml",
-              "ToolTip": "E:\\All_of_my_projrcts\\OnlineGym\\OnlineGym.Web\\Areas\\Admin\\Views\\Benefit\\Index.cshtml",
-              "RelativeToolTip": "OnlineGym.Web\\Areas\\Admin\\Views\\Benefit\\Index.cshtml",
-              "ViewState": "AQIAABgAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-07-16T15:07:12.766Z",
+              "DocumentIndex": 0,
+              "Title": "DashboardController.cs",
+              "DocumentMoniker": "E:\\All_of_my_projrcts\\OnlineGym\\OnlineGym.Web\\Areas\\Client\\Controllers\\DashboardController.cs",
+              "RelativeDocumentMoniker": "OnlineGym.Web\\Areas\\Client\\Controllers\\DashboardController.cs",
+              "ToolTip": "E:\\All_of_my_projrcts\\OnlineGym\\OnlineGym.Web\\Areas\\Client\\Controllers\\DashboardController.cs",
+              "RelativeToolTip": "OnlineGym.Web\\Areas\\Client\\Controllers\\DashboardController.cs",
+              "ViewState": "AQIAAFoAAAAAAAAAAAAkwG0AAAAHAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-11T01:45:35.895Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Benifit.js",
-              "DocumentMoniker": "E:\\All_of_my_projrcts\\OnlineGym\\OnlineGym.Web\\wwwroot\\js\\Benifit.js",
-              "RelativeDocumentMoniker": "OnlineGym.Web\\wwwroot\\js\\Benifit.js",
-              "ToolTip": "E:\\All_of_my_projrcts\\OnlineGym\\OnlineGym.Web\\wwwroot\\js\\Benifit.js",
-              "RelativeToolTip": "OnlineGym.Web\\wwwroot\\js\\Benifit.js",
-              "ViewState": "AQIAAGUAAAAAAAAAAAAkwIsAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-07-16T15:06:56.789Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Update.cshtml",
-              "DocumentMoniker": "E:\\All_of_my_projrcts\\OnlineGym\\OnlineGym.Web\\Areas\\Admin\\Views\\Benefit\\Update.cshtml",
-              "RelativeDocumentMoniker": "OnlineGym.Web\\Areas\\Admin\\Views\\Benefit\\Update.cshtml",
-              "ToolTip": "E:\\All_of_my_projrcts\\OnlineGym\\OnlineGym.Web\\Areas\\Admin\\Views\\Benefit\\Update.cshtml",
-              "RelativeToolTip": "OnlineGym.Web\\Areas\\Admin\\Views\\Benefit\\Update.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAACAAAAAEAAAA",
+              "Title": "CurrentSubscription.cshtml",
+              "DocumentMoniker": "E:\\All_of_my_projrcts\\OnlineGym\\OnlineGym.Web\\Areas\\Client\\Views\\Dashboard\\CurrentSubscription.cshtml",
+              "RelativeDocumentMoniker": "OnlineGym.Web\\Areas\\Client\\Views\\Dashboard\\CurrentSubscription.cshtml",
+              "ToolTip": "E:\\All_of_my_projrcts\\OnlineGym\\OnlineGym.Web\\Areas\\Client\\Views\\Dashboard\\CurrentSubscription.cshtml",
+              "RelativeToolTip": "OnlineGym.Web\\Areas\\Client\\Views\\Dashboard\\CurrentSubscription.cshtml",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAABMAAACKAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-07-16T15:03:53.792Z",
+              "WhenOpened": "2024-09-11T01:43:27.289Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "BenefitController.cs",
-              "DocumentMoniker": "E:\\All_of_my_projrcts\\OnlineGym\\OnlineGym.Web\\Areas\\Admin\\Controllers\\BenefitController.cs",
-              "RelativeDocumentMoniker": "OnlineGym.Web\\Areas\\Admin\\Controllers\\BenefitController.cs",
-              "ToolTip": "E:\\All_of_my_projrcts\\OnlineGym\\OnlineGym.Web\\Areas\\Admin\\Controllers\\BenefitController.cs",
-              "RelativeToolTip": "OnlineGym.Web\\Areas\\Admin\\Controllers\\BenefitController.cs",
-              "ViewState": "AQIAAEkAAAAAAAAAAAAkwE0AAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-16T14:56:20.499Z",
+              "Title": "AllSubscription.cshtml",
+              "DocumentMoniker": "E:\\All_of_my_projrcts\\OnlineGym\\OnlineGym.Web\\Areas\\Client\\Views\\Dashboard\\AllSubscription.cshtml",
+              "RelativeDocumentMoniker": "OnlineGym.Web\\Areas\\Client\\Views\\Dashboard\\AllSubscription.cshtml",
+              "ToolTip": "E:\\All_of_my_projrcts\\OnlineGym\\OnlineGym.Web\\Areas\\Client\\Views\\Dashboard\\AllSubscription.cshtml",
+              "RelativeToolTip": "OnlineGym.Web\\Areas\\Client\\Views\\Dashboard\\AllSubscription.cshtml",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAABAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-09-11T01:35:33.495Z",
               "EditorCaption": ""
             }
           ]

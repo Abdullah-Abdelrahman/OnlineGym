@@ -52,6 +52,16 @@ public partial class OnlineGymContext :IdentityDbContext<IdentityUser>
 
 
     public virtual DbSet<Video> Videos { get; set; }
+
+    public virtual DbSet<TrainingPlan> TrainingPlans { get; set; }
+
+    public virtual DbSet<Day> Days { get; set; }
+
+    public virtual DbSet<Exercise> Exercise { get; set; }   
+
+    public virtual DbSet<DayExercise> DayExercise { get; set; }
+
+    public virtual DbSet<SalaryHistory> SalaryHistories { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         //optionsBuilder.UseSqlServer("Data Source=DESKTOP-30J4B23\\SQLEXPRESS;Initial Catalog= OnlineGym ;Integrated Security=True;Connect Timeout=100;Trust Server Certificate=True");
@@ -211,11 +221,11 @@ public partial class OnlineGymContext :IdentityDbContext<IdentityUser>
 		);
 
 
-
-        modelBuilder.Entity<Benefit>()
-    .HasMany(s => s.jobTitles)
-    .WithMany(b => b.benefits)
-    .UsingEntity<BenefitJobTitle>(
+       
+           modelBuilder.Entity<Benefit>()
+       .HasMany(s => s.jobTitles)
+       .WithMany(b => b.benefits)
+       .UsingEntity<BenefitJobTitle>(
         j => j
             .HasOne(sb => sb.JobTitle)
             .WithMany(b => b.benefitJobs)
@@ -248,7 +258,27 @@ public partial class OnlineGymContext :IdentityDbContext<IdentityUser>
             	 j.HasKey(t => new { t.EmployeeId, t.ClientSubscriptionId });
              }
             );
-		OnModelCreatingPartial(modelBuilder);
+
+
+        modelBuilder.Entity<Day>()
+        .HasMany(s => s.exercises)
+        .WithMany(b => b.days)
+        .UsingEntity<DayExercise>(
+         j => j
+             .HasOne(sb => sb.Exercise)
+             .WithMany(b => b.dayExercises)
+             .HasForeignKey(sb => sb.ExerciseId),
+         j => j
+             .HasOne(sb => sb.day)
+             .WithMany(s => s.dayExercises)
+             .HasForeignKey(sb => sb.dayId),
+         j =>
+         {
+             j.HasKey(t => new { t.dayId, t.ExerciseId });
+         }
+        );
+
+        OnModelCreatingPartial(modelBuilder);
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

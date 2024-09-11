@@ -1,0 +1,42 @@
+﻿@{
+    Layout = "_DashBoard";
+}
+@model List<TrainingPlan>
+
+<div class="container" style="display:flex;flex-wrap:wrap;justify-content: space-between;">
+
+    @{
+        
+        foreach (var Item in Model)
+        {
+            <a style="width:45%;height:100px;" href="/Client/DashBoard//@Item.Id" >
+                <div class="card" style="width:100%;height:100%;border-radius:10px">
+                    @{
+                        Random rn = new Random();
+                        string x = rn.Next(1, 10).ToString() + ".jpg";
+                        <div class="card-body" style="background-image:url(/Client/images/dragon_@x);border-radius:10px">
+                            <p class="card-text"> </p>
+                        </div>
+                    }
+
+
+
+
+                </div>
+            </a>
+
+        }
+    }
+
+</div>
+
+@section Scripts {
+
+
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+
+}

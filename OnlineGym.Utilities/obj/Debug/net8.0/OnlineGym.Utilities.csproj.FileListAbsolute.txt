@@ -10,3 +10,4 @@ E:\All_of_my_projrcts\OnlineGym\OnlineGym.Utilities\obj\Debug\net8.0\refint\Onli
 E:\All_of_my_projrcts\OnlineGym\OnlineGym.Utilities\obj\Debug\net8.0\OnlineGym.Utilities.pdb
 E:\All_of_my_projrcts\OnlineGym\OnlineGym.Utilities\obj\Debug\net8.0\ref\OnlineGym.Utilities.dll
 E:\All_of_my_projrcts\OnlineGym\OnlineGym.Utilities\obj\Debug\net8.0\OnlineGym.Utilities.csproj.AssemblyReference.cache
+E:\All_of_my_projrcts\OnlineGym\OnlineGym.Utilities\obj\Debug\net8.0\OnlineGym.Utilities.sourcelink.json

@@ -9,7 +9,7 @@
 <section class="Create-Benefit">
 	<div class="container">
 		<form method="post">
-
+			<input hidden asp-for="Benefit.BenefitId"/>
 			<div class="form-group">
 				<label asp-for="@Model.Benefit.description">Benefit description</label>
 				<input asp-for="@Model.Benefit.description" class="form-control" />
@@ -29,18 +29,47 @@
 					Add jobs
 
 				</div>
+				@for(int i = 0; i < Model.JobsId.Count; i++)
+				{
+					List<SelectListItem> jobs = Model.Jobs.ToList();
+					<div class="form-group">
+						<label for="JobsId[@i]">Job @(i+1)</label>
+						<div style="display:flex;justify-content:center">
 
-				
+							<select id="JobsId[@i]" name="JobsId[@i]" class="form-control">
+								<option value="0">-- Select jobs</option>
+
+								@for (int j = 0; j < jobs.Count; j++)
+								{
+									if (Model.JobsId[i].ToString() == jobs[j].Value)
+									{
+										<option selected value="@jobs[j].Value">@jobs[j].Text</option>
+
+									}
+									else
+									{
+										<option  value="@jobs[j].Value">@jobs[j].Text</option>
+
+									}
+								}
+						
+							</select>
+
+							<button type="button" onclick="remove(@i)" class="btn btn-danger">X</button>
+						</div>
+					</div>
+				}
+
 
 				<div>
-					<button type="button" onclick="addd()" class="btn btn-primary">+</button>
+					<button type="button" onclick="add()" class="btn btn-primary">+</button>
 				</div>
 
 			</div>
 
 
 			<div class="form-group">
-				<button class="btn btn-primary"> Create </button>
+				<button class="btn btn-primary" style="margin-top:10px"> Edit </button>
 
 			</div>
 
@@ -54,4 +83,8 @@
 		await Html.RenderPartialAsync("_ValidationScriptsPartial");
 	}
 	<script src="~/js/Benifit.js"></script>
+	<script>
+		start(@Model.JobsId.Count);
+
+	</script>
 }

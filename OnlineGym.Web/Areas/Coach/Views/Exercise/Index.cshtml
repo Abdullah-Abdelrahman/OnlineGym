@@ -1,0 +1,71 @@
+﻿@{
+
+    ViewBag.title = "Exercise management";
+    ViewBag.cardTitle = "View Exercise";
+}
+@model List<Exercise>
+<section class="Exercise-table" style="width:100%">
+
+    <div style="margin-bottom:10px;display:flex;justify-content:center">
+        <a href="/Admin/Exercise/Create" class="btn btn-primary">Create</a>
+    </div>
+
+
+
+    <div class="container">
+
+        <table id="ExerciseTable" style="width:100%" class="display  table table-striped">
+
+            <thead>
+
+                <tr>
+                    <th>id</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>VideoUrl</th>
+                    <th>comment</th>
+
+                </tr>
+            </thead>
+            <tbody id="t-body">
+
+                @for (int i = 0; i < Model?.Count(); i++)
+                {
+                    <tr>
+                        <td>@Model[i].Id</td>
+                        <td>@Model[i].Name</td>
+
+                        <td>@Model[i].Description</td>
+
+                        <td>@Model[i].VideoUrl</td>
+
+                        <td>
+                            <button class="btn btn-primary">send message</button>
+                        </td>
+
+                    </tr>
+                }
+
+
+
+            </tbody>
+
+
+
+
+        </table>
+
+    </div>
+</section>
+
+
+
+@section Scripts {
+
+
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}

@@ -1,10 +1,12 @@
 ﻿@{
     if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout !=  null)
     {
-        Layout = parentLayout.ToString();
+        //Layout = parentLayout.ToString();
+        Layout = "_DashBoard.cshtml";
     }
     else
     {
+        Layout = "_DashBoard.cshtml";
         Layout = "/Areas/Identity/Pages/_Layout.cshtml";
     }
 }

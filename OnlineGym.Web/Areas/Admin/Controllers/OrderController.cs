@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using OnlineGym.Entities.Models;
 using OnlineGym.Entities.Repository;
 using OnlineGym.Entities.ViewModels;
@@ -82,23 +83,19 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
         }
 
 
-        [HttpGet]
+       
         public IActionResult Proccessing(int id)
         {
             
 
             ClientSubscription cs = _context.ClientSubscription.GetFirstOrDefualt(c => c.ClientSubscriptionId == id);
-            cs.Status = "Proccessing";
+            cs.Status = SD.Proccess;
 			_context.ClientSubscription.Uppdate(cs);
 			_context.Comlete();
 
 
 			cs.Subscription = _context.Subscription.GetFirstOrDefualt(s => s.SubscriptionId == cs.SubscriptionId, IncludeWord: "Benefits");
 
-
-
-
-            
 
 			ProccessOrderViewModel POVM = new ProccessOrderViewModel();
 
@@ -107,7 +104,7 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
             POVM.JobsNeed =new List<JobTitle>();
 
 
-            POVM.Emps=new List<IEnumerable<SelectListItem>>();
+            POVM.Emps=new List<List<SelectListItem>>();
             foreach(var i in cs.Subscription.Benefits)
             {
                 List<JobTitle> jobTitles = _context.Benefit.GetFirstOrDefualt(b => b.BenefitId == i.BenefitId, IncludeWord: "jobTitles").jobTitles.ToList();
@@ -118,83 +115,81 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
                     {
                         POVM.JobsNeed.Add(jobTitles[j]);
 
+                        ClientSubscriptionDetailsEmployee CSDE = new ClientSubscriptionDetailsEmployee();
 
-                        POVM.Emps.Add(_context.Employee.GetAll(e => e.JobTitleId == jobTitles[j].JobTitleId).Select(p => new SelectListItem { Text = p.Name, Value = p.EmployeeId.ToString() }));
+                        CSDE.ClientSubscriptionId = id;
+                        Employee emp = _context.Employee.GetFirstOrDefualt(e => e.JobTitleId == jobTitles[j].JobTitleId, IncludeWord: "clientSubscriptionDetailsEmployees");
+
+						CSDE.EmployeeId = emp.EmployeeId;
+       
+                        _context.ClientSubscriptionDetailsEmployee.Add(CSDE);
+                        _context.Comlete();
+                        
 
                     }
                 }
             }
 
-			return View(POVM);
+
+
+
+            ///
+			_context.ClientSubscription.Uppdate(cs);
+			_context.Comlete();
+			return RedirectToAction("Details", new {id=id });
         }
-
-		[HttpPost]
-        [ValidateAntiForgeryToken]
-		public IActionResult Proccessing(ProccessOrderViewModel POVM)
-		{
-			ClientSubscription cs = _context.ClientSubscription.GetFirstOrDefualt(c => c.ClientSubscriptionId == POVM.orderId);
-
-			 cs.Subscription = _context.Subscription.GetFirstOrDefualt(s => s.SubscriptionId == cs.SubscriptionId, IncludeWord: "Benefits");
-
-			POVM.JobsNeed = new List<JobTitle>();
-
-			POVM.Emps = new List<IEnumerable<SelectListItem>>();
-			foreach (var i in cs.Subscription.Benefits)
-			{
-				List<JobTitle> jobTitles = _context.Benefit.GetFirstOrDefualt(b => b.BenefitId == i.BenefitId, IncludeWord: "jobTitles").jobTitles.ToList();
-
-				for (int j = 0; j < jobTitles.Count; j++)
-				{
-					if (!POVM.JobsNeed.Any(b => b.JobTitleId == jobTitles[j].JobTitleId))
-					{
-						POVM.JobsNeed.Add(jobTitles[j]);
-
-
-						POVM.Emps.Add(_context.Employee.GetAll(e => e.JobTitleId == jobTitles[j].JobTitleId).Select(p => new SelectListItem { Text = p.Name, Value = p.EmployeeId.ToString() }));
-
-					}
-				}
-			}
-
-
-			if (POVM!=null&&POVM.valid())
-            {
-				
-				cs.Status = "Proccessed";
-				_context.ClientSubscription.Uppdate(cs);
-				_context.Comlete();
-			}
-            else
-            {
-				return View(POVM);
-
-			}
-
-            return RedirectToAction("Details",new { id = POVM.orderId });
-
-
-
-
-
-
-
-
-
-
-
-		}
-
 
 
         [HttpGet]
-        public IActionResult Shipping(int id)
+        public IActionResult TakeClientInformation(int id)
         {
-            return View();
+			ClientSubscriptionDetails CsD = _context.ClientSubscriptionDetails.GetFirstOrDefualt(cs => cs.ClientSubscriptionId ==id);
+			return View(CsD);
         }
 
 		[HttpPost]
-		public IActionResult Shipping()
+		public IActionResult TakeClientInformation(ClientSubscriptionDetails Details)
 		{
+
+            ClientSubscriptionDetails CsD=_context.ClientSubscriptionDetails.GetFirstOrDefualt(cs=>cs.ClientSubscriptionId==Details.ClientSubscriptionId);
+
+            CsD.Gender =  Details?.Gender;
+                          
+            CsD.Hight = Details?.Hight;
+                        
+            CsD.Weight = Details?.Weight;
+            CsD.BodyFat = Details?.BodyFat;
+                         
+            CsD.Age = Details?.Age;
+                        
+            CsD.Target = Details?.Target;
+                         
+            CsD.Diseases = Details?.Diseases;
+
+			_context.Comlete();
+			return RedirectToAction("Proccessed", new { id = Details.ClientSubscriptionId });
+		}
+
+	
+		public IActionResult Proccessed(int id)
+		{
+
+			ClientSubscription cs = _context.ClientSubscription.GetFirstOrDefualt(c => c.ClientSubscriptionId == id);
+			cs.Status = SD.proccessed;
+			_context.ClientSubscription.Uppdate(cs);
+			_context.Comlete();
+			return RedirectToAction("Details", new { id = id });
+		}
+
+
+		[HttpPost]
+		public IActionResult OrderEnd(int id)
+		{
+
+			ClientSubscription cs = _context.ClientSubscription.GetFirstOrDefualt(c => c.ClientSubscriptionId == id);
+			cs.Status = SD.Finished;
+			_context.ClientSubscription.Uppdate(cs);
+			_context.Comlete();
 			return View();
 		}
 

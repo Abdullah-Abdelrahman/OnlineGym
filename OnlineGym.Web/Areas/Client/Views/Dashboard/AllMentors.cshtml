@@ -1,0 +1,53 @@
+﻿@{
+    Layout = "_DashBoard";
+}
+@model List<OnlineGym.Entities.Models.Client>
+
+<div class="container" style="display:flex;flex-wrap:wrap;justify-content: space-between;">
+
+    @{
+
+        foreach (var Item in Model)
+        {
+
+            <div class="card" style="width: 15rem;">
+
+                <div style="height:15rem;overflow:hidden">
+                    @if (Item.ProfilePhoto != null && Item.ProfilePhoto != "")
+                    {
+                        <img class="card-img-top" src="~/Client/ProfilePhotos/@Item.ProfilePhoto" alt="Card image cap">
+
+                    }
+                    else
+                    {
+                        <img class="card-img-top" src="~/Client/ProfilePhotos/no_User_Photo.jpg" alt="Card image cap">
+
+
+                    }
+
+                </div>
+
+                <div class="card-body">
+                    <h5 class="card-title">@Item.Name</h5>
+                    <p class="card-text"></p>
+                    <a href="https://wa.me/@Item.PhoneNumber" class="btn btn-primary">Contact</a>
+                </div>
+            </div>
+
+
+
+        }
+    }
+
+</div>
+
+@section Scripts {
+
+
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+
+}

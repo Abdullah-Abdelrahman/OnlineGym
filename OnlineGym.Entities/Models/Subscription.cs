@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text.Json.Serialization;
 
 namespace OnlineGym.Entities.Models;
@@ -13,6 +14,9 @@ public  class Subscription
     public int Price { get; set; }
 
     public int DurationDays { get; set; }
+
+    [DefaultValue(false)]
+    public bool IsActive { get; set; }
 
     public ICollection<Benefit>? Benefits { get; set; }
     public List<SubscriptionBenefit>? SubscriptionBenefits { get; set; }

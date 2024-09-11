@@ -9,12 +9,13 @@
 <section class="Create-Benefit">
 	<div class="container">
 		<form method="post">
-
+			
+			
 			<div class="form-group">
 				<label asp-for="@Model.Benefit.description">Benefit description</label>
 				<input asp-for="@Model.Benefit.description" class="form-control"/>
 		
-				<span asp-validation-for="@Model.Benefit.description"></span>
+				<span asp-validation-for="@Model.Benefit.description" class="text-danger"></span>
 			</div>
 
 

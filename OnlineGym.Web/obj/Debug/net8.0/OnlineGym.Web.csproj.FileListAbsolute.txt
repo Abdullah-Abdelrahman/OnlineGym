@@ -596,3 +596,4 @@ E:\All_of_my_projrcts\OnlineGym\OnlineGym.Web\bin\Debug\net8.0\runtimes\win-x86\
 E:\All_of_my_projrcts\OnlineGym\OnlineGym.Web\bin\Debug\net8.0\OnlineGym.Utilities.dll
 E:\All_of_my_projrcts\OnlineGym\OnlineGym.Web\bin\Debug\net8.0\OnlineGym.Utilities.pdb
 E:\All_of_my_projrcts\OnlineGym\OnlineGym.Web\bin\Debug\net8.0\Stripe.net.dll
+E:\All_of_my_projrcts\OnlineGym\OnlineGym.Web\obj\Debug\net8.0\OnlineGym.Web.sourcelink.json

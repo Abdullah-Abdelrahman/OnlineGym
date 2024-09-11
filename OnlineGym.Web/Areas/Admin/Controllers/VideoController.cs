@@ -53,10 +53,35 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
 		}
 
 
+		[HttpGet]
+		public IActionResult Update(int id)
+		{
+
+			return View(_context.Video.GetFirstOrDefualt(e => e.Id == id));
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public IActionResult Update(Video video)
+		{
+
+			if (ModelState.IsValid)
+			{
+				_context.Video.Update(video);
+				_context.Comlete();
+				TempData["Updated"] = "true";
+				return RedirectToAction("Index");
+			}
+			else
+			{
+				return View(video);
+			}
 
 
+		}
 
-        [HttpDelete]
+
+		[HttpDelete]
         public IActionResult Delete(int id)
         {
             Video video = _context.Video.GetFirstOrDefualt(e => e.Id == id);

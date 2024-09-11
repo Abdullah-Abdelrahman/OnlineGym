@@ -34,7 +34,7 @@ namespace OnlineGym.DataAccess.Migrations
 
                     b.HasIndex("SubscriptionId");
 
-                    b.ToTable("ClientSubscription", (string)null);
+                    b.ToTable("ClientSubscription");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -253,11 +253,12 @@ namespace OnlineGym.DataAccess.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BenefitId"));
 
                     b.Property<string>("description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("BenefitId");
 
-                    b.ToTable("Benefits", (string)null);
+                    b.ToTable("Benefits");
                 });
 
             modelBuilder.Entity("OnlineGym.Entities.Models.BenefitJobTitle", b =>
@@ -272,7 +273,7 @@ namespace OnlineGym.DataAccess.Migrations
 
                     b.HasIndex("JobTitleId");
 
-                    b.ToTable("BenefitJobTitles", (string)null);
+                    b.ToTable("BenefitJobTitles");
                 });
 
             modelBuilder.Entity("OnlineGym.Entities.Models.ClientSubscription", b =>
@@ -331,6 +332,12 @@ namespace OnlineGym.DataAccess.Migrations
                     b.Property<int>("ClientSubscriptionId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<float?>("BodyFat")
+                        .HasColumnType("real");
+
                     b.Property<string>("ClientEmail")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -339,18 +346,33 @@ namespace OnlineGym.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Diseases")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateOnly?>("EndDate")
                         .HasColumnType("date");
 
+                    b.Property<bool?>("Gender")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("Hight")
+                        .HasColumnType("int");
+
                     b.Property<DateOnly?>("StartDate")
                         .HasColumnType("date");
+
+                    b.Property<string>("Target")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float?>("Weight")
+                        .HasColumnType("real");
 
                     b.Property<DateTime?>("paymentDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("ClientSubscriptionId");
 
-                    b.ToTable("ClientSubscriptionDetails", (string)null);
+                    b.ToTable("ClientSubscriptionDetails");
                 });
 
             modelBuilder.Entity("OnlineGym.Entities.Models.ClientSubscriptionDetailsEmployee", b =>
@@ -365,7 +387,46 @@ namespace OnlineGym.DataAccess.Migrations
 
                     b.HasIndex("ClientSubscriptionId");
 
-                    b.ToTable("ClientSubscriptionDetailsEmployees", (string)null);
+                    b.ToTable("ClientSubscriptionDetailsEmployees");
+                });
+
+            modelBuilder.Entity("OnlineGym.Entities.Models.Day", b =>
+                {
+                    b.Property<int>("DayId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DayId"));
+
+                    b.Property<int>("TrainingPlanId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("isDone")
+                        .HasColumnType("bit");
+
+                    b.HasKey("DayId");
+
+                    b.HasIndex("TrainingPlanId");
+
+                    b.ToTable("Days");
+                });
+
+            modelBuilder.Entity("OnlineGym.Entities.Models.DayExercise", b =>
+                {
+                    b.Property<int>("dayId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ExerciseId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("isDone")
+                        .HasColumnType("bit");
+
+                    b.HasKey("dayId", "ExerciseId");
+
+                    b.HasIndex("ExerciseId");
+
+                    b.ToTable("DayExercise");
                 });
 
             modelBuilder.Entity("OnlineGym.Entities.Models.Employee", b =>
@@ -405,6 +466,10 @@ namespace OnlineGym.DataAccess.Migrations
                         .HasColumnType("varchar(20)")
                         .HasColumnName("phone");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("gender")
                         .HasColumnType("bit");
 
@@ -412,7 +477,7 @@ namespace OnlineGym.DataAccess.Migrations
 
                     b.HasIndex("JobTitleId");
 
-                    b.ToTable("Employees", (string)null);
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("OnlineGym.Entities.Models.EmployeeRate", b =>
@@ -425,7 +490,32 @@ namespace OnlineGym.DataAccess.Migrations
 
                     b.HasKey("EmployeeId");
 
-                    b.ToTable("EmployeesRates", (string)null);
+                    b.ToTable("EmployeesRates");
+                });
+
+            modelBuilder.Entity("OnlineGym.Entities.Models.Exercise", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VideoUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Exercise");
                 });
 
             modelBuilder.Entity("OnlineGym.Entities.Models.JobTitle", b =>
@@ -441,6 +531,7 @@ namespace OnlineGym.DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("JopName")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .IsUnicode(false)
                         .HasColumnType("varchar(100)")
@@ -454,7 +545,7 @@ namespace OnlineGym.DataAccess.Migrations
 
                     b.HasKey("JobTitleId");
 
-                    b.ToTable("JobTitles", (string)null);
+                    b.ToTable("JobTitles");
                 });
 
             modelBuilder.Entity("OnlineGym.Entities.Models.Leave", b =>
@@ -480,7 +571,7 @@ namespace OnlineGym.DataAccess.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("Leaves", (string)null);
+                    b.ToTable("Leaves");
                 });
 
             modelBuilder.Entity("OnlineGym.Entities.Models.Salary", b =>
@@ -501,9 +592,42 @@ namespace OnlineGym.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasDefaultValue(0);
 
+                    b.Property<DateTime>("nextSalaryDate")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("EmployeeId");
 
-                    b.ToTable("Salaries", (string)null);
+                    b.ToTable("Salaries");
+                });
+
+            modelBuilder.Entity("OnlineGym.Entities.Models.SalaryHistory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Paid")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("PaidAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("bonus")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("SalaryHistories");
                 });
 
             modelBuilder.Entity("OnlineGym.Entities.Models.Subscription", b =>
@@ -519,6 +643,9 @@ namespace OnlineGym.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasColumnName("duration_days");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(10, 2)")
                         .HasColumnName("price");
@@ -533,7 +660,7 @@ namespace OnlineGym.DataAccess.Migrations
                     b.HasKey("SubscriptionId")
                         .HasName("PK__Subscrip__863A7EC12F00CCAA");
 
-                    b.ToTable("Subscriptions", (string)null);
+                    b.ToTable("Subscriptions");
                 });
 
             modelBuilder.Entity("OnlineGym.Entities.Models.SubscriptionBenefit", b =>
@@ -548,10 +675,32 @@ namespace OnlineGym.DataAccess.Migrations
 
                     b.HasIndex("SubscriptionId");
 
-                    b.ToTable("SubscriptionBenefits", (string)null);
+                    b.ToTable("SubscriptionBenefits");
                 });
 
-            modelBuilder.Entity("OnlineGym.Entities.Models.Videos", b =>
+            modelBuilder.Entity("OnlineGym.Entities.Models.TrainingPlan", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClientId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("Started")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
+
+                    b.ToTable("TrainingPlans");
+                });
+
+            modelBuilder.Entity("OnlineGym.Entities.Models.Video", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -572,7 +721,7 @@ namespace OnlineGym.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Videos", (string)null);
+                    b.ToTable("Videos");
                 });
 
             modelBuilder.Entity("OnlineGym.Entities.Models.Client", b =>
@@ -581,6 +730,9 @@ namespace OnlineGym.DataAccess.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProfilePhoto")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("Client");
@@ -722,6 +874,36 @@ namespace OnlineGym.DataAccess.Migrations
                     b.Navigation("Employee");
                 });
 
+            modelBuilder.Entity("OnlineGym.Entities.Models.Day", b =>
+                {
+                    b.HasOne("OnlineGym.Entities.Models.TrainingPlan", "TrainingPlan")
+                        .WithMany("Days")
+                        .HasForeignKey("TrainingPlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TrainingPlan");
+                });
+
+            modelBuilder.Entity("OnlineGym.Entities.Models.DayExercise", b =>
+                {
+                    b.HasOne("OnlineGym.Entities.Models.Exercise", "Exercise")
+                        .WithMany("dayExercises")
+                        .HasForeignKey("ExerciseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OnlineGym.Entities.Models.Day", "day")
+                        .WithMany("dayExercises")
+                        .HasForeignKey("dayId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Exercise");
+
+                    b.Navigation("day");
+                });
+
             modelBuilder.Entity("OnlineGym.Entities.Models.Employee", b =>
                 {
                     b.HasOne("OnlineGym.Entities.Models.JobTitle", "JobTitle")
@@ -766,6 +948,17 @@ namespace OnlineGym.DataAccess.Migrations
                     b.Navigation("Employee");
                 });
 
+            modelBuilder.Entity("OnlineGym.Entities.Models.SalaryHistory", b =>
+                {
+                    b.HasOne("OnlineGym.Entities.Models.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+                });
+
             modelBuilder.Entity("OnlineGym.Entities.Models.SubscriptionBenefit", b =>
                 {
                     b.HasOne("OnlineGym.Entities.Models.Benefit", "Benefit")
@@ -785,6 +978,17 @@ namespace OnlineGym.DataAccess.Migrations
                     b.Navigation("Subscription");
                 });
 
+            modelBuilder.Entity("OnlineGym.Entities.Models.TrainingPlan", b =>
+                {
+                    b.HasOne("OnlineGym.Entities.Models.Client", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Client");
+                });
+
             modelBuilder.Entity("OnlineGym.Entities.Models.Benefit", b =>
                 {
                     b.Navigation("SubscriptionBenefits");
@@ -802,9 +1006,19 @@ namespace OnlineGym.DataAccess.Migrations
                     b.Navigation("ClientSelectedEmployees");
                 });
 
+            modelBuilder.Entity("OnlineGym.Entities.Models.Day", b =>
+                {
+                    b.Navigation("dayExercises");
+                });
+
             modelBuilder.Entity("OnlineGym.Entities.Models.Employee", b =>
                 {
                     b.Navigation("clientSubscriptionDetailsEmployees");
+                });
+
+            modelBuilder.Entity("OnlineGym.Entities.Models.Exercise", b =>
+                {
+                    b.Navigation("dayExercises");
                 });
 
             modelBuilder.Entity("OnlineGym.Entities.Models.JobTitle", b =>
@@ -819,6 +1033,11 @@ namespace OnlineGym.DataAccess.Migrations
                     b.Navigation("ClientSubscriptions");
 
                     b.Navigation("SubscriptionBenefits");
+                });
+
+            modelBuilder.Entity("OnlineGym.Entities.Models.TrainingPlan", b =>
+                {
+                    b.Navigation("Days");
                 });
 
             modelBuilder.Entity("OnlineGym.Entities.Models.Client", b =>

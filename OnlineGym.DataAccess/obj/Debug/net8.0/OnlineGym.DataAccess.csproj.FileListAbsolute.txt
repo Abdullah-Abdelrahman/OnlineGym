@@ -15,3 +15,4 @@ E:\All_of_my_projrcts\OnlineGym\OnlineGym.DataAccess\obj\Debug\net8.0\refint\Onl
 E:\All_of_my_projrcts\OnlineGym\OnlineGym.DataAccess\obj\Debug\net8.0\OnlineGym.DataAccess.pdb
 E:\All_of_my_projrcts\OnlineGym\OnlineGym.DataAccess\obj\Debug\net8.0\OnlineGym.DataAccess.genruntimeconfig.cache
 E:\All_of_my_projrcts\OnlineGym\OnlineGym.DataAccess\obj\Debug\net8.0\ref\OnlineGym.DataAccess.dll
+E:\All_of_my_projrcts\OnlineGym\OnlineGym.DataAccess\obj\Debug\net8.0\OnlineGym.DataAccess.sourcelink.json

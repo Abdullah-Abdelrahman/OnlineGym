@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using OnlineGym.Utilities
 
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
@@ -6,8 +7,23 @@
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav-item">
-            <a id="manage" style="color:var(--dark-orange) !important" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+        <li class="nav-item">
+
+            @if (User.IsInRole(SD.AdminRole))
+            {
+                <a id="manage" style="color:var(--dark-orange) !important" class="nav-link text-dark" href="/Admin/DashBoard/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+
+            }
+            else if (User.IsInRole(SD.CoachRole))
+            {
+                <a id="manage" style="color:var(--dark-orange) !important" class="nav-link text-dark" href="/Coach/DashBoard/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+
+            }
+            else if (User.IsInRole(SD.CustomerRole))
+            {
+                <a id="manage" style="color:var(--dark-orange) !important" class="nav-link text-dark" href="/Client/DashBoard/PersonalInformation" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+
+            }
     </li>
     <li class="nav-item">
             <form id="logoutForm" style="display:flex;justify-content:center" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
@@ -18,10 +34,10 @@
 else
 {
     <li class="nav-item">
-        <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
+            <a class="nav-link text-dark" style="color:var(--dark-orange) !important" id="register" href="/Identity/Account/Register#RegisterSection">Register</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            <a class="nav-link text-dark" id="login" style="color:var(--dark-orange) !important"  href="/Identity/Account/Login#loginSection">Login</a>
     </li>
 }
 </ul>

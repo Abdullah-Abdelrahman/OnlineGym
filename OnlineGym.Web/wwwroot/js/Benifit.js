@@ -57,7 +57,7 @@ function loadData() {
     }
 
     x += `<div>
-            <button onclick="addd()" class="btn btn-primary">+</button>
+            <button type="button" onclick="add()" class="btn btn-primary">+</button>
           </div>`;
 
 
@@ -136,4 +136,25 @@ function remove(id) {
     }
     loadData();
 }
+
+
+
+
+function start(s) {
+
+
+    for (let i = 0; i < s; i++) {
+        let element = document.getElementById(`JobsId[${i}]`).parentElement;
+        if (element != null) {
+            element = element.parentElement;
+        }
+        if (element != null) {
+            EmpArray.push(new Benefit());
+            EmpArray[i].item = element.outerHTML;
+            EmpArray[i].selectedValue = document.getElementById(`JobsId[${i}]`).value;  // Save the current selected value
+        }
+    }
+}
+
+start();
 

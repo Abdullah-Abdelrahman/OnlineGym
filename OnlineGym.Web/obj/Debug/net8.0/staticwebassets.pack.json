@@ -5,6 +5,26 @@
       "PackagePath": "staticwebassets\\OnlineGym.Web.bundle.scp.css"
     },
     {
+      "Id": "E:\\All_of_my_projrcts\\OnlineGym\\OnlineGym.Web\\wwwroot\\Admin\\Css\\Subscription.css",
+      "PackagePath": "staticwebassets\\Admin\\Css\\Subscription.css"
+    },
+    {
+      "Id": "E:\\All_of_my_projrcts\\OnlineGym\\OnlineGym.Web\\wwwroot\\Client\\ProfilePhotos\\3e46c1e8-8519-4d9f-b493-ea779d913330_img.jpeg",
+      "PackagePath": "staticwebassets\\Client\\ProfilePhotos\\3e46c1e8-8519-4d9f-b493-ea779d913330_img.jpeg"
+    },
+    {
+      "Id": "E:\\All_of_my_projrcts\\OnlineGym\\OnlineGym.Web\\wwwroot\\Client\\ProfilePhotos\\41ba844c-aa09-430f-b799-2079583eef3c_img.jpeg",
+      "PackagePath": "staticwebassets\\Client\\ProfilePhotos\\41ba844c-aa09-430f-b799-2079583eef3c_img.jpeg"
+    },
+    {
+      "Id": "E:\\All_of_my_projrcts\\OnlineGym\\OnlineGym.Web\\wwwroot\\Client\\ProfilePhotos\\ba3589bd-590f-47e6-94c7-dccd83d3c014_img.jpeg",
+      "PackagePath": "staticwebassets\\Client\\ProfilePhotos\\ba3589bd-590f-47e6-94c7-dccd83d3c014_img.jpeg"
+    },
+    {
+      "Id": "E:\\All_of_my_projrcts\\OnlineGym\\OnlineGym.Web\\wwwroot\\Client\\ProfilePhotos\\no_User_Photo.jpg",
+      "PackagePath": "staticwebassets\\Client\\ProfilePhotos\\no_User_Photo.jpg"
+    },
+    {
       "Id": "E:\\All_of_my_projrcts\\OnlineGym\\OnlineGym.Web\\wwwroot\\Client\\clientsResults.css",
       "PackagePath": "staticwebassets\\Client\\clientsResults.css"
     },
@@ -85,6 +105,18 @@
       "PackagePath": "staticwebassets\\Client\\images\\model.png"
     },
     {
+      "Id": "E:\\All_of_my_projrcts\\OnlineGym\\OnlineGym.Web\\wwwroot\\Client\\images\\recip1.jpg",
+      "PackagePath": "staticwebassets\\Client\\images\\recip1.jpg"
+    },
+    {
+      "Id": "E:\\All_of_my_projrcts\\OnlineGym\\OnlineGym.Web\\wwwroot\\Client\\images\\recip2.jpg",
+      "PackagePath": "staticwebassets\\Client\\images\\recip2.jpg"
+    },
+    {
+      "Id": "E:\\All_of_my_projrcts\\OnlineGym\\OnlineGym.Web\\wwwroot\\Client\\images\\recip3.jpg",
+      "PackagePath": "staticwebassets\\Client\\images\\recip3.jpg"
+    },
+    {
       "Id": "E:\\All_of_my_projrcts\\OnlineGym\\OnlineGym.Web\\wwwroot\\Client\\index.html",
       "PackagePath": "staticwebassets\\Client\\index.html"
     },
@@ -99,6 +131,18 @@
     {
       "Id": "E:\\All_of_my_projrcts\\OnlineGym\\OnlineGym.Web\\wwwroot\\Client\\plans.css",
       "PackagePath": "staticwebassets\\Client\\plans.css"
+    },
+    {
+      "Id": "E:\\All_of_my_projrcts\\OnlineGym\\OnlineGym.Web\\wwwroot\\Coach\\TrainingPlan.css",
+      "PackagePath": "staticwebassets\\Coach\\TrainingPlan.css"
+    },
+    {
+      "Id": "E:\\All_of_my_projrcts\\OnlineGym\\OnlineGym.Web\\wwwroot\\GymImages\\DayImages\\banar_1.png",
+      "PackagePath": "staticwebassets\\GymImages\\DayImages\\banar_1.png"
+    },
+    {
+      "Id": "E:\\All_of_my_projrcts\\OnlineGym\\OnlineGym.Web\\wwwroot\\GymImages\\SubscriptionImages\\Subscription_1.jpg",
+      "PackagePath": "staticwebassets\\GymImages\\SubscriptionImages\\Subscription_1.jpg"
     },
     {
       "Id": "E:\\All_of_my_projrcts\\OnlineGym\\OnlineGym.Web\\wwwroot\\css\\adminlte.css",
@@ -371,6 +415,14 @@
     {
       "Id": "E:\\All_of_my_projrcts\\OnlineGym\\OnlineGym.Web\\wwwroot\\js\\Subscription.js",
       "PackagePath": "staticwebassets\\js\\Subscription.js"
+    },
+    {
+      "Id": "E:\\All_of_my_projrcts\\OnlineGym\\OnlineGym.Web\\wwwroot\\js\\TrainingPlan.js",
+      "PackagePath": "staticwebassets\\js\\TrainingPlan.js"
+    },
+    {
+      "Id": "E:\\All_of_my_projrcts\\OnlineGym\\OnlineGym.Web\\wwwroot\\js\\TrainingPlanIndex.js",
+      "PackagePath": "staticwebassets\\js\\TrainingPlanIndex.js"
     },
     {
       "Id": "E:\\All_of_my_projrcts\\OnlineGym\\OnlineGym.Web\\wwwroot\\js\\Video.js",

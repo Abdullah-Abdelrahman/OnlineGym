@@ -8,48 +8,48 @@
 
 
 
-<section class="Edit-Employee">
+<section class="view-Employee">
 	<div class="container">
 		
 			<input hidden asp-for="Employee.EmployeeId" />
 			<div class="form-group">
 				<label asp-for="Employee.Name">Employee Name</label>
-				<input type="text" asp-for="Employee.Name" class="form-control" />
-				<span asp-validation-for="Employee.Name"></span>
+				<input type="text" asp-for="Employee.Name" readonly class="form-control" />
+				
 			</div>
 
 			<div class="form-group">
 				<label asp-for="Employee.gender">Employee gender</label>
-				<input type="text" asp-for="Employee.gender" class="form-control" />
-				<span asp-validation-for="Employee.gender"></span>
+			<input type="text" asp-for="Employee.gender" readonly class="form-control" />
+				
 			</div>
 
 
 			<div class="form-group">
 				<label asp-for="Employee.Email">Employee Email</label>
-				<input type="text" asp-for="Employee.Email" class="form-control" />
-				<span asp-validation-for="Employee.Email"></span>
+			<input type="text" asp-for="Employee.Email" readonly class="form-control" />
+				
 			</div>
 
 
 			<div class="form-group">
 				<label asp-for="Employee.Phone">Employee Phone</label>
-				<input type="text" asp-for="Employee.Phone" class="form-control" />
+			<input type="text" asp-for="Employee.Phone" readonly class="form-control" />
 				
 
 			</div>
 
 			<div class="form-group">
 				<label asp-for="Employee.HireDate">Employee HireDate</label>
-				<input type="text" asp-for="Employee.HireDate" class="form-control" />
+			<input type="text" asp-for="Employee.HireDate" readonly class="form-control" />
 			
 
 			</div>
 
 			<div class="form-group">
-				<label asp-for="Employee.JobTitleId">Job TiTle</label>
+				<label asp-for="Employee.JobTitle.JopName">Job TiTle</label>
 
-				<input asp-for="Employee.JobTitle.JopName" class="form-control"/>
+			<input asp-for="Employee.JobTitle.JopName" readonly class="form-control" />
 
 				
 
@@ -59,14 +59,14 @@
 			
 			<div class="form-group">
 				<label asp-for="Salary.MounthSalary">Employee Salary</label>
-				<input type="text" asp-for="Salary.MounthSalary" class="form-control" />
+			<input type="text" asp-for="Salary.MounthSalary" readonly class="form-control" />
 				
 
 			</div>
 
 			<div class="form-group">
-				<label asp-for="Salary.bonus">Employee this mounth Bonus !(need logic create)</label>
-				<input type="text" asp-for="Salary.bonus" class="form-control" />
+				<label asp-for="Salary.bonus"></label>
+			<input type="text" asp-for="Salary.bonus" readonly class="form-control" />
 				
 			</div>
 
@@ -74,7 +74,7 @@
 
 		<div class="form-group">
 			<label asp-for="EmployeeRate.Rate">Employee rate</label>
-			<input type="text" asp-for="EmployeeRate.Rate" class="form-control" />
+			<input type="text" asp-for="EmployeeRate.Rate" readonly class="form-control" />
 			
 
 		</div>

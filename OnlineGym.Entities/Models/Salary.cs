@@ -12,13 +12,13 @@ namespace OnlineGym.Entities.Models
         [ForeignKey("EmployeeId")]
         public Employee? Employee { get; set; }
 
-
-        
         public int Amount { get; set; }
 
         public int bonus { get; set; }
 
         public int MounthSalary { get; set; }
+
+        public DateTime nextSalaryDate { get; set; }
 
     }
 }

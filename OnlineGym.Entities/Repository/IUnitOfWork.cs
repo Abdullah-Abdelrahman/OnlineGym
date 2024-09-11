@@ -30,6 +30,16 @@ namespace OnlineGym.Entities.Repository
         IVideoRepository Video { get; }
 
         IEmployeeRateRepository EmployeeRate { get; }
+
+        IExerciseRepository Exercise { get; }
+
+        IDayRepository Day { get; }
+
+        ITrainingPlanRepository trainingPlan { get; }
+
+        IClientSubscriptionDetailsEmployeeRepository ClientSubscriptionDetailsEmployee { get; }
+
+        IDayExercisRepository DayExercis { get; }
 		int Comlete();
     }
 }
