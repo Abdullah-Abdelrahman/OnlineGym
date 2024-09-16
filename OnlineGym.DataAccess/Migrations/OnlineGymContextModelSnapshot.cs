@@ -349,8 +349,8 @@ namespace OnlineGym.DataAccess.Migrations
                     b.Property<string>("Diseases")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateOnly?>("EndDate")
-                        .HasColumnType("date");
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool?>("Gender")
                         .HasColumnType("bit");
@@ -358,8 +358,8 @@ namespace OnlineGym.DataAccess.Migrations
                     b.Property<int?>("Hight")
                         .HasColumnType("int");
 
-                    b.Property<DateOnly?>("StartDate")
-                        .HasColumnType("date");
+                    b.Property<DateTime?>("StartDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Target")
                         .HasColumnType("nvarchar(max)");
@@ -587,6 +587,9 @@ namespace OnlineGym.DataAccess.Migrations
                     b.Property<int>("MounthSalary")
                         .HasColumnType("int");
 
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("bonus")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
@@ -690,12 +693,17 @@ namespace OnlineGym.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int?>("ClientSubscriptionId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("Started")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");
+
+                    b.HasIndex("ClientSubscriptionId");
 
                     b.ToTable("TrainingPlans");
                 });
@@ -986,7 +994,13 @@ namespace OnlineGym.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("OnlineGym.Entities.Models.ClientSubscription", "clientSubscription")
+                        .WithMany()
+                        .HasForeignKey("ClientSubscriptionId");
+
                     b.Navigation("Client");
+
+                    b.Navigation("clientSubscription");
                 });
 
             modelBuilder.Entity("OnlineGym.Entities.Models.Benefit", b =>

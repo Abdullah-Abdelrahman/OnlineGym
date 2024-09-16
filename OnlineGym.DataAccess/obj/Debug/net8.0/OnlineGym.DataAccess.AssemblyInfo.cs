@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OnlineGym.DataAccess")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4f0caee0ced8e4731ca513021909529bf9a9156a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bb87a04cbc44dc5612254df13975a1c7f0dc0651")]
 [assembly: System.Reflection.AssemblyProductAttribute("OnlineGym.DataAccess")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OnlineGym.DataAccess")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

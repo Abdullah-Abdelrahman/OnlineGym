@@ -21,8 +21,13 @@ namespace OnlineGym.Entities.ViewModels
 
 		public List<JobTitle>? JobsNeed { get; set; }
 
+		public ProccessOrderViewModel()
+		{
+            this.JobsNeed = new List<JobTitle>();
+			this.Emps = new List<List<SelectListItem>>();
+        }
 
-		public bool valid()
+        public bool valid()
 		{
 
 			int c = 0;

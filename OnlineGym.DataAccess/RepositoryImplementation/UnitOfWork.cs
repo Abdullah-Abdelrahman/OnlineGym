@@ -45,6 +45,8 @@ namespace OnlineGym.DataAccess.RepositoryImplementation
         public IClientSubscriptionDetailsEmployeeRepository ClientSubscriptionDetailsEmployee { get; private set; }
 
         public IDayExercisRepository DayExercis { get; private set; }
+
+        public ISalaryHistoryRepository SalaryHistory { get; private set; }
         public UnitOfWork(OnlineGymContext context) 
         {
 
@@ -73,7 +75,10 @@ namespace OnlineGym.DataAccess.RepositoryImplementation
             ClientSubscriptionDetailsEmployee=new ClientSubscriptionDetailsEmployeeRepository(context);
             DayExercis = new DayExercisRepository(context);
 
-		}
+            SalaryHistory = new SalaryHistoryRepository(context);
+
+
+        }
 
 
 

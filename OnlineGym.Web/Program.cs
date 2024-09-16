@@ -7,6 +7,13 @@ using OnlineGym.Utilities;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Stripe;
 using OnlineGym.Entities.Models;
+using Hangfire;
+using Hangfire.SqlServer;
+using OnlineGym.Web.Services;
+
+
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -26,6 +33,26 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.Lock
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+
+builder.Services.AddAuthentication().AddGoogle(googleOptions =>
+{
+    googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"];
+    googleOptions.ClientSecret = builder.Configuration["Authentication:Google:Clientsecret"];
+    
+});
+
+// enabeled defaulte in mvc
+builder.Services.AddMemoryCache();
+builder.Services.AddHangfire(config =>
+{
+    config.UseSqlServerStorage(builder.Configuration.GetConnectionString("Conction"));
+
+});
+builder.Services.AddHangfireServer();
+
+builder.Services.AddTransient<IServiceManagment, ServiceManagment>();
+
 
 var app = builder.Build();
 
@@ -60,6 +87,29 @@ app.MapControllerRoute(
 app.MapControllerRoute(
 	name: "Coach",
 	pattern: "{area=Coach}/{controller=Dashboard}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "Doctor",
+    pattern: "{area=Doctor}/{controller=Dashboard}/{action=Index}/{id?}");
+
+app.UseHangfireDashboard();
+using (var scope = app.Services.CreateScope())
+{
+	var recurringJobManager = scope.ServiceProvider.GetRequiredService<IRecurringJobManager>();
+	var serviceManagment = scope.ServiceProvider.GetRequiredService<IServiceManagment>();
+
+	recurringJobManager.AddOrUpdate(
+		"myrecurringjob",
+		() => serviceManagment.UpdateOrdersStatus(),
+        "0 */3 * * *");
+
+ 
+    recurringJobManager.AddOrUpdate(
+        "myrecurringjob2",
+        () => serviceManagment.UpdateSalaryStatus(),
+        "* * * * *");
+}
+
 
 
 

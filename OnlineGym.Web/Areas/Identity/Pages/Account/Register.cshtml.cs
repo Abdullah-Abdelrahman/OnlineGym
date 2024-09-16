@@ -134,6 +134,10 @@ namespace OnlineGym.Web.Areas.Identity.Pages.Account
                 _roleManager.CreateAsync(new IdentityRole(SD.CoachRole)).GetAwaiter().GetResult();
             }
 
+            if (!_roleManager.RoleExistsAsync(SD.DoctorRole).GetAwaiter().GetResult())
+            {
+                _roleManager.CreateAsync(new IdentityRole(SD.DoctorRole)).GetAwaiter().GetResult();
+            }
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }

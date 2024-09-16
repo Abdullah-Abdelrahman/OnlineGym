@@ -27,6 +27,11 @@ namespace OnlineGym.DataAccess.RepositoryImplementation
             _dbSet.Add(entity);
         }
 
+        public async Task AddAsync(T entity)
+        {
+            await _dbSet.AddAsync(entity);
+        }
+
         public void Delete(T entity)
         {
             _dbSet?.Remove(entity);
@@ -55,7 +60,30 @@ namespace OnlineGym.DataAccess.RepositoryImplementation
             return query.ToList();
         }
 
-         public T GetFirstOrDefualt(Expression<Func<T, bool>>? predicate=null, string? IncludeWord = null)
+        public async Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>>? predicate = null, string? IncludeWord = null)
+        {
+            IQueryable<T> query = _dbSet;
+
+            if (predicate != null)
+            {
+                query = query.Where(predicate);
+            }
+
+            if (IncludeWord != null)
+            {
+                foreach (var item in IncludeWord.Split(',', StringSplitOptions.RemoveEmptyEntries))
+                {
+
+                    query = query.Include(item.Trim());
+
+                }
+            }
+
+
+            return await query.ToListAsync();
+        }
+
+        public T GetFirstOrDefualt(Expression<Func<T, bool>>? predicate=null, string? IncludeWord = null)
         {
             IQueryable<T> query = _dbSet;
 
@@ -74,10 +102,32 @@ namespace OnlineGym.DataAccess.RepositoryImplementation
             }
 
 
-            return query.SingleOrDefault();
+            return query.FirstOrDefault();
         }
 
-		public T last(Expression<Func<T, bool>>? predicate = null, string? IncludeWord = null)
+        public async Task<T> GetFirstOrDefualtAsync(Expression<Func<T, bool>>? predicate = null, string? IncludeWord = null)
+        {
+            IQueryable<T> query = _dbSet;
+
+            if (predicate != null)
+            {
+                query = query.Where(predicate);
+            }
+
+            if (IncludeWord != null)
+            {
+                foreach (var item in IncludeWord.Split(',', StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(item);
+
+                }
+            }
+
+
+            return await query.FirstOrDefaultAsync();
+        }
+
+        public T last(Expression<Func<T, bool>>? predicate = null, string? IncludeWord = null)
 		{
 			IQueryable<T> query = _dbSet;
 

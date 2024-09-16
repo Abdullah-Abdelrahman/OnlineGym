@@ -20,25 +20,25 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(_context.Jobs.GetAll());
+            return View((await _context.Jobs.GetAllAsync()).ToList());
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(JobTitle job)
+        public async Task<IActionResult> Create(JobTitle job)
         {
             
             if (ModelState.IsValid)
             {
-                _context.Jobs.Add(job);
+                await _context.Jobs.AddAsync(job);
                 _context.Comlete();
 
                 TempData["Created"] = "true";
@@ -56,15 +56,15 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
 
 
         [HttpGet]
-        public IActionResult Update(int id)
+        public async Task<IActionResult> Update(int id)
         {
 
-            return View(_context.Jobs.GetFirstOrDefualt(e => e.JobTitleId == id));
+            return View(await _context.Jobs.GetFirstOrDefualtAsync(e => e.JobTitleId == id));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Update(JobTitle job)
+        public async Task<IActionResult> Update(JobTitle job)
         {
 
             if (ModelState.IsValid)
@@ -84,15 +84,15 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
 
 
         [HttpGet]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
 
-            return View(_context.Jobs.GetFirstOrDefualt(e => e.JobTitleId == id));
+            return View(await _context.Jobs.GetFirstOrDefualtAsync(e => e.JobTitleId == id));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(JobTitle job)
+        public async Task<IActionResult> Delete(JobTitle job)
         {
 
 

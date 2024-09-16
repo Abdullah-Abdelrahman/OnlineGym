@@ -19,7 +19,14 @@ namespace OnlineGym.Entities.Repository
 
 		void Add(T entity);
 
-        void Delete(T entity);  
+        void Delete(T entity);
+
+
+
+        Task<T> GetFirstOrDefualtAsync(Expression<Func<T, bool>>? predicate = null, string? IncludeWord = null);
+        Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>>? predicate = null, string? IncludeWord = null);
+        Task AddAsync(T entity);
+      
 
     }
 }

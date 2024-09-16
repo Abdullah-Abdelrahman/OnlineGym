@@ -26,5 +26,16 @@ namespace OnlineGym.Entities.Models
 		[DefaultValue(false)]
 		public bool Paid { get; set; }
 		public DateTime? PaidAt { get; set; }
+
+
+		public SalaryHistory() { }
+		public SalaryHistory(Salary salary)
+		{
+			this.EmployeeId = salary.EmployeeId;
+			this.Amount = salary.Amount;
+			this.bonus = salary.bonus;
+			this.Paid = true;
+			this.PaidAt = DateTime.Now;
+		}
 	}
 }

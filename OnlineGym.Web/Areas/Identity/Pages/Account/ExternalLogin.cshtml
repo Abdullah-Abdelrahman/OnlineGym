@@ -14,8 +14,8 @@
     logging in.
 </p>
 
-<div class="row">
-    <div class="col-md-4">
+<div class="row" style="display:flex;justify-content:center">
+    <div class="col-md-4" id="externalRegestriation">
         <form asp-page-handler="Confirmation" asp-route-returnUrl="@Model.ReturnUrl" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
             <div class="form-floating mb-3">

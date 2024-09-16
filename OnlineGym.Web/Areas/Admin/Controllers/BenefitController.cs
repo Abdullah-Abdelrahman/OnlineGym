@@ -18,29 +18,29 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
 		{
 			_context = context;
 		}
-		public IActionResult Index()
+		public async Task<IActionResult> Index()
 		{
-			return View(_context.Benefit.GetAll());
+			return View(await _context.Benefit.GetAllAsync());
 		}
 		[HttpGet]
-		public IActionResult Create()
+		public async Task<IActionResult> Create()
 		{
 			BenefitViewModel benefitViewModel = new BenefitViewModel();
 
 			benefitViewModel.Benefit=new Benefit();
-			benefitViewModel.JobsId=new List<int>();
-			benefitViewModel.Jobs = _context.Jobs.GetAll().Select(i => new SelectListItem { Text = i.JopName, Value = i.JobTitleId.ToString() });
+		
+			benefitViewModel.Jobs = (await _context.Jobs.GetAllAsync()).Select(i => new SelectListItem { Text = i.JopName, Value = i.JobTitleId.ToString() });
 
 		
 			return View(benefitViewModel);
 		}
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public IActionResult Create(BenefitViewModel benefitVM)
+		public async Task<IActionResult> Create(BenefitViewModel benefitVM)
 		{
 			if (ModelState.IsValid&&benefitVM.JobsId!=null)
 			{
-				_context.Benefit.Add(benefitVM.Benefit);
+				await _context.Benefit.AddAsync(benefitVM.Benefit);
 				_context.Comlete();
 
 
@@ -48,12 +48,14 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
 				int BenId = _context.Benefit.last().BenefitId;
 
 				
+				// iterate on all of the selected jobs id and add records
+				// for the benifit and the jobs needed
 				for (int i = 0; i < benefitVM?.JobsId?.Count; i++)
 				{
 
 					if (benefitVM.JobsId[i] != 0)
 					{
-						_context.BenefitJobTitle.Add(new BenefitJobTitle { BenefitId =BenId , JobTitleId= benefitVM.JobsId[i] });
+						await _context.BenefitJobTitle.AddAsync(new BenefitJobTitle { BenefitId =BenId , JobTitleId= benefitVM.JobsId[i] });
 					}
 				}
 
@@ -77,14 +79,14 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
 
 
 		[HttpGet]
-		public IActionResult Update(int id)
+		public async Task<IActionResult> Update(int id)
 		{
 
 			BenefitViewModel benefitViewModel = new BenefitViewModel();
 
-			benefitViewModel.Benefit = _context.Benefit.GetFirstOrDefualt(b=>b.BenefitId==id);
-			benefitViewModel.JobsId = _context.BenefitJobTitle.GetAll(b=>b.BenefitId==id).Select(i=>i.JobTitleId).ToList();
-			benefitViewModel.Jobs = _context.Jobs.GetAll().Select(i => new SelectListItem { Text = i.JopName, Value = i.JobTitleId.ToString() });
+			benefitViewModel.Benefit = await _context.Benefit.GetFirstOrDefualtAsync(b=>b.BenefitId==id);
+			benefitViewModel.JobsId = (await _context.BenefitJobTitle.GetAllAsync(b=>b.BenefitId==id)).Select(i=>i.JobTitleId).ToList();
+			benefitViewModel.Jobs = (await _context.Jobs.GetAllAsync()).Select(i => new SelectListItem { Text = i.JopName, Value = i.JobTitleId.ToString() });
 
 
 			return View(benefitViewModel);
@@ -92,27 +94,34 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
 
         [HttpPost]
 		[ValidateAntiForgeryToken]
-        public IActionResult Update(BenefitViewModel benefitViewModel)
+        public async Task<IActionResult> Update(BenefitViewModel benefitViewModel)
         {
 
-			Benefit benefit = _context.Benefit.GetFirstOrDefualt(e => e.BenefitId == benefitViewModel.Benefit.BenefitId);
+			// get the record from the database
+			Benefit benefit = await _context.Benefit.GetFirstOrDefualtAsync(e => e.BenefitId == benefitViewModel.Benefit.BenefitId);
 
-
-			List<BenefitJobTitle> benefitJobTitles = _context.BenefitJobTitle.GetAll(b => b.BenefitId == benefitViewModel.Benefit.BenefitId).ToList();
+            // get the records from the database
+            List<BenefitJobTitle> benefitJobTitles =(await _context.BenefitJobTitle.GetAllAsync(b => b.BenefitId == benefitViewModel.Benefit.BenefitId)).ToList();
 
 			// remove deleted ones
 			for (int i = 0; i < benefitJobTitles.Count; i++)
 			{
-				if (!benefitViewModel.JobsId.Any(b => b == benefitJobTitles[i].JobTitleId))
+                // iterate over all off the benefitJobTitles in the database
+                // if there is no job Id  in the view model
+				// that is equal to a one in the database remove the record frome the database
+                if (!benefitViewModel.JobsId.Any(b => b == benefitJobTitles[i].JobTitleId))
 				{
 					benefitJobTitles.Remove(benefitJobTitles[i]);
 				}
 
 			}
-
-			for (int i = 0; i < benefitViewModel.JobsId.Count; i++)
+            // add the new ones
+            for (int i = 0; i < benefitViewModel.JobsId.Count; i++)
 			{
-				if(!benefitJobTitles.Any(b=>b.JobTitleId== benefitViewModel.JobsId[i]))
+                // iterate over all off the benefitJobTitles in the database
+                // if there is an job Id  in the view model
+                // that is not equal to a one in the database add the record to the database
+                if (!benefitJobTitles.Any(b=>b.JobTitleId== benefitViewModel.JobsId[i]))
 				{
 					BenefitJobTitle benefitJobTitle = new BenefitJobTitle()
 					{
@@ -135,21 +144,14 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
 
 
         [HttpDelete]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            Benefit benefit = _context.Benefit.GetFirstOrDefualt(e => e.BenefitId == id);
-
-          
-
-
+            Benefit benefit =await _context.Benefit.GetFirstOrDefualtAsync(e => e.BenefitId == id);
+			//may be not in the database
             if (benefit != null)
             {
                 _context.Benefit.Delete(benefit);
             }
-
-        
-
-
             _context.Comlete();
 
             return Json(new { success = true, message = "Item has been deleted" });
@@ -159,11 +161,11 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
 
 
 		[HttpGet]
-		public IActionResult Details(int id)
+		public async Task<IActionResult> Details(int id)
 		{
 
 
-			return View(_context.Benefit.GetFirstOrDefualt(i=>i.BenefitId==id,IncludeWord: "jobTitles"));
+			return View(await _context.Benefit.GetFirstOrDefualtAsync(i=>i.BenefitId==id,IncludeWord: "jobTitles"));
 		}
     }
 }

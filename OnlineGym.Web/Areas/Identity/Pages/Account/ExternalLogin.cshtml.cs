@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using OnlineGym.Utilities;
 
 namespace OnlineGym.Web.Areas.Identity.Pages.Account
 {
@@ -164,6 +165,9 @@ namespace OnlineGym.Web.Areas.Identity.Pages.Account
                     {
                         _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
 
+                        await _userManager.AddToRoleAsync(user, SD.CustomerRole);
+
+
                         var userId = await _userManager.GetUserIdAsync(user);
                         var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                         code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
@@ -197,11 +201,11 @@ namespace OnlineGym.Web.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private IdentityUser CreateUser()
+        private OnlineGym.Entities.Models.Client CreateUser()
         {
             try
             {
-                return Activator.CreateInstance<IdentityUser>();
+                return Activator.CreateInstance<OnlineGym.Entities.Models.Client>();
             }
             catch
             {

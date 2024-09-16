@@ -24,25 +24,28 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
         }
 
 
-        public IActionResult GetData()
+        public async Task<IActionResult> GetData()
         {
-            var Orders = _context.ClientSubscription.GetAll(IncludeWord: "Client,Subscription");
+            //ClientSubscription is simply an Order
+            var Orders =await _context.ClientSubscription.GetAllAsync(IncludeWord: "Client,Subscription");
 
             //Console.WriteLine(employees.First().JobTitle.JopName);
             return Json(new { data = Orders });
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
 		{
 			return View();
 		}
 
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
 
-            ClientSubscriptionDetails clientSubscriptionDetails = _context.ClientSubscriptionDetails.GetFirstOrDefualt(c=>c.ClientSubscriptionId==id);
-
-            clientSubscriptionDetails.clientSubscription = _context.ClientSubscription.GetFirstOrDefualt(c => c.ClientSubscriptionId == id, IncludeWord: "Client");
+            //clientSubscriptionDetails is simply the order Ditails
+            //has the same id as the order(ClientSubscription)
+            ClientSubscriptionDetails clientSubscriptionDetails =await  _context.ClientSubscriptionDetails.GetFirstOrDefualtAsync(c=>c.ClientSubscriptionId==id);
+            //clientSubscription is the order
+            clientSubscriptionDetails.clientSubscription = await _context.ClientSubscription.GetFirstOrDefualtAsync(c => c.ClientSubscriptionId == id, IncludeWord: "Client");
             
 
             return View(clientSubscriptionDetails);
@@ -52,12 +55,14 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CancelOrder(int id)
+        public async Task<IActionResult> CancelOrder(int id)
         {
-            ClientSubscription clientSubscription = _context.ClientSubscription.GetFirstOrDefualt(c => c.ClientSubscriptionId == id);
+            ClientSubscription clientSubscription = await _context.ClientSubscription.GetFirstOrDefualtAsync(c => c.ClientSubscriptionId == id);
 
-            if(clientSubscription.Status=="Aproved")
+            //You can cancel if its in Aproved State Only
+            if(clientSubscription.Status==SD.Aproved)
             {
+                //Stripe
                 var option = new RefundCreateOptions()
                 {
                     Reason=RefundReasons.RequestedByCustomer,
@@ -83,46 +88,55 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
         }
 
 
-       
-        public IActionResult Proccessing(int id)
+       //this methode is used to set the team for an client Subscrption
+       //in other word add the selected team to an order to handel
+        public async Task<IActionResult> Proccessing(int id)
         {
             
-
-            ClientSubscription cs = _context.ClientSubscription.GetFirstOrDefualt(c => c.ClientSubscriptionId == id);
+            //get the order frome database
+            ClientSubscription cs =await _context.ClientSubscription.GetFirstOrDefualtAsync(c => c.ClientSubscriptionId == id);
+            //change its state to proccess
             cs.Status = SD.Proccess;
 			_context.ClientSubscription.Uppdate(cs);
 			_context.Comlete();
 
 
-			cs.Subscription = _context.Subscription.GetFirstOrDefualt(s => s.SubscriptionId == cs.SubscriptionId, IncludeWord: "Benefits");
+            //get the Subscription type in the order
+			cs.Subscription =await _context.Subscription.GetFirstOrDefualtAsync(s => s.SubscriptionId == cs.SubscriptionId, IncludeWord: "Benefits");
 
 
 			ProccessOrderViewModel POVM = new ProccessOrderViewModel();
-
+            // again order id is ClientSubscriptionId
             POVM.orderId = id;
 
-            POVM.JobsNeed =new List<JobTitle>();
 
-
-            POVM.Emps=new List<List<SelectListItem>>();
+            //iterate over all benefite in the subscription
             foreach(var i in cs.Subscription.Benefits)
             {
-                List<JobTitle> jobTitles = _context.Benefit.GetFirstOrDefualt(b => b.BenefitId == i.BenefitId, IncludeWord: "jobTitles").jobTitles.ToList();
+                // get all of the jobs type needed for the benefit
+                List<JobTitle> jobTitles = (await _context.Benefit.GetFirstOrDefualtAsync(b => b.BenefitId == i.BenefitId, IncludeWord: "jobTitles")).jobTitles.ToList();
 
-                for(int j=0; j<jobTitles.Count; j++)
+                //iterate over  all of the jobs in the benefit
+                for (int j=0; j<jobTitles.Count; j++)
                 {
+                    // if the the list of the jobs in the
+                    // viewModel does not has this current job enter
                     if (!POVM.JobsNeed.Any(b=>b.JobTitleId==jobTitles[j].JobTitleId))
                     {
+                        //insert the needed job
                         POVM.JobsNeed.Add(jobTitles[j]);
 
+                        //this class define the relathion between an order
+                        //and the employees selected for the order
                         ClientSubscriptionDetailsEmployee CSDE = new ClientSubscriptionDetailsEmployee();
-
+                        
                         CSDE.ClientSubscriptionId = id;
-                        Employee emp = _context.Employee.GetFirstOrDefualt(e => e.JobTitleId == jobTitles[j].JobTitleId, IncludeWord: "clientSubscriptionDetailsEmployees");
+                        //get an employee that its job matches the neded one
+                        Employee emp =await _context.Employee.GetFirstOrDefualtAsync(e => e.JobTitleId == jobTitles[j].JobTitleId, IncludeWord: "clientSubscriptionDetailsEmployees");
 
 						CSDE.EmployeeId = emp.EmployeeId;
        
-                        _context.ClientSubscriptionDetailsEmployee.Add(CSDE);
+                        await _context.ClientSubscriptionDetailsEmployee.AddAsync(CSDE);
                         _context.Comlete();
                         
 
@@ -140,19 +154,22 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
         }
 
 
+        // Methode that responspile for adding
+        // the Clients information for a spcific Order
         [HttpGet]
-        public IActionResult TakeClientInformation(int id)
+        public async Task<IActionResult> TakeClientInformation(int id)
         {
-			ClientSubscriptionDetails CsD = _context.ClientSubscriptionDetails.GetFirstOrDefualt(cs => cs.ClientSubscriptionId ==id);
+			ClientSubscriptionDetails CsD = await _context.ClientSubscriptionDetails.GetFirstOrDefualtAsync(cs => cs.ClientSubscriptionId ==id);
 			return View(CsD);
         }
 
 		[HttpPost]
-		public IActionResult TakeClientInformation(ClientSubscriptionDetails Details)
+		public async Task<IActionResult> TakeClientInformation(ClientSubscriptionDetails Details)
 		{
 
-            ClientSubscriptionDetails CsD=_context.ClientSubscriptionDetails.GetFirstOrDefualt(cs=>cs.ClientSubscriptionId==Details.ClientSubscriptionId);
+            ClientSubscriptionDetails CsD=await _context.ClientSubscriptionDetails.GetFirstOrDefualtAsync(cs=>cs.ClientSubscriptionId==Details.ClientSubscriptionId);
 
+            // did not make validation !!!!! to run fast
             CsD.Gender =  Details?.Gender;
                           
             CsD.Hight = Details?.Hight;
@@ -171,10 +188,10 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
 		}
 
 	
-		public IActionResult Proccessed(int id)
+		public async Task<IActionResult> Proccessed(int id)
 		{
 
-			ClientSubscription cs = _context.ClientSubscription.GetFirstOrDefualt(c => c.ClientSubscriptionId == id);
+			ClientSubscription cs =await _context.ClientSubscription.GetFirstOrDefualtAsync(c => c.ClientSubscriptionId == id);
 			cs.Status = SD.proccessed;
 			_context.ClientSubscription.Uppdate(cs);
 			_context.Comlete();
@@ -182,11 +199,12 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
 		}
 
 
+        //caled when the Subscription time end
 		[HttpPost]
-		public IActionResult OrderEnd(int id)
+		public async Task<IActionResult> OrderEnd(int id)
 		{
 
-			ClientSubscription cs = _context.ClientSubscription.GetFirstOrDefualt(c => c.ClientSubscriptionId == id);
+			ClientSubscription cs =await _context.ClientSubscription.GetFirstOrDefualtAsync(c => c.ClientSubscriptionId == id);
 			cs.Status = SD.Finished;
 			_context.ClientSubscription.Uppdate(cs);
 			_context.Comlete();

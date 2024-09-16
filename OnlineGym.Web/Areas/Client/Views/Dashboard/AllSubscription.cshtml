@@ -35,6 +35,15 @@
                             </p>
 
                         }
+                        else if (item.Status == SD.Pending)
+                        {
+                            <p style="position:absolute;top:20%;left:40%;text-align:center;font-weight:bold;font-size:3rem;margin:0px;color:white">
+                                <i>
+                                    @item?.Status
+
+                                </i>
+                            </p>
+                        }
                         else if (item.Status == SD.Aproved || item.Status == SD.Proccess)
                         {
                             <p style="position:absolute;top:20%;left:40%;text-align:center;font-weight:bold;font-size:3rem;margin:0px;color:orange">
@@ -71,6 +80,7 @@
                                 </i>
                             </p>
                         }
+                        
 
 
 

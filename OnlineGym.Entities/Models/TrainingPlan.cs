@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -14,6 +15,10 @@ namespace OnlineGym.Entities.Models
         public string ClientId { get; set; }
 
         public DateTime? Started { get; set; }
+
+        public int? ClientSubscriptionId { get; set; }
+        [ForeignKey("ClientSubscriptionId")]
+        public ClientSubscription? clientSubscription { get; set; }
 
         [ForeignKey("ClientId")]
         public virtual Client? Client { get; set; }

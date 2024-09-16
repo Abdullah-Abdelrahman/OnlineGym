@@ -20,5 +20,7 @@ namespace OnlineGym.Entities.Models
 
         public DateTime nextSalaryDate { get; set; }
 
+        public string? Status { get; set; }
+
     }
 }

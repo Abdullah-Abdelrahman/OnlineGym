@@ -20,15 +20,15 @@ namespace OnlineGym.Web.Areas.Coach.Controllers
         {
             _context = context;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<TrainingPlan> Plans = _context.trainingPlan.GetAll(IncludeWord: "Days").ToList();
+            List<TrainingPlan> Plans = (await _context.trainingPlan.GetAllAsync(IncludeWord: "Days")).ToList();
 
             for(int i = 0; i < Plans.Count; i++)
             {
                 for(int j = 0; j < Plans[i].Days.Count; j++)
                 {
-                    Plans[i].Days[j] = _context.Day.GetFirstOrDefualt(d=>d.DayId == Plans[i].Days[j].DayId,IncludeWord: "exercises");
+                    Plans[i].Days[j] =await _context.Day.GetFirstOrDefualtAsync(d=>d.DayId == Plans[i].Days[j].DayId,IncludeWord: "exercises");
 
 				}
             }
@@ -38,16 +38,16 @@ namespace OnlineGym.Web.Areas.Coach.Controllers
 
 
         [HttpGet]
-        public IActionResult CreateForClient(int OrderId)
+        public async Task<IActionResult> CreateForClient(int OrderId)
         {
             
             PlanViewModel planViewModel = new PlanViewModel();
 
-            planViewModel.AssignClientDetails(_context.ClientSubscriptionDetails.GetFirstOrDefualt(s => s.ClientSubscriptionId == OrderId));
-
+            planViewModel.AssignClientDetails(await _context.ClientSubscriptionDetails.GetFirstOrDefualtAsync(s => s.ClientSubscriptionId == OrderId));
+           
             planViewModel.days = new List<Day>();
             planViewModel.TrainingPlan = new TrainingPlan();
-            planViewModel.Exercises= _context.Exercise.GetAll().Select(e => new SelectListItem { Text = e.Name, Value = e.Id.ToString() }).ToList();
+            planViewModel.Exercises= (await _context.Exercise.GetAllAsync()).Select(e => new SelectListItem { Text = e.Name, Value = e.Id.ToString() }).ToList();
             planViewModel.DayExercisesIds=new List<List<int>>();
 			for (int i = 0; i < 28; i++)
             {
@@ -64,13 +64,13 @@ namespace OnlineGym.Web.Areas.Coach.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CreateForClient(PlanViewModel planViewModel)
+        public async Task<IActionResult> CreateForClient(PlanViewModel planViewModel)
         {
 
             TrainingPlan plan = new TrainingPlan();
 
-            plan.ClientId = _context.ClientSubscription.GetFirstOrDefualt(s => s.ClientSubscriptionId == planViewModel.OrderId).ClientId;
-
+            plan.ClientId =(await _context.ClientSubscription.GetFirstOrDefualtAsync(s => s.ClientSubscriptionId == planViewModel.OrderId)).ClientId;
+            plan.ClientSubscriptionId = planViewModel.OrderId;
             plan.Days = new List<Day>();    
                 for(int i = 0; i < 28; i++)
                 {
@@ -85,7 +85,7 @@ namespace OnlineGym.Web.Areas.Coach.Controllers
 					    if (planViewModel.DayExercisesIds[i][j] != 0)
 						{
 
-                            day.exercises.Add(_context.Exercise.GetFirstOrDefualt(e => e.Id == planViewModel.DayExercisesIds[i][j]));
+                            day.exercises.Add(await _context.Exercise.GetFirstOrDefualtAsync(e => e.Id == planViewModel.DayExercisesIds[i][j]));
 						}
 					}
 
@@ -94,11 +94,16 @@ namespace OnlineGym.Web.Areas.Coach.Controllers
 					plan.Days.Add(day);
                 }
 
-            _context.ClientSubscription.GetFirstOrDefualt(s => s.ClientSubscriptionId == planViewModel.OrderId).Status = SD.Working;
 
-			
-            plan.Started=DateTime.Now.AddDays(1);
-			_context.trainingPlan.Add(plan);
+
+
+
+            //(await _context.ClientSubscription.GetFirstOrDefualtAsync(s => s.ClientSubscriptionId == planViewModel.OrderId)).Status = SD.Working;
+
+	
+            plan.Started = (await _context.ClientSubscriptionDetails.GetFirstOrDefualtAsync(s => s.ClientSubscriptionId == planViewModel.OrderId)).StartDate;
+
+            _context.trainingPlan.Add(plan);
 
 
                 _context.Comlete();
@@ -109,9 +114,9 @@ namespace OnlineGym.Web.Areas.Coach.Controllers
 		}
 
         [HttpDelete]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _context.trainingPlan.Delete(_context.trainingPlan.GetFirstOrDefualt(t => t.Id == id));
+            _context.trainingPlan.Delete(await _context.trainingPlan.GetFirstOrDefualtAsync(t => t.Id == id));
             _context.Comlete();
             return Json(new { success = true, message = "Item has been deleted" });
         }

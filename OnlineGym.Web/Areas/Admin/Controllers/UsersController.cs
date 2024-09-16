@@ -19,26 +19,32 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(_context.Client.GetAll());
+            return View(await _context.Client.GetAllAsync());
         }
-
-        public IActionResult LockUnlock(string? id)
+        //to Lock or Unlock an user
+        public async Task<IActionResult> LockUnlock(string? id)
         {
-
-            var user=_context.Client.GetFirstOrDefualt(x=>x.Id == id);
+            //get the user
+            var user=await _context.Client.GetFirstOrDefualtAsync(x=>x.Id == id);
             if(user == null)
             {
                 return NotFound();
             }
-           
-            if(user.LockoutEnd==null|| user.LockoutEnd <= DateTime.Now)
+
+            //if LockoutEnd time is less than the time now
+            //that mean that this user is not Locked so Lock him
+            if (user.LockoutEnd==null|| user.LockoutEnd <= DateTime.Now)
             {
+                // change the time to end the lock to a large date
+                //you can add as many time as you want 
                 user.LockoutEnd = DateTime.Now.AddYears(10);
             }
             else
             {
+                //if the use is locke then simply change the
+                //LockoutEnd time to the time now to end the lock
                 user.LockoutEnd = DateTime.Now;
             }
 

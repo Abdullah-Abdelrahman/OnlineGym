@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineGym.Entities.Repository;
+using OnlineGym.Entities.ViewModels;
 using OnlineGym.Utilities;
 
 namespace OnlineGym.Web.Areas.Admin.Controllers
@@ -19,20 +20,24 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
 
-            List<int> informations=new List<int>(4) { 0,0,0,0};
+            var Users = (await _context.Client.GetAllAsync()).ToList();
+
+            var subscriptions =(await _context.Subscription.GetAllAsync()).ToList();
+
+            var Orders=(await _context.ClientSubscription.GetAllAsync()).ToList();
 
 
-            informations[2] = _context.Client.GetAll().ToList().Count;
-            informations[0]=_context.ClientSubscription.GetAll(c=>c.Status=="Aproved").ToList().Count;
+            StaticsForAdmin informations = new StaticsForAdmin(Users, Orders, subscriptions);
 
-			informations[1] = _context.ClientSubscription.GetAll(c => c.Status == "Proccessed").ToList().Count;
-			return View(informations);
+            return View(informations);
         }
 
 
+
+      
     }
 
    

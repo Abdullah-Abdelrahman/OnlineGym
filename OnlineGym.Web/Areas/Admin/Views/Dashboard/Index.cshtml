@@ -1,6 +1,4 @@
-﻿
-
-@model List<int>
+﻿@model StaticsForAdmin
 
 <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
@@ -9,7 +7,7 @@
         <!-- small box -->
         <div class="small-box bg-info">
             <div class="inner">
-                <h3>@Model[0]</h3>
+                <h3>@Model.AprovedOrders</h3>
 
                 <p>Aproved Orders</p>
             </div>
@@ -24,7 +22,7 @@
         <!-- small box -->
         <div class="small-box bg-success">
             <div class="inner">
-                <h3>@Model[1]</h3>
+                <h3>@Model.ProccessedOrders</h3>
 
                 <p>Proccessed Orders</p>
             </div>
@@ -39,7 +37,7 @@
         <!-- small box -->
         <div class="small-box bg-warning">
             <div class="inner">
-                <h3>@Model[2]</h3>
+                <h3>@Model.UserNumbers</h3>
 
                 <p>User Registrations</p>
             </div>
@@ -54,7 +52,7 @@
         <!-- small box -->
         <div class="small-box bg-danger">
             <div class="inner">
-                <h3>65</h3>
+                <h3>2</h3>
 
                 <p>Unique Visitors</p>
             </div>
@@ -65,4 +63,104 @@
         </div>
     </div>
     <!-- ./col -->
+</div>
+
+
+<div class="row">
+    <div style="display:flex; justify-content:space-between;width:100%">
+
+        <div style="width:40%;display:flex;flex-direction:column">
+            <h2>TOP USERS</h2>
+            <table class="table table-striped" style="">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">More</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @{
+                        int c = 1;
+                        foreach (var user in Model.Top10Users)
+                        {
+                            <tr>
+                                <th scope="row">@c</th>
+                                <td>
+                                    <div style="border-radius:50%;width:50px;height:50px;overflow:hidden;background-color:black">
+
+                                        @if (user?.Client.ProfilePhoto == null)
+                                        {
+                                            <img style="height:50px;" src="~/Client/ProfilePhotos/no_User_Photo.jpg" alt="Alternate Text" />
+
+                                        }
+                                        else
+                                        {
+                                            <img style="height:50px;" src="~/Client/ProfilePhotos/@user?.Client.ProfilePhoto" alt="Alternate Text" />
+
+                                        }
+
+                                    </div>
+                                    @user?.Client.Name <br />
+
+                                    @user.Money $
+                                </td>
+                                <td><a class="btn btn-primary" href="">More</a></td>
+                            </tr>
+                            c++;
+                        }
+                       
+                    }
+                
+
+                </tbody>
+            </table>
+
+
+
+        </div>
+
+        <div style="width:40%;display:flex;flex-direction:column;margin-top:50px">
+            <h2>Top Subscription</h2>
+            <table class="table table-striped" >
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Orders</th>
+                        <th scope="col">More</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @{
+                        c = 1;
+                        foreach(var Sub in Model.subscriptionsStatics)
+                        {
+                            <tr>
+                                <th scope="row">c</th>
+                                <td>
+                                    <div style="border-radius:50%;width:50px;height:50px;overflow:hidden;background-color:black">
+                                        <img style="height:50px;" src="~/GymImages/SubscriptionImages/Subscription_1.jpg" alt="Alternate Text" />
+
+                                    </div>
+                                    @Sub.Subscription.SubscriptionName :
+                                    @Sub.Count
+                                    <i class="fa-solid fa-up-long"></i>
+                                </td>
+                                <td><a class="btn btn-primary" href="">More</a></td>
+                            </tr>
+                            c++;
+                        }
+                       
+                    }
+              
+
+                </tbody>
+            </table>
+
+
+        </div>
+
+    </div>
 </div>

@@ -1,0 +1,108 @@
+﻿@using OnlineGym.Utilities
+@{
+    Layout = "_DashBoard";
+
+    ViewBag.title = "User management";
+    ViewBag.cardTitle = "View Users";
+}
+@model List<Salary>;
+
+
+
+<section class="Salary-table">
+
+
+
+    <div class="container">
+
+        <table class="table table-hover table-dark">
+
+            <thead>
+
+                <tr>
+
+                    <th>User Name</th>
+                    <th>Email </th>
+                    <th>Salary</th>
+                    <th>bouns</th>
+                    <th>Total Amount</th>
+                    <th>Status</th>
+                    <th>Pay</th>
+                </tr>
+            </thead>
+
+            <tbody id="t-body">
+
+                @for (int i = 0; i < Model?.Count(); i++)
+                {
+                    <tr>
+                        <td>@Model[i].Employee.Name</td>
+                       
+                        <td>@Model[i].Employee.Email</td>
+
+                        <td>@Model[i].MounthSalary</td>
+
+                        <td>@Model[i].bonus</td>
+                        <td>@Model[i].Amount</td>
+                        <td>
+
+                            @if (Model[i].Status == SD.Pending)
+                            {
+                                <p style="color:darkblue">
+                                    Not requied
+
+                                </p>
+                            }
+                            else if (Model[i].Status == SD.NeedToBePaid)
+                            {
+                                <p style="color:red">
+                                    Not Paid
+
+                                </p>
+                            }
+                            else if(Model[i].Status==SD.Paid)
+                            {
+                                <p style="color:lawngreen">
+                                    @Model[i].Status
+
+                                </p>
+                            }
+                           
+
+                        </td>
+                        <td>
+                            @if (Model[i].Status == SD.NeedToBePaid)
+                            {
+                                <a href="/Admin/Employee/PaySalary/@Model[i].EmployeeId" class="btn btn-info">Pay</a>
+
+                            }
+                            else
+                            {
+                                <p>next in : (@( (int)(Model[i].nextSalaryDate-DateTime.Now).TotalDays+1) Day)</p>
+                                
+                            }
+                        </td>
+                    
+
+                    </tr>
+                }
+
+
+
+            </tbody>
+
+
+
+        </table>
+
+    </div>
+</section>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}

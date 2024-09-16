@@ -8,46 +8,60 @@
 
 
 	<div class="container">
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data" style="display:flex;justify-content:space-around;flex-direction:column">
 
+        <div style="display:flex;justify-content:space-around;">
+            <div style="flex:0.4;margin-top:5%">
 
-        <div class="block_img" style="display:flex;justify-content:end;position:relative">
-            <div class="form-group" style="" >
-                <div class="custom-file" style="position:absolute;left:70%;top:90%">
-
-                    <input style="width:30%" asp-for="formFile" class="form-control form-control-sm" type="file" id="customFile_0"
-                               onchange="document.getElementById('PreviewPhoto_0').src = window.URL.createObjectURL(this.files[0])" />
-                    <span asp-validation-for="formFile" class="text-danger"></span>
-
+                <div class="form-group">
+                    <label asp-for="Client.Name">User Name</label>
+                    <input type="text" asp-for="Client.Name" value="@Model?.Client?.Name" class="form-control" />
+                    <span asp-validation-for="Client.Name" class="text-danger"></span>
                 </div>
-                <input hidden asp-for="Client.ProfilePhoto" type="text" value="Client.ProfilePhoto" id="Block_image_0" />
-            </div>
-                <div class="PreviewPhoto_block" style="display:flex;justify-content:end">
 
-                    @if (Model.Client.ProfilePhoto != null && Model.Client.ProfilePhoto != "")
+                <div class="form-group">
+                    <label asp-for="Client.PhoneNumber">Phone Number</label>
+                    <input type="text" asp-for="Client.PhoneNumber" value="@Model?.Client?.PhoneNumber" class="form-control" />
+                    <span asp-validation-for="Client.PhoneNumber" class="text-danger"></span>
+                </div>
+
+            </div>
+
+            <div class="card" style="width:18rem;height:22rem;">
+
+                <div style="height:20rem;overflow:hidden">
+                    @if (Model?.Client?.ProfilePhoto != null && Model?.Client?.ProfilePhoto != "")
                     {
-                        <img class="PreviewPhoto" style="width:40%" id="PreviewPhoto_0" src="~/Client/ProfilePhotos/@Model.Client.ProfilePhoto" alt="Logo Image" />
+                        <img class="PreviewPhoto card-img-top" id="PreviewPhoto_0" src="~/Client/ProfilePhotos/@Model?.Client?.ProfilePhoto" alt="Logo Image" />
 
                     }
                     else
                     {
-                        <img class="PreviewPhoto" style="width:40%" id="PreviewPhoto_0" src="~/Client/ProfilePhotos/no_User_Photo.jpg" alt="Logo Image" />
-   
+                        <img class="PreviewPhoto card-img-top" id="PreviewPhoto_0" src="~/Client/ProfilePhotos/no_User_Photo.jpg" alt="Logo Image" />
+
                     }
                 </div>
+
+
+                <div class="card-body">
+
+
+                    <input style="" asp-for="formFile" class="form-control form-control-sm" type="file" id="customFile_0"
+                           onchange="document.getElementById('PreviewPhoto_0').src = window.URL.createObjectURL(this.files[0])" />
+                    <span asp-validation-for="formFile" class="text-danger"></span>
+                    <input hidden asp-for="Client.ProfilePhoto" type="text" value="Client.ProfilePhoto" id="Block_image_0" />
+
+                </div>
+            </div>
+
+
+
+
         </div>
-			<div class="form-group">
-				<label asp-for="Client.Name">User Name</label>
-            <input type="text" asp-for="Client.Name" value="@Model.Client.Name" class="form-control" />
-            <span asp-validation-for="Client.Name" class="text-danger"></span>
-			</div>
-
-			<div class="form-group">
-            <label asp-for="Client.PhoneNumber">Phone Number</label>
-            <input type="text" asp-for="Client.PhoneNumber" value="@Model.Client.PhoneNumber" class="form-control" />
-            <span asp-validation-for="Client.PhoneNumber" class="text-danger"></span>
-			</div>
-
+      
+        
+    
+			
 
 
 			<div class="form-group" style="display:flex;justify-content:center">

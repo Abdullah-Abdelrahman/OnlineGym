@@ -28,13 +28,13 @@
 
 				<div class="form-group" style="width:45%">
 					<label asp-for="clientSubscription.Client.Name">Name</label>
-					<input type="text" disabled asp-for="clientSubscription.Client.Name" value="@Model.clientSubscription.Client.Name" class="form-control" />
+					<input type="text" disabled asp-for="clientSubscription.Client.Name" value="@Model?.clientSubscription?.Client?.Name" class="form-control" />
 					<span asp-validation-for="clientSubscription.Client.Name" class="text-danger"></span>
 				</div>
 
 				<div class="form-group" style="width:45%">
 					<label asp-for="ClientEmail">Email</label>
-					<input type="text" asp-for="ClientEmail" class="form-control" value="@Model.clientSubscription.Client.Email" />
+					<input type="text" asp-for="ClientEmail" class="form-control" value="@Model?.clientSubscription?.Client?.Email" />
 					<span asp-validation-for="ClientEmail" class="text-danger"></span>
 				</div>
 
@@ -49,7 +49,7 @@
 					}
 					else
 					{
-						<input type="text" asp-for="ClientPhone" class="form-control" value="@Model.clientSubscription.Client.PhoneNumber" />
+						<input type="text" asp-for="ClientPhone" class="form-control" value="@Model?.clientSubscription?.Client?.PhoneNumber" />
 
 					}
 					<span asp-validation-for="ClientPhone" class="text-danger"></span>

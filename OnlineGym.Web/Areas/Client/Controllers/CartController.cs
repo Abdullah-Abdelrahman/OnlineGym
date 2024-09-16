@@ -5,6 +5,7 @@ using Microsoft.VisualBasic;
 using OnlineGym.Entities.Models;
 using OnlineGym.Entities.Repository;
 using OnlineGym.Entities.ViewModels;
+using OnlineGym.Utilities;
 using Stripe.Checkout;
 using System.Security.Claims;
 
@@ -27,7 +28,7 @@ namespace OnlineGym.Web.Areas.Client.Controllers
 
 		[HttpGet]
 		[Authorize]
-		public IActionResult Checkout(int subscriptionId)
+		public async Task<IActionResult> Checkout(int subscriptionId)
 		{
 
 			var clamisIdentity = (ClaimsIdentity)User.Identity;
@@ -45,7 +46,7 @@ namespace OnlineGym.Web.Areas.Client.Controllers
 
 			clientSubscriptionDetails.clientSubscription.SubscriptionId = subscriptionId;
 
-			clientSubscriptionDetails.clientSubscription.Client = _context.Client.GetFirstOrDefualt(c => c.Id == claim.Value);
+			clientSubscriptionDetails.clientSubscription.Client =  await _context.Client.GetFirstOrDefualtAsync(c => c.Id == claim.Value);
 
 
 			return View(clientSubscriptionDetails);
@@ -53,12 +54,12 @@ namespace OnlineGym.Web.Areas.Client.Controllers
 
 
 		[HttpPost]
-		public IActionResult Checkout(ClientSubscriptionDetails clientSubscriptionDetails)
+		public async Task<IActionResult> Checkout(ClientSubscriptionDetails clientSubscriptionDetails)
 		{
 			
 			if (ModelState.IsValid)
 			{
-				clientSubscriptionDetails.clientSubscription.Subscription = _context.Subscription.GetFirstOrDefualt(s => s.SubscriptionId == clientSubscriptionDetails.clientSubscription.SubscriptionId, IncludeWord: "Benefits");
+				clientSubscriptionDetails.clientSubscription.Subscription = await _context.Subscription.GetFirstOrDefualtAsync(s => s.SubscriptionId == clientSubscriptionDetails.clientSubscription.SubscriptionId, IncludeWord: "Benefits");
 
 
 
@@ -76,11 +77,11 @@ namespace OnlineGym.Web.Areas.Client.Controllers
 					clientSubscriptionDetails.clientSubscription.Subscription.Price;
 
 				//4
-				clientSubscription.PaymentStatus = "Pendenig";
+				clientSubscription.PaymentStatus = SD.Pending;
 
-				clientSubscription.Status = "Pendenig";
+				clientSubscription.Status = SD.Pending;
 
-				_context.ClientSubscription.Add(clientSubscription);
+				await _context.ClientSubscription.AddAsync(clientSubscription);
 				_context.Comlete();
 
 
@@ -107,7 +108,7 @@ namespace OnlineGym.Web.Areas.Client.Controllers
 
 				clientSubscriptionDetails1.ClientSubscriptionId = Cs.ClientSubscriptionId;
 
-				_context.ClientSubscriptionDetails.Add(clientSubscriptionDetails1);
+				await _context.ClientSubscriptionDetails.AddAsync(clientSubscriptionDetails1);
 
 				_context.Comlete();
 			}
@@ -118,10 +119,10 @@ namespace OnlineGym.Web.Areas.Client.Controllers
 				// claim.value;
 
 
-				clientSubscriptionDetails.clientSubscription.Subscription = _context.Subscription.GetFirstOrDefualt(s => s.SubscriptionId == clientSubscriptionDetails.clientSubscription.SubscriptionId, IncludeWord: "Benefits");
+				clientSubscriptionDetails.clientSubscription.Subscription = await _context.Subscription.GetFirstOrDefualtAsync(s => s.SubscriptionId == clientSubscriptionDetails.clientSubscription.SubscriptionId, IncludeWord: "Benefits");
 
 
-				clientSubscriptionDetails.clientSubscription.Client = _context.Client.GetFirstOrDefualt(c => c.Id == claim.Value);
+				clientSubscriptionDetails.clientSubscription.Client = await _context.Client.GetFirstOrDefualtAsync(c => c.Id == claim.Value);
 				return View(clientSubscriptionDetails);
 			}
 
@@ -179,13 +180,13 @@ namespace OnlineGym.Web.Areas.Client.Controllers
 
 
 
-		public IActionResult OrderConfirmation(int id)
+		public async Task<IActionResult> OrderConfirmation(int id)
 		{
 
-			ClientSubscription clientSubscription = _context.ClientSubscription.GetFirstOrDefualt(c=>c.ClientSubscriptionId==id);
+			ClientSubscription clientSubscription = await _context.ClientSubscription.GetFirstOrDefualtAsync(c=>c.ClientSubscriptionId==id);
 
 			
-			ClientSubscriptionDetails csd=_context.ClientSubscriptionDetails.GetFirstOrDefualt(c=>c.ClientSubscriptionId == id);
+			ClientSubscriptionDetails csd=await _context.ClientSubscriptionDetails.GetFirstOrDefualtAsync(c=>c.ClientSubscriptionId == id);
 
 			Console.WriteLine("bfiuegfuehfbeuihf");
 			var service = new SessionService();
@@ -208,7 +209,7 @@ namespace OnlineGym.Web.Areas.Client.Controllers
 
 
 
-		public IActionResult  OrderCancel(int id)
+		public async Task<IActionResult>  OrderCancel(int id)
 		{
 			_context.ClientSubscription.DeleteById(id);
 

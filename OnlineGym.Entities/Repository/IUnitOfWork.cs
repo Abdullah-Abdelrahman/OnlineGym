@@ -40,6 +40,8 @@ namespace OnlineGym.Entities.Repository
         IClientSubscriptionDetailsEmployeeRepository ClientSubscriptionDetailsEmployee { get; }
 
         IDayExercisRepository DayExercis { get; }
+
+        ISalaryHistoryRepository SalaryHistory { get; }
 		int Comlete();
     }
 }

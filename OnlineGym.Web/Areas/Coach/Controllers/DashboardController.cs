@@ -19,13 +19,13 @@ namespace OnlineGym.Web.Areas.Coach.Controllers
             _context = context;
         }
         
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
 		{
 
             var clamisIdentity = (ClaimsIdentity)User.Identity;
             var claim = clamisIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
-            int empId = _context.Employee.GetFirstOrDefualt(e => e.UserId == claim.Value).EmployeeId;
+            int empId = (await _context.Employee.GetFirstOrDefualtAsync(e => e.UserId == claim.Value)).EmployeeId;
            
           
 
@@ -37,7 +37,7 @@ namespace OnlineGym.Web.Areas.Coach.Controllers
             {
                
 
-                list[0] = _context.ClientSubscriptionDetails.GetAll(c => c.ClientSelectedEmployees.Any(i => i.EmployeeId == empId)).ToList().Count;
+                list[0] =(await _context.ClientSubscriptionDetails.GetAllAsync(c => c.ClientSelectedEmployees.Any(i => i.EmployeeId == empId))).ToList().Count;
 
                
             }

@@ -19,34 +19,34 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
         {
             _context = context;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(_context.Exercise.GetAll().ToList());
+            return View((await _context.Exercise.GetAllAsync()).ToList());
         }
 
 
 
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             ExerciseViewModel exerciseVM = new ExerciseViewModel();
 
             exerciseVM.Exercise=new Exercise();
-            exerciseVM.Videos= _context.Video.GetAll().Select(i => new SelectListItem { Text = i.Title, Value = i.Id.ToString() }).ToList();
+            exerciseVM.Videos=(await _context.Video.GetAllAsync()).Select(i => new SelectListItem { Text = i.Title, Value = i.Id.ToString() }).ToList();
 			return View(exerciseVM);
 
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(ExerciseViewModel exerciseVM)
+        public async Task<IActionResult> Create(ExerciseViewModel exerciseVM)
         {
             if (exerciseVM.Exercise.Name!=""&&exerciseVM.Exercise.VideoUrl!="")
             {
 
 
-                _context.Exercise.Add(exerciseVM.Exercise);
+                await _context.Exercise.AddAsync(exerciseVM.Exercise);
                 _context.Comlete();
 
                 return RedirectToAction("Index");

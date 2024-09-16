@@ -23,21 +23,21 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
 			_context = context;
 		}
 
-		public IActionResult Index()
+		public async Task<IActionResult> Index()
 		{
 	
-			return View(_context.Subscription.GetAll().ToList());
+			return View((await _context.Subscription.GetAllAsync()).ToList());
 		}
 
 
        
 		[HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
 
             SubscriptionViewModel viewModel = new SubscriptionViewModel();
 
-            viewModel.Benefits = _context.Benefit.GetAll().Select(i => new SelectListItem{Text=i.description,Value=i.BenefitId.ToString() });
+            viewModel.Benefits =(await _context.Benefit.GetAllAsync()).Select(i => new SelectListItem{Text=i.description,Value=i.BenefitId.ToString() });
             viewModel.BenefitIDs = new List<int>();
              
             return View(viewModel);
@@ -45,14 +45,14 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(SubscriptionViewModel subscriptionViewModel)
+        public async Task<IActionResult> Create(SubscriptionViewModel subscriptionViewModel)
         {
 
 
             if (ModelState.IsValid)
             {
 
-                _context.Subscription.Add(subscriptionViewModel.Subscription);
+                await _context.Subscription.AddAsync(subscriptionViewModel.Subscription);
 
                 _context.Comlete();
 
@@ -64,7 +64,7 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
 
 					if (subscriptionViewModel.BenefitIDs[i] != 0)
 					{
-						_context.SubscriptionBenefit.Add(new SubscriptionBenefit { BenefitId = subscriptionViewModel.BenefitIDs[i], SubscriptionId = subId });
+						await _context.SubscriptionBenefit.AddAsync(new SubscriptionBenefit { BenefitId = subscriptionViewModel.BenefitIDs[i], SubscriptionId = subId });
 					}
 				}
 
@@ -84,14 +84,14 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
 
 
 		[HttpGet]
-		public IActionResult Update(int id)
+		public async Task<IActionResult> Update(int id)
 		{
 
 			SubscriptionViewModel subscriptionVM = new SubscriptionViewModel();
 
-			subscriptionVM.Subscription = _context.Subscription.GetFirstOrDefualt(s => s.SubscriptionId == id);
-			subscriptionVM.BenefitIDs = _context.SubscriptionBenefit.GetAll(s => s.SubscriptionId == id).Select(i => i.BenefitId).ToList();
-			subscriptionVM.Benefits = _context.Benefit.GetAll().Select(i => new SelectListItem { Text = i.description, Value = i.BenefitId.ToString() });
+			subscriptionVM.Subscription =await _context.Subscription.GetFirstOrDefualtAsync(s => s.SubscriptionId == id);
+			subscriptionVM.BenefitIDs =(await _context.SubscriptionBenefit.GetAllAsync(s => s.SubscriptionId == id)).Select(i => i.BenefitId).ToList();
+			subscriptionVM.Benefits =(await _context.Benefit.GetAllAsync()).Select(i => new SelectListItem { Text = i.description, Value = i.BenefitId.ToString() });
 
 
 			return View(subscriptionVM);
@@ -99,13 +99,14 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public IActionResult Update(SubscriptionViewModel subscriptionVM)
+		public async Task<IActionResult> Update(SubscriptionViewModel subscriptionVM)
 		{
 
-			Subscription subscription = _context.Subscription.GetFirstOrDefualt(s => s.SubscriptionId == subscriptionVM.Subscription.SubscriptionId);
+			Subscription subscription =await _context.Subscription.GetFirstOrDefualtAsync(s => s.SubscriptionId == subscriptionVM.Subscription.SubscriptionId);
 
-
-			List<SubscriptionBenefit> subscriptionBenefits = _context.SubscriptionBenefit.GetAll(s => s.SubscriptionId == subscriptionVM.Subscription.SubscriptionId).ToList();
+			subscription.DurationDays=subscriptionVM.Subscription.DurationDays;
+            subscription.SubscriptionName = subscriptionVM.Subscription.SubscriptionName;
+            List<SubscriptionBenefit> subscriptionBenefits = (await _context.SubscriptionBenefit.GetAllAsync(s => s.SubscriptionId == subscriptionVM.Subscription.SubscriptionId)).ToList();
 
 			// remove deleted ones
 			for (int i = 0; i < subscriptionBenefits.Count; i++)
@@ -142,19 +143,19 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
 
 
         [HttpGet]
-        public IActionResult ChangeState(int id)
+        public async Task<IActionResult> ChangeState(int id)
 		{
 			
 			if (id != -1)
 			{
-                Subscription subscription = _context.Subscription.GetFirstOrDefualt(s => s.SubscriptionId == id);
+                Subscription subscription =await _context.Subscription.GetFirstOrDefualtAsync(s => s.SubscriptionId == id);
 
                 if (subscription.IsActive == true)
                 {
 
                     subscription.IsActive = false;
                     _context.Comlete();
-                    int c = _context.Subscription.GetAll(s => s.IsActive == true).ToList().Count;
+                    int c =(await _context.Subscription.GetAllAsync(s => s.IsActive == true)).ToList().Count;
 
                     string json = JsonConvert.SerializeObject(new { count = c });
                     return Json(new { success = true, data = json, Message = "sub has DisActivated" });
@@ -164,7 +165,7 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
                 {
                     subscription.IsActive = true;
                     _context.Comlete();
-                    int c = _context.Subscription.GetAll(s => s.IsActive == true).ToList().Count;
+                    int c =(await _context.Subscription.GetAllAsync(s => s.IsActive == true)).ToList().Count;
 
                     string json = JsonConvert.SerializeObject(new { count = c });
                     return Json(new { success = true, data = json, Message = "sub has Activated" });
@@ -176,7 +177,7 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
 			{
 
 				Console.WriteLine("nuguygyyffhjtydffhd");
-                int c = _context.Subscription.GetAll(s => s.IsActive == true).ToList().Count;
+                int c =(await _context.Subscription.GetAllAsync(s => s.IsActive == true)).ToList().Count;
 
                 string json = JsonConvert.SerializeObject(new { count = c });
                 return Json(new { success = true, data = json,});
@@ -192,13 +193,13 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
 
 		[HttpGet]
 
-		public IActionResult Details(int id)
+		public async Task<IActionResult> Details(int id)
 		{
             SubscriptionViewModel subscriptionVM = new SubscriptionViewModel();
 
-            subscriptionVM.Subscription = _context.Subscription.GetFirstOrDefualt(s => s.SubscriptionId == id);
-            subscriptionVM.BenefitIDs = _context.SubscriptionBenefit.GetAll(s => s.SubscriptionId == id).Select(i => i.BenefitId).ToList();
-            subscriptionVM.Benefits = _context.Benefit.GetAll().Select(i => new SelectListItem { Text = i.description, Value = i.BenefitId.ToString() });
+            subscriptionVM.Subscription =await _context.Subscription.GetFirstOrDefualtAsync(s => s.SubscriptionId == id);
+            subscriptionVM.BenefitIDs =(await _context.SubscriptionBenefit.GetAllAsync(s => s.SubscriptionId == id)).Select(i => i.BenefitId).ToList();
+            subscriptionVM.Benefits =(await _context.Benefit.GetAllAsync()).Select(i => new SelectListItem { Text = i.description, Value = i.BenefitId.ToString() });
 
             return View(subscriptionVM);
 		}

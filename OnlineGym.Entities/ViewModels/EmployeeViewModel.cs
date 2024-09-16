@@ -16,8 +16,15 @@ namespace OnlineGym.Entities.ViewModels
 
         public Employee Employee { get; set; }
 
+        //all of the jobs in the system to choose from for an employee
         public IEnumerable<SelectListItem>? jobTitles { get; set; }
 
         public Salary Salary { get; set; }
+
+        public EmployeeViewModel()
+        {
+            Employee = new Employee();
+            Salary = new Salary();
+        }
     }
 }

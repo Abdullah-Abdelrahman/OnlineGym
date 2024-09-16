@@ -7,7 +7,7 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<div class="row container" style="background-color:white;padding:30px" id="RegisterSection">
+<section  class="row container" style="background-color:white;padding:30px" id="RegisterSection">
     <div class="col-md-4">
         <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
             <h2>Create a new account.</h2>
@@ -79,7 +79,7 @@
                             <p>
                                 @foreach (var provider in Model.ExternalLogins!)
                                 {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                    <button type="submit" class="btn" style="background-color:red;color:white" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><i class="fa-brands fa-google"></i> Register with @provider.DisplayName</button>
                                 }
                             </p>
                         </div>
@@ -88,7 +88,7 @@
             }
         </section>
     </div>
-</div>
+</section>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

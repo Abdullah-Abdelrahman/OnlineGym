@@ -18,13 +18,13 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
 			_context = context;
 		}
 
-		public IActionResult Index()
+		public async Task<IActionResult> Index()
 		{
-			return View(_context.Video.GetAll().ToList());
+			return View((await _context.Video.GetAllAsync()).ToList());
 		}
 
 		[HttpGet]
-		public IActionResult Create()
+		public async Task<IActionResult> Create()
 		{
 			Video video = new Video();
 
@@ -35,13 +35,13 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public IActionResult Create(Video video)
+		public async Task<IActionResult> Create(Video video)
 		{
 			if (ModelState.IsValid)
 			{
 
 
-				_context.Video.Add(video);
+				_context.Video.AddAsync(video);
 				_context.Comlete();
 
 				return RedirectToAction("Index");
@@ -54,15 +54,15 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
 
 
 		[HttpGet]
-		public IActionResult Update(int id)
+		public async Task<IActionResult> Update(int id)
 		{
 
-			return View(_context.Video.GetFirstOrDefualt(e => e.Id == id));
+			return View(await _context.Video.GetFirstOrDefualtAsync(e => e.Id == id));
 		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public IActionResult Update(Video video)
+		public async Task<IActionResult> Update(Video video)
 		{
 
 			if (ModelState.IsValid)
@@ -82,9 +82,9 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
 
 
 		[HttpDelete]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            Video video = _context.Video.GetFirstOrDefualt(e => e.Id == id);
+            Video video =await _context.Video.GetFirstOrDefualtAsync(e => e.Id == id);
             if (video != null)
             {
                 _context.Video.Delete(video);

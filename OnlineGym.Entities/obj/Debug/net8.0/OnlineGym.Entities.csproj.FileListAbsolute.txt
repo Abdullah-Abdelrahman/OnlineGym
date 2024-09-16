@@ -11,3 +11,6 @@ E:\All_of_my_projrcts\OnlineGym\OnlineGym.Entities\obj\Debug\net8.0\refint\Onlin
 E:\All_of_my_projrcts\OnlineGym\OnlineGym.Entities\obj\Debug\net8.0\OnlineGym.Entities.pdb
 E:\All_of_my_projrcts\OnlineGym\OnlineGym.Entities\obj\Debug\net8.0\ref\OnlineGym.Entities.dll
 E:\All_of_my_projrcts\OnlineGym\OnlineGym.Entities\obj\Debug\net8.0\OnlineGym.Entities.sourcelink.json
+E:\All_of_my_projrcts\OnlineGym\OnlineGym.Entities\bin\Debug\net8.0\OnlineGym.Utilities.dll
+E:\All_of_my_projrcts\OnlineGym\OnlineGym.Entities\bin\Debug\net8.0\OnlineGym.Utilities.pdb
+E:\All_of_my_projrcts\OnlineGym\OnlineGym.Entities\obj\Debug\net8.0\OnlineGy.F6F9A788.Up2Date

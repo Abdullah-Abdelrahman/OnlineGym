@@ -12,10 +12,9 @@
             <a style="width:45%;height:100px;" href="/Client/DashBoard//@Item.Id" >
                 <div class="card" style="width:100%;height:100%;border-radius:10px">
                     @{
-                        Random rn = new Random();
-                        string x = rn.Next(1, 10).ToString() + ".jpg";
-                        <div class="card-body" style="background-image:url(/Client/images/dragon_@x);border-radius:10px">
-                            <p class="card-text"> </p>
+                        <div class="card-body" style="background-image:url(/GymImages/SubscriptionImages/Subscription_1.jpg);border-radius:10px">
+                            <p class="card-text">Start Date :@Item.Started.Value.Date </p>
+                            <p class="card-text">End Date :@Item.Started.Value.AddDays(27).Date </p>
                         </div>
                     }
 

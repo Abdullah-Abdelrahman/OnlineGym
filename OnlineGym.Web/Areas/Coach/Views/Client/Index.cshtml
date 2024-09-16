@@ -4,7 +4,7 @@
     ViewBag.title = "Client management";
     ViewBag.cardTitle = "View Orders";
 }
-@model List<ClientSubscription>
+@model List<OrderViewModel>
 <section class="Client-table" style="width:100%">
 
 
@@ -16,10 +16,12 @@
 
                 <tr>
                     <th>Order id</th>
-                    <th>Client Name</th>
+                    <th>Client Email</th>
                     <th>Subscription Name</th>
+                    <th> Duration</th>
                     <th>Status</th>
-                    <th>More</th>
+                    <th>start date</th>
+                    <th>Actions</th>
                    
 
                 </tr>
@@ -29,32 +31,75 @@
                 @for (int i = 0; i < Model?.Count(); i++)
                 {
                     <tr>
-                        <td>@Model[i].ClientSubscriptionId</td>
-                        <td>@Model[i].Client.Name</td>
+                        <td>@Model[i].ClientSubscription.ClientSubscriptionId</td>
+                        <td>@Model[i].ClientSubscription.Client.Email</td>
 
-                        <td>@Model[i].Subscription.SubscriptionName</td>
+                        <td>@Model[i].ClientSubscription.Subscription.SubscriptionName</td>
+                        <td>@Model[i].ClientSubscription.Subscription.DurationDays day</td>
 
-
-                        <td>@Model[i].Status</td>
+                        <td>@Model[i].ClientSubscription.Status</td>
 
                         <td>
 
-                            @if (Model[i].Status == SD.Proccess)
+                            <form asp-action="ChangeOrderStartDate">
+
+                                <input name="OrderId" value="@Model[i].ClientSubscription.ClientSubscriptionId" hidden />
+                                @if (Model[i].ClientSubscription.Status == SD.Proccess)
+                                {
+                                    <div class="btn btn-primary">Wait</div>
+
+                                }
+                                else if (Model[i].ClientSubscription.Status == SD.proccessed)
+                                {
+
+                                    @if (Model[i].ClientSubscription.ClientSubscriptionDetails.StartDate == null)
+                                    {
+                                        <p>Add start date</p>
+                                        <input type="date" name="newdate" />
+                                    }
+                                    else
+                                    {
+                                        <p>Change start date : @Model[i].ClientSubscription.ClientSubscriptionDetails.StartDate.ToString()</p>
+                                        <input type="date" name="newdate" value="" />
+                                    }
+                                    <button type="submit" class="btn btn-primary">save</button>
+                                    
+                                }
+                                else
+                                {
+                                    <p>Start date : @Model[i].ClientSubscription.ClientSubscriptionDetails.StartDate.ToString()</p>
+
+                                }
+
+
+                            </form>
+                          
+                        </td>
+                        <td>
+
+                            @if (Model[i].ClientSubscription.Status == SD.Proccess)
                             {
                                 <div class="btn btn-primary">Wait</div>
 
                             }
-                            else if (Model[i].Status == SD.proccessed)
+                            else if (Model[i].ClientSubscription.Status == SD.proccessed)
                             {
-                                <a href="/Coach/TrainingPlan/CreateForClient?OrderId=@Model[i].ClientSubscriptionId" class="btn btn-primary">Make A Plan</a>
-                             
+                                if (Model[i].hasPlan == false)
+                                {
+                                    <a href="/Coach/TrainingPlan/CreateForClient?OrderId=@Model[i].ClientSubscription.ClientSubscriptionId" class="btn btn-primary">Make A Plan</a>
 
+                                }
+                                else
+                                {
+                                    <a href="" class="btn btn-primary">Plan Created</a>
+
+                                }
+
+                             
                             }
                             else
                             {
-                                
                                 <a href="" class="btn btn-primary">More</a>
-
                             }
                         </td>
 

@@ -26,29 +26,27 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
         }
 
 
-        public IActionResult GetData()
+        public async Task<IActionResult> GetData()
         {
-            var employees = _context.Employee.GetAll(IncludeWord: "JobTitle");
+            var employees =await _context.Employee.GetAllAsync(IncludeWord: "JobTitle");
            
-           //Console.WriteLine(employees.First().JobTitle.JopName);
+           //return the employees as json
             return Json(new { data = employees });
         }
 
         public IActionResult Index()
         {
+         
             return View();
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
 
             EmployeeViewModel employeeViewModel = new EmployeeViewModel()
             {
-
-                Employee = new Employee(),
-                Salary = new Salary(),
-                jobTitles = _context.Jobs.GetAll().Select(j => new SelectListItem { Text = j.JopName, Value = j.JobTitleId.ToString() })
+                jobTitles =(await _context.Jobs.GetAllAsync()).Select(j => new SelectListItem { Text = j.JopName, Value = j.JobTitleId.ToString() })
             };
             return View(employeeViewModel);
         }
@@ -59,24 +57,33 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
         {
 		
           
+            //you can modify the condetions to allow create
             if (employeeViewModel.Employee.Email!=null)
             {
+                //Add an temporray UserId to insert in the database
+                //did that to add the Salary record
                 employeeViewModel.Employee.UserId = "temp";
-                _context.Employee.Add(employeeViewModel.Employee);
-               
+                await _context.Employee.AddAsync(employeeViewModel.Employee);
 
                 _context.Comlete();
 
+                //Add the salary record
+                //Get the last inserted Employee Which is one needed
                 employeeViewModel.Salary.EmployeeId = _context.Employee.last().EmployeeId;
-				_context.Salary.Add(employeeViewModel.Salary);
+                //make the next (time to take the salary) is equal 
+                //to the curent time + the days to work
+                employeeViewModel.Salary.nextSalaryDate = DateTime.Now.AddDays(30);
+                //the first state which mean that you dont have to pay to that employee
+                employeeViewModel.Salary.Status = SD.Pending;
+				await _context.Salary.AddAsync(employeeViewModel.Salary);
 				_context.Comlete();
 
 
 
-                string job = _context.Jobs.GetFirstOrDefualt(j => j.JobTitleId == employeeViewModel.Employee.JobTitleId).JopName;
 
 
 
+                // make a new user for that employee
                 OnlineGym.Entities.Models.Client client = new OnlineGym.Entities.Models.Client()
                 {
                     Email = employeeViewModel.Employee.Email,
@@ -85,22 +92,27 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
                     PhoneNumber=employeeViewModel.Employee.Phone
                 };
 
-
+                //try to create the user
                 IdentityResult result = await _userManager.CreateAsync(client, SD.DefoultPassword);
 
                 if (result.Succeeded)
                 {
-
-
                     Console.WriteLine("User Created Succesfuley");
-                    if (job == SD.CoachRole)
-                    {
-                        await _userManager.AddToRoleAsync(client, SD.CoachRole);
 
-                    }
-            
+                    // get the job of the employee to use its name to add the role
+                    string? job = (await _context.Jobs.GetFirstOrDefualtAsync(j => j.JobTitleId == employeeViewModel.Employee.JobTitleId))?.JopName;
+
+
+                    //Add the role base on the job name
+                    //so you must make the names of the jobs in the system match the
+                    //corsponding role
+                    
+                    await _userManager.AddToRoleAsync(client, job);
+
                     _context.Comlete();
-                    _context.Employee.last().UserId = _context.Client.GetFirstOrDefualt(c=>c.Email== employeeViewModel.Employee.Email).Id;
+
+                    //finally after creating the user add the created id to the employee.UserId
+                    _context.Employee.last().UserId =(await _context.Client.GetFirstOrDefualtAsync(c=>c.Email== employeeViewModel.Employee.Email)).Id;
                     _context.Comlete();
                 }
                 else
@@ -128,21 +140,21 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
 
 
         [HttpGet]
-        public IActionResult Update(int id)
+        public async Task<IActionResult> Update(int id)
         {
 			EmployeeViewModel employeeViewModel = new EmployeeViewModel()
 			{
 
-				Employee = _context.Employee.GetFirstOrDefualt(e=>e.EmployeeId==id),
-				Salary = _context.Salary.GetFirstOrDefualt(s=>s.EmployeeId==id),
-				jobTitles = _context.Jobs.GetAll().Select(j => new SelectListItem { Text = j.JopName, Value = j.JobTitleId.ToString() })
+				Employee =await _context.Employee.GetFirstOrDefualtAsync(e=>e.EmployeeId==id),
+				Salary =await _context.Salary.GetFirstOrDefualtAsync(s=>s.EmployeeId==id),
+				jobTitles =(await _context.Jobs.GetAllAsync()).Select(j => new SelectListItem { Text = j.JopName, Value = j.JobTitleId.ToString() })
 			};
 			return View(employeeViewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Update(EmployeeViewModel employeeViewModel)
+        public async Task<IActionResult> Update(EmployeeViewModel employeeViewModel)
         {
 
             if (ModelState.IsValid)
@@ -165,11 +177,13 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
        
 
         [HttpDelete]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            Employee employee=_context.Employee.GetFirstOrDefualt(e=>e.EmployeeId == id);
+            //remove the employee
+            Employee employee=await _context.Employee.GetFirstOrDefualtAsync(e=>e.EmployeeId == id);
 
-            Salary salary=_context.Salary.GetFirstOrDefualt(s=>s.EmployeeId == id);
+            //must remove its salary
+            Salary salary=await _context.Salary.GetFirstOrDefualtAsync(s=>s.EmployeeId == id);
 
 
             if (employee != null)
@@ -193,31 +207,31 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
 
 
         [HttpGet]
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
            
 
 			EmployeeDetailsViewModel EmpD = new EmployeeDetailsViewModel();
-            EmpD.EmployeeRate= _context.EmployeeRate.GetFirstOrDefualt(e => e.EmployeeId == id);
+            EmpD.EmployeeRate=await _context.EmployeeRate.GetFirstOrDefualtAsync(e => e.EmployeeId == id);
 
-            EmpD.Employee = _context.Employee.GetFirstOrDefualt(e => e.EmployeeId == id);
-            EmpD.Salary = _context.Salary.GetFirstOrDefualt(s => s.EmployeeId == id);
-			EmpD.Employee.JobTitle=_context.Jobs.GetFirstOrDefualt(j=>j.JobTitleId==EmpD.Employee.JobTitleId);
+            EmpD.Employee = await _context.Employee.GetFirstOrDefualtAsync(e => e.EmployeeId == id);
+            EmpD.Salary =await _context.Salary.GetFirstOrDefualtAsync(s => s.EmployeeId == id);
+			EmpD.Employee.JobTitle=await _context.Jobs.GetFirstOrDefualtAsync(j=>j.JobTitleId==EmpD.Employee.JobTitleId);
             
 			return View(EmpD);
         }
 
 
         [HttpGet]
-        public IActionResult Bouns(int id)
+        public async Task<IActionResult> Bouns(int id)
         {
-            Salary salary=_context.Salary.GetFirstOrDefualt(s=>s.EmployeeId==id);
+            Salary salary=await _context.Salary.GetFirstOrDefualtAsync(s=>s.EmployeeId==id);
             return View(salary);
         }
 
 		[HttpPost]
         [ValidateAntiForgeryToken]
-		public IActionResult Bouns(int id,int Amount)
+		public async Task<IActionResult> Bouns(int id,int Amount)
 		{
 			return View();
 		}
@@ -225,7 +239,29 @@ namespace OnlineGym.Web.Areas.Admin.Controllers
 
        
         
+        public async Task<IActionResult> Salary()
+        {
+            List<Salary> salaries=(await _context.Salary.GetAllAsync(IncludeWord: "Employee")).ToList();
+          
+            return View(salaries);
+        }
 
+        public async Task<IActionResult> PaySalary(int id)
+        {
+            Salary salary = (await _context.Salary.GetFirstOrDefualtAsync(s=>s.EmployeeId==id));
+
+            salary.Status = SD.Paid;
+
+            // update the Salary Aquired date
+            salary.nextSalaryDate = salary.nextSalaryDate.AddDays(30);
+            SalaryHistory salaryHistory = new SalaryHistory(salary);
+
+            _context.SalaryHistory.Add(salaryHistory);
+            
+            _context.Comlete();
+            TempData["Created"] = "true";
+            return RedirectToAction("Salary");
+        }
 
     }
 }

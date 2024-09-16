@@ -18,9 +18,9 @@ namespace OnlineGym.Web.Areas.Coach.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(_context.Video.GetAll().ToList());
+            return View((await _context.Video.GetAllAsync()).ToList());
         }
 
     }
